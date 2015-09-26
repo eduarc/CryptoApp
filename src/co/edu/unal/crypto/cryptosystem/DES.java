@@ -17,6 +17,9 @@ public class DES extends Cryptosystem<Long, Long, Long> {
     @Override
     public Long[] encrypt(Long key, Long[] input) {
 
+        if (!isValidKey(key)) {
+            throw new IllegalArgumentException("Invalid DES Key");
+        }
         Long[] k = roundKeys(key);
         return process(k, input);
     }
@@ -24,6 +27,9 @@ public class DES extends Cryptosystem<Long, Long, Long> {
     @Override
     public Long[] decrypt(Long key, Long[] input) {
 
+        if (!isValidKey(key)) {
+            throw new IllegalArgumentException("Invalid DES Key");
+        }
         Long[] k = roundKeys(key);
         for (int i = 0, j = k.length-1; i < j; i++, j--) {
             Long t = k[i];
@@ -40,7 +46,7 @@ public class DES extends Cryptosystem<Long, Long, Long> {
 
     @Override
     public boolean isValidKey(Long key) {
-        return true;
+        return key != null;
     }
 
     private Long[] process(Long[] k, Long[] input) {
