@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cryptoapp.program;
 
 import co.edu.unal.crypto.cryptosystem.Cipher;
@@ -20,7 +15,8 @@ import javax.swing.JFileChooser;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public abstract class CryptoProgram extends Program {
     

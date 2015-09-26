@@ -1,5 +1,12 @@
 package co.edu.unal.crypto.types;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <X>
+ * @param <Y> 
+ */
 public interface Function<X, Y> {
 
     public void set(X x, Y y);

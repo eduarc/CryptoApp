@@ -5,6 +5,13 @@ import co.edu.unal.crypto.types.Function;
 import java.lang.reflect.Array;
 import java.util.TreeMap;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <P>
+ * @param <C> 
+ */
 public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C>> {
 
     @SuppressWarnings("rawtypes")

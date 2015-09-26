@@ -4,6 +4,12 @@ import co.edu.unal.crypto.alphabet.Alphabet;
 import co.edu.unal.crypto.tools.ModularArithmetic;
 import java.lang.reflect.Array;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <P> 
+ */
 public class Caesar<P> extends Cryptosystem<P, P, Integer> {
 
     @SuppressWarnings("rawtypes")

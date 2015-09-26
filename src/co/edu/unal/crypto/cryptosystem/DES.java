@@ -8,8 +8,9 @@ package co.edu.unal.crypto.cryptosystem;
 import co.edu.unal.crypto.types.Pair;
 
 /**
- *
- * @author eduarc
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class DES extends Cryptosystem<Long, Long, Long> {
 

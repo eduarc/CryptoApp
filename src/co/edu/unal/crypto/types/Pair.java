@@ -1,5 +1,12 @@
 package co.edu.unal.crypto.types;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <X>
+ * @param <Y> 
+ */
 public class Pair<X, Y> {
 
     public X first;

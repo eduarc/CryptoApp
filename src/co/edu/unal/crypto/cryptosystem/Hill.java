@@ -7,6 +7,12 @@ import java.util.Arrays;
 
 import flanagan.math.Matrix;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <P> 
+ */
 public class Hill<P> extends Cryptosystem<P, P, Matrix> {
 
     private int modulus;

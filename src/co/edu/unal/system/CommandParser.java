@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.unal.system;
 
 import java.util.List;
 import java.util.ArrayList;
 
 /**
- * cmd p1=value p2 p3 = value
  * 
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class CommandParser {
     

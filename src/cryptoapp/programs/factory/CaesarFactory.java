@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cryptoapp.programs.factory;
 
 import co.edu.unal.system.Environment;
@@ -12,11 +7,12 @@ import cryptoapp.program.CaesarProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class CaesarFactory extends ProgramFactory {
     
-    private Environment env;
+    private final Environment env;
     
     public CaesarFactory(Environment env) {
         this.env = env;

@@ -1,5 +1,10 @@
 package co.edu.unal.crypto.alphabet;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ */
 public class ASCII extends Alphabet<Character> {
 
     public static final int SIZE = 256;

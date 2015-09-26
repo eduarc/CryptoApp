@@ -1,5 +1,11 @@
 package co.edu.unal.crypto.alphabet;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <T> 
+ */
 public abstract class Alphabet<T> {
 
     public abstract int getIndex(T val);

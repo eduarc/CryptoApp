@@ -9,6 +9,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ */
 public class ImageCharStream {
 
     public static char[] read(String imgPath) {

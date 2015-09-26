@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <P> 
+ */
 public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
 
     @SuppressWarnings("rawtypes")

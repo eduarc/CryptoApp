@@ -6,6 +6,12 @@ import co.edu.unal.crypto.tools.ModularArithmetic;
 import co.edu.unal.crypto.types.Pair;
 import java.lang.reflect.Array;
 
+/**
+ * 
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
+ * @param <P> 
+ */
 public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
 
     @SuppressWarnings("rawtypes")
