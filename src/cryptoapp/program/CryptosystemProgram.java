@@ -30,7 +30,7 @@ public abstract class CryptosystemProgram extends Program {
     
     Character[] input;
     Character[] output;
-    //Cipher cipher;
+    
     Frame frame;
     StandardConsole stdout;
     boolean exit;
