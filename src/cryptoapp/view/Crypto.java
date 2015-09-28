@@ -10,8 +10,20 @@ import co.edu.unal.system.factory.ClearFactory;
 import co.edu.unal.system.program.ClearProgram;
 import cryptoapp.StandardConsole;
 import cryptoapp.StandardPrompt;
+import cryptoapp.program.AffineProgram;
 import cryptoapp.program.CaesarProgram;
+import cryptoapp.program.DESProgram;
+import cryptoapp.program.HillProgram;
+import cryptoapp.program.RSAProgram;
+import cryptoapp.program.SubstitutionProgram;
+import cryptoapp.program.VigenereProgram;
+import cryptoapp.programs.factory.AffineFactory;
 import cryptoapp.programs.factory.CaesarFactory;
+import cryptoapp.programs.factory.DESFactory;
+import cryptoapp.programs.factory.HillFactory;
+import cryptoapp.programs.factory.RSAFactory;
+import cryptoapp.programs.factory.SubstitutionFactory;
+import cryptoapp.programs.factory.VigenereFactory;
 
 /**
  *
@@ -33,8 +45,14 @@ public class Crypto extends javax.swing.JFrame {
         env.addResource(Environment.STDOUT, stdout);
         env.addResource(Environment.PROMPT, prompt);
         
-        env.addProgram(CaesarProgram.CMD_CAESAR, new CaesarFactory(env));
         env.addProgram(ClearProgram.CMD_CLEAR, new ClearFactory(env));
+        env.addProgram(CaesarProgram.CMD_CAESAR, new CaesarFactory(env));
+        env.addProgram(AffineProgram.CMD_AFFINE, new AffineFactory(env));
+        env.addProgram(VigenereProgram.CMD_VIGENERE, new VigenereFactory(env));
+        env.addProgram(SubstitutionProgram.CMD_SUBSTITUTION, new SubstitutionFactory(env));
+        env.addProgram(RSAProgram.CMD_RSA, new RSAFactory(env));
+        env.addProgram(DESProgram.CMD_DES, new DESFactory(env));
+        env.addProgram(HillProgram.CMD_HILL, new HillFactory(env));
     }
 
     /**
@@ -269,7 +287,7 @@ public class Crypto extends javax.swing.JFrame {
         
         String cmd = tfCommand.getText();
         tfCommand.selectAll();
-        stdout.appendln("prompt$ "+cmd);
+        stdout.appendln("<font color=\'33CC00\' >prompt$</font> "+cmd);
         env.exec(cmd);
     }//GEN-LAST:event_tfCommandActionPerformed
 

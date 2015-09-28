@@ -26,9 +26,7 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
     @Override
     public P[] encrypt(Integer key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Caesar Key");
-        }
+        checkKey(key);
         key = ModularArithmetic.modulo(key, modulus);
 
         @SuppressWarnings("unchecked")
@@ -45,9 +43,7 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
     @Override
     public P[] decrypt(Integer key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Caesar Key");
-        }
+        checkKey(key);
         key = ModularArithmetic.modulo(key, modulus);
 
         @SuppressWarnings("unchecked")
@@ -60,9 +56,8 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
         return output;
     }
 
-    @Override
-    public boolean isValidKey(Integer key) {
-        return true;
+    public void checkKey(Integer key) {
+        
     }
 
     @Override

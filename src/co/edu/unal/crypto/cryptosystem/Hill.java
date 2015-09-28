@@ -15,7 +15,7 @@ import flanagan.math.Matrix;
  */
 public class Hill<P> extends Cryptosystem<P, P, Matrix> {
 
-    private int modulus;
+    private final int modulus;
 
     public Hill(Alphabet<P> alpha) {
         super(alpha, alpha);
@@ -26,28 +26,28 @@ public class Hill<P> extends Cryptosystem<P, P, Matrix> {
     @Override
     public P[] encrypt(Matrix key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Hill Key");
-        }
+        checkKey(key);
         return multiply(key, input);
     }
 
     @Override
     public P[] decrypt(Matrix key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Hill Key");
-        }
+        checkKey(key);
         int inv = ModularArithmetic.multiplicativeInverse((int) key.determinant(), modulus);
         return multiply(key.cofactor().times((double) inv).transpose(), input);
     }
 
-    @Override
-    public boolean isValidKey(Matrix key) {
+    public void checkKey(Matrix key) {
 
         modMatrix(key);
         int det = (int) key.determinant();
-        return (det != 0) && Arithmetic.areCoprimes(det, modulus);
+        if (det == 0) {
+            throw new IllegalArgumentException("Invalid Hill key: null determinant");
+        }
+        if (!Arithmetic.areCoprimes(det, modulus)) {
+            throw new IllegalArgumentException("Invalid Hill key: determinant "+det+" and "+modulus+" aren't coprimes");
+        }
     }
 
     @Override
@@ -93,5 +93,4 @@ public class Hill<P> extends Cryptosystem<P, P, Matrix> {
             }
         }
     }
-
 }

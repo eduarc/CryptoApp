@@ -28,9 +28,7 @@ public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
     @Override
     public P[] encrypt(Pair<Integer, Integer> key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Affine Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
@@ -49,9 +47,7 @@ public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
     @Override
     public P[] decrypt(Pair<Integer, Integer> key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Affine Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
@@ -67,9 +63,11 @@ public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
         return output;
     }
 
-    @Override
-    public boolean isValidKey(Pair<Integer, Integer> key) {
-        return Arithmetic.areCoprimes(key.first, modulus);
+    public void checkKey(Pair<Integer, Integer> key) {
+        
+        if (!Arithmetic.areCoprimes(key.first, modulus)) {
+            throw new IllegalArgumentException("Invalid Affine key: a and "+modulus+" aren't coprimes");
+        }
     }
 
     @Override

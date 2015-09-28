@@ -41,16 +41,19 @@ public class CommandParser {
         
         skipSpaces();
         String p = readAlphaNumeric();
-        skipSpaces();
+        //skipSpaces();
         String v = null;
         if (isEqual()) {
             readEqual();
-            skipSpaces();
+            //skipSpaces();
             if (startQuoutedString()) {
                 v = readQuotedString();
             } else {
                 v = readString();
             }
+        }
+        else if (index < cmdLine.length() && !Character.isSpaceChar(cmdLine.charAt(index))) {
+            throw new IllegalArgumentException("index "+index+": Unexpected "+cmdLine.charAt(index));
         }
         params.add(new Param(p, v));
     }
@@ -143,6 +146,7 @@ public class CommandParser {
     private String readAlphaNumeric() {
         
         String s = "";
+        int start = index;
         for (; index < cmdLine.length(); index++) {
             char c = cmdLine.charAt(index);
             if (Character.isLetterOrDigit(c)) {
@@ -150,6 +154,9 @@ public class CommandParser {
             } else {
                 break;
             }
+        }
+        if (s.length() == 0 && start < cmdLine.length()) {
+            throw new IllegalArgumentException("index "+start+": Unexpected "+cmdLine.charAt(start));
         }
         return s;
     }

@@ -56,12 +56,12 @@ public class Environment {
         try {
             params = cmdParser.parse();
         } catch (IllegalArgumentException ex) {
-            output.append(ex.getMessage());
+            output.append("<font color='red'>"+ex.getMessage()+"</font>");
             return PARSING_ERROR;
         }
         ProgramFactory factory = installed.get(params[0].getValue());
         if (factory == null) {
-            output.appendln("Command not found.");
+            output.appendln("<font color='red'>Command not found.</font>");
             return Environment.CMD_NOT_FOUND;
         }
         Prompt prompt = (Prompt) getResource(Environment.PROMPT);

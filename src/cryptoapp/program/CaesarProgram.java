@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class CaesarProgram extends CryptoProgram {
+public class CaesarProgram extends CryptoSystemProgram {
 
     public static final String CMD_CAESAR = "caesar";
     public static final String P_OFFSET = "offset";
@@ -29,7 +29,7 @@ public class CaesarProgram extends CryptoProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_OFFSET)) {
-            stdout.appendln("No offset (key) provided");
+            stdout.appendln("<font color='red'>No offset (key) provided</font>");
             return false;
         }
         return true;
@@ -47,15 +47,15 @@ public class CaesarProgram extends CryptoProgram {
                 return -1;
             }
         }
-        cipher = new Caesar(ASCII.defaultInstance);
+        Caesar<Character> cipher = new Caesar(ASCII.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
-                output = (Character[]) cipher.encrypt(offset, input);
+                output = cipher.encrypt(offset, input);
             } else {
-                output = (Character[]) cipher.decrypt(offset, input);
+                output = cipher.decrypt(offset, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("Ops! something went wrong while encrypting/decrypting. Maybe bad inputs");
+            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
             return -1;
         }
         return 0;
@@ -79,7 +79,7 @@ public class CaesarProgram extends CryptoProgram {
         try {
             offset = Integer.parseInt(strOffset);
         } catch(NumberFormatException ex) {
-            stdout.appendln("Invalid offset value: "+strOffset);
+            stdout.appendln("<font color='red'>Invalid offset value: "+strOffset+"</font>");
             exit = true;
         }
     }

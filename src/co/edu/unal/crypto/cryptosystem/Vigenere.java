@@ -26,9 +26,7 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
     @Override
     public P[] encrypt(P[] key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Vigenere Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
@@ -43,9 +41,7 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
     @Override
     public P[] decrypt(P[] key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Vigenere Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
@@ -63,9 +59,10 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
         return null;
     }
 
-    @Override
-    public boolean isValidKey(P[] key) {
-        return key.length > 0;
+    public void checkKey(P[] key) {
+        
+        if (key.length <= 0) {
+            throw new IllegalArgumentException("Invalid Vigenere key: Zero-length key");
+        }
     }
-
 }

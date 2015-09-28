@@ -6,12 +6,13 @@
 package cryptoapp.view;
 
 import co.edu.unal.crypto.tools.CharStream;
-import cryptoapp.StandardConsole;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 /**
  *
@@ -27,8 +28,6 @@ public class StringInputDialog extends javax.swing.JDialog {
     public StringInputDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-        stdin = new StandardConsole(areaInput);
     }
 
     /**
@@ -43,8 +42,8 @@ public class StringInputDialog extends javax.swing.JDialog {
         bFile = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaInput = new javax.swing.JTextPane();
-        labelFilePath = new javax.swing.JLabel();
         bAccept = new javax.swing.JButton();
+        bCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Input");
@@ -53,7 +52,7 @@ public class StringInputDialog extends javax.swing.JDialog {
         setModal(true);
         setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 
-        bFile.setText("File");
+        bFile.setText("Load File");
         bFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bFileActionPerformed(evt);
@@ -68,12 +67,17 @@ public class StringInputDialog extends javax.swing.JDialog {
         areaInput.setSelectedTextColor(java.awt.Color.BLACK);
         jScrollPane1.setViewportView(areaInput);
 
-        labelFilePath.setText("Choose a file");
-
         bAccept.setText("Accept");
         bAccept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAcceptActionPerformed(evt);
+            }
+        });
+
+        bCancel.setText("Cancel");
+        bCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelActionPerformed(evt);
             }
         });
 
@@ -82,30 +86,28 @@ public class StringInputDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(bFile)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                        .addComponent(bCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelFilePath, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(bAccept))
+                        .addComponent(bAccept))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bAccept)
                     .addComponent(bFile)
-                    .addComponent(labelFilePath))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bAccept))
+                    .addComponent(bCancel)))
         );
 
         pack();
@@ -126,7 +128,7 @@ public class StringInputDialog extends javax.swing.JDialog {
             File f = fileChooser.getSelectedFile();
             try {
                 Character[] data = CharStream.fread(f);
-                stdin.append(data);
+                append(data);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "File not found!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (IOException ex) {
@@ -135,23 +137,40 @@ public class StringInputDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_bFileActionPerformed
 
+    private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
+        
+        input = null;
+        this.dispose();
+    }//GEN-LAST:event_bCancelActionPerformed
+
+    public void append(Character[] data) {
+        
+        Document doc = areaInput.getDocument();
+        for (Character c : data) {
+            try {
+                areaInput.getDocument().insertString(doc.getEndPosition().getOffset(), c+"", null);
+            } catch (BadLocationException ex) {
+                JOptionPane.showMessageDialog(this, "Cannot display the data in the text pane!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+    }
+    
     public String showDialog(String title) {
         
-        //input = null;
         this.setTitle(title);
-        this.setLocationRelativeTo(this);
+        this.setLocationRelativeTo(super.getParent());
         this.setVisible(true);
         return input;
     }
     
     public String input;
-    StandardConsole stdin;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextPane areaInput;
     public javax.swing.JButton bAccept;
+    private javax.swing.JButton bCancel;
     public javax.swing.JButton bFile;
     public javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JLabel labelFilePath;
     // End of variables declaration//GEN-END:variables
 }

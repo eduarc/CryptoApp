@@ -1,6 +1,5 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.cryptosystem.Cipher;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
@@ -18,7 +17,7 @@ import javax.swing.JFileChooser;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public abstract class CryptoProgram extends Program {
+public abstract class CryptoSystemProgram extends Program {
     
     public static final String P_ENCRYPT = "encrypt";
     public static final String P_DECRYPT = "decrypt";
@@ -31,7 +30,7 @@ public abstract class CryptoProgram extends Program {
     
     Character[] input;
     Character[] output;
-    Cipher cipher;
+    //Cipher cipher;
     Frame frame;
     StandardConsole stdout;
     boolean exit;
@@ -39,7 +38,7 @@ public abstract class CryptoProgram extends Program {
     File outputFile;
     File inputFile;
     
-    public CryptoProgram(Environment env) {
+    public CryptoSystemProgram(Environment env) {
         super(env);
         
         stdout = (StandardConsole) getEnv().getResource(Environment.STDOUT);
@@ -51,17 +50,17 @@ public abstract class CryptoProgram extends Program {
         String[] operation = {P_ENCRYPT, P_DECRYPT};
         
         if (!ParamUtils.containsOne(params, operation)) {
-            stdout.appendln("Any or multiple encrypt/decrypt operation(s) provided");
+            stdout.appendln("<font color='red'>Any or multiple encrypt/decrypt operation(s) provided</font>");
             return -1;
         }
         String[] sourceInput = {P_INPUT, P_FILE_INPUT, P_IMAGE_INPUT};
         if (!ParamUtils.containsOne(params, sourceInput)) {
-            stdout.appendln("Any or multiple input(s) provided.");
+            stdout.appendln("<font color='red'>Any or multiple input(s) provided.</font>");
             return -1;
         }
         String[] destOutput = {P_FILE_OUTPUT, P_IMAGE_OUTPUT, P_OUTPUT};
         if (!ParamUtils.containsMax(params, destOutput, 1)) {
-            stdout.appendln("multiple output(s) provided.");
+            stdout.appendln("<font color='red'>multiple output(s) provided.</font>");
             return -1;
         }
         for (Param param : params) {
@@ -93,7 +92,7 @@ public abstract class CryptoProgram extends Program {
     
     public int postProcess(Param[] params) {
         
-        stdout.appendln("\n--- INPUT ---\n");
+        /*stdout.appendln("\n--- INPUT ---\n");
         if (ParamUtils.contains(params, P_INPUT)) {
             stdout.appendln(input);
         }
@@ -103,19 +102,19 @@ public abstract class CryptoProgram extends Program {
         else if (ParamUtils.contains(params, P_FILE_INPUT)) {
             stdout.appendln("File: "+inputFile.getAbsolutePath());
         }
-        stdout.appendln("\n--- OUTPUT ---\n");
+        stdout.appendln("\n--- OUTPUT ---\n");*/
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
-            stdout.appendln("File: "+outputFile.getAbsolutePath());
+            stdout.appendln("Output: "+outputFile.getAbsolutePath());
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
-                stdout.appendln("Error while writing output to file: "+outputFile.getPath());
+                stdout.appendln("<font color='red'>Error while writing output to file: "+outputFile.getPath()+"</font>");
             }
         }
         else if (ParamUtils.contains(params, P_IMAGE_OUTPUT)) {
             
         }
-        else {
+        else if (output != null) {
             stdout.appendln(output);
         }
         return 0;
@@ -144,8 +143,11 @@ public abstract class CryptoProgram extends Program {
         String v = p.getValue();
         if (v == null) {
             StringInputDialog sid = new StringInputDialog(frame, true);
-            sid.showDialog("Input");
-            v = sid.input;
+            v = sid.showDialog("Input");
+        }
+        if (v == null) {
+            exit = true;
+            return;
         }
         input = CharStream.fromString(v);
     }
@@ -169,9 +171,8 @@ public abstract class CryptoProgram extends Program {
         }
         try {
             input = CharStream.fread(inputFile);
-            CharStream.out(input);
         } catch (IOException ex) {
-            stdout.appendln("Error while reading the input file: "+inputFile.getPath());
+            stdout.appendln("<font color='red'>Error while reading the input file: "+inputFile.getPath()+"</font>");
             exit = true;
         }
     }
@@ -187,7 +188,7 @@ public abstract class CryptoProgram extends Program {
                 try {
                     outputFile.createNewFile();
                 } catch (IOException ex) {
-                    stdout.appendln("Cannot create output file: "+outputFile.getPath());
+                    stdout.appendln("<font color='red'>Cannot create output file: "+outputFile.getPath()+"</font>");
                     exit = true;
                 }
             }

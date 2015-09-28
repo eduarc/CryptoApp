@@ -42,6 +42,4 @@ public abstract class Cryptosystem<P, C, K> implements Cipher<P, C, K> {
     }
 
     public abstract K generateKey(Object seed);
-
-    public abstract boolean isValidKey(K key);
 }

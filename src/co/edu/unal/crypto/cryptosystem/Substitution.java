@@ -29,9 +29,7 @@ public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C
     @Override
     public C[] encrypt(Key<P, C> key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Subtitution Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         C[] output = (C[]) Array.newInstance(Cclass, input.length);
         for (int i = 0; i < input.length; ++i) {
@@ -43,9 +41,7 @@ public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C
     @Override
     public P[] decrypt(Key<P, C> key, C[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid Subtitution Key");
-        }
+        checkKey(key);
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
         for (int i = 0; i < input.length; ++i) {
@@ -59,15 +55,15 @@ public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C
         return null;
     }
 
-    @Override
-    public boolean isValidKey(Key<P, C> key) {
+    public void checkKey(Key<P, C> key) {
 
         for (int i = 0; i < inAlphabet.getSize(); ++i) {
-            if (!key.mapped(inAlphabet.getValue(i))) {
-                return false;
+            P p = inAlphabet.getValue(i);
+            C c = key.eval(p);
+            if (c == null || key.inverse(c) != p) {
+                throw new IllegalArgumentException("Invalid Substitution key: The key must be an inyective function on the input alphabet");
             }
         }
-        return true;
     }
 
     public static class Key<P, C> implements Function<P, C> {

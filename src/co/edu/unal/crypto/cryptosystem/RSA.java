@@ -31,9 +31,7 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
     @Override
     public BigInteger[] encrypt(Key key, P[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid RSA key");
-        }
+        checkKey(key);
         int msgLength = input.length;
         int blockSize = getBlockSize(key.n);
         int r = msgLength % blockSize;
@@ -59,9 +57,7 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
     @Override
     public P[] decrypt(Key key, BigInteger[] input) {
 
-        if (!isValidKey(key)) {
-            throw new IllegalArgumentException("Invalid RSA key");
-        }
+        checkKey(key);
         int blockSize = getBlockSize(key.n);
         List<P> output = new ArrayList<>();
 
@@ -85,15 +81,21 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
         return null;
     }
 
-    @Override
-    public boolean isValidKey(Key key) {
-
-        if (!key.p.isProbablePrime(98) || !key.q.isProbablePrime(98)) {
-            return false;
+    private void checkKey(Key key) {
+        
+        if (key.privateKey) {
+            if (!key.p.isProbablePrime(98) || !key.q.isProbablePrime(98)) {
+                throw new IllegalArgumentException("Invalid RSA key: p or q aren't primes numbers");
+            }
+            if (!key.phi.gcd(key.e).equals(BigInteger.ONE)) {
+                throw new IllegalArgumentException("Invalid RSA key: (p-1)*(q-1) and e aren't coprimes");
+            }
         }
-        return key.phi.gcd(key.e).equals(BigInteger.ONE);
+        if (!key.n.gcd(key.e).equals(BigInteger.ONE)) {
+            throw new IllegalArgumentException("Invalid RSA key: n and e aren't coprimes");
+        }
     }
-
+    
     private String pad(String str, int len) {
 
         int r = len - str.length();
@@ -121,15 +123,17 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
     /* RSA Key */
     public static class Key {
 
-        BigInteger p;
-        BigInteger q;
-        BigInteger e;
-        BigInteger d;
-        BigInteger n;
-        BigInteger phi;
+        protected boolean privateKey;
+        protected BigInteger p;
+        protected BigInteger q;
+        protected BigInteger e;
+        protected BigInteger d;
+        protected BigInteger n;
+        protected BigInteger phi;
 
         public Key(BigInteger p, BigInteger q, BigInteger e) {
 
+            privateKey = true;
             this.p = p;
             this.q = q;
             this.e = e;
@@ -137,6 +141,13 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
             this.phi = p.subtract(BigInteger.ONE);
             this.phi = phi.multiply(q.subtract(BigInteger.ONE));
             this.d = e.modInverse(phi);
+        }
+        
+        public Key(BigInteger n, BigInteger e) {
+            
+            privateKey = false;
+            this.n = n;
+            this.e = e;
         }
     }
 }

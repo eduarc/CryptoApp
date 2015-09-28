@@ -10,7 +10,7 @@ import cryptoapp.program.CaesarProgram;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class CaesarFactory extends ProgramFactory {
+public class CaesarFactory implements ProgramFactory {
     
     private final Environment env;
     

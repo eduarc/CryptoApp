@@ -10,7 +10,7 @@ import co.edu.unal.system.program.ClearProgram;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class ClearFactory extends ProgramFactory {
+public class ClearFactory implements ProgramFactory {
 
     Environment env;
             
