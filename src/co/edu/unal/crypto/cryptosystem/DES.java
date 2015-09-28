@@ -162,10 +162,7 @@ public class DES extends Cryptosystem<Long, Long, Long> {
         for (int i = 1; i <= 16; i++) {
             c[i] = leftShift(c[i-1], roundLeftShift[i-1], 28);
             d[i] = leftShift(d[i-1], roundLeftShift[i-1], 28);
-        }
-        for (int i = 0; i < 16; i++) {
-            Long v = join(c[i+1], d[i+1], 28);
-            rKeys[i] = apply(R, v);
+            rKeys[i-1] = apply(R, join(c[i], d[i], 28));
         }
         return rKeys;
     }
