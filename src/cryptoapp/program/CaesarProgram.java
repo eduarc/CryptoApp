@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class CaesarProgram extends CryptoSystemProgram {
+public class CaesarProgram extends CryptosystemProgram {
 
     public static final String CMD_CAESAR = "caesar";
     public static final String P_OFFSET = "offset";

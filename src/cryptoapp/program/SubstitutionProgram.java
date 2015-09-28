@@ -9,9 +9,10 @@ import cryptoapp.view.StringInputDialog;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
-public class SubstitutionProgram extends CryptoSystemProgram {
+public class SubstitutionProgram extends CryptosystemProgram {
 
     public static final String CMD_SUBSTITUTION = "subs";
     public static final String P_KEY = "key";

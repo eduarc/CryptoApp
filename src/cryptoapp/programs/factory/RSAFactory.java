@@ -7,7 +7,8 @@ import cryptoapp.program.RSAProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class RSAFactory implements ProgramFactory {
 

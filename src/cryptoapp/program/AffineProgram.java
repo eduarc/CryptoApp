@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class AffineProgram extends CryptoSystemProgram {
+public class AffineProgram extends CryptosystemProgram {
 
     public static final String CMD_AFFINE = "affine";
     public static final String P_A = "a";

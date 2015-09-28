@@ -12,9 +12,10 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
-public class DESProgram extends CryptoSystemProgram {
+public class DESProgram extends CryptosystemProgram {
 
     public static final String CMD_DES = "des";
     public static final String P_KEY = "key";

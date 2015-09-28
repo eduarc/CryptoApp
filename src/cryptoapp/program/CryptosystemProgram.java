@@ -17,7 +17,7 @@ import javax.swing.JFileChooser;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public abstract class CryptoSystemProgram extends Program {
+public abstract class CryptosystemProgram extends Program {
     
     public static final String P_ENCRYPT = "encrypt";
     public static final String P_DECRYPT = "decrypt";
@@ -38,7 +38,7 @@ public abstract class CryptoSystemProgram extends Program {
     File outputFile;
     File inputFile;
     
-    public CryptoSystemProgram(Environment env) {
+    public CryptosystemProgram(Environment env) {
         super(env);
         
         stdout = (StandardConsole) getEnv().getResource(Environment.STDOUT);

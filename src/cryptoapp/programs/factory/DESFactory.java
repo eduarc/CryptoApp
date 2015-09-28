@@ -7,7 +7,8 @@ import cryptoapp.program.DESProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class DESFactory implements ProgramFactory {
 

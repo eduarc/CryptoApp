@@ -10,9 +10,10 @@ import cryptoapp.view.StringInputDialog;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
-public class VigenereProgram extends CryptoSystemProgram {
+public class VigenereProgram extends CryptosystemProgram {
 
     public static final String CMD_VIGENERE = "vigenere";
     public static final String P_KEY = "key";

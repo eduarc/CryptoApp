@@ -7,7 +7,8 @@ import cryptoapp.program.VigenereProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class VigenereFactory implements ProgramFactory {
 

@@ -13,9 +13,10 @@ import java.util.StringTokenizer;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
-public class HillProgram extends CryptoSystemProgram {
+public class HillProgram extends CryptosystemProgram {
 
     public static final String CMD_HILL = "hill";
     public static final String P_KEY = "key";

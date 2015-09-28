@@ -7,7 +7,8 @@ import cryptoapp.program.SubstitutionProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class SubstitutionFactory implements ProgramFactory {
 

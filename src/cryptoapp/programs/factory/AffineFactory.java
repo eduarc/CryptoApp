@@ -7,7 +7,8 @@ import cryptoapp.program.AffineProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class AffineFactory implements ProgramFactory {
 

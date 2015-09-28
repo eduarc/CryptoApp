@@ -14,9 +14,10 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
-public class RSAProgram extends CryptoSystemProgram {
+public class RSAProgram extends CryptosystemProgram {
 
     public static final String CMD_RSA = "rsa";
     public static final String P_P = "p";

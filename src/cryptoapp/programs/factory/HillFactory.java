@@ -7,7 +7,8 @@ import cryptoapp.program.HillProgram;
 
 /**
  *
- * @author eduarc
+ * @author eduarc (Eduar Castrillo Velilla)
+ * @email eduarcastrillo@gmail.com
  */
 public class HillFactory implements ProgramFactory {
 
