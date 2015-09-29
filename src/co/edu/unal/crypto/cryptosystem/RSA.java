@@ -70,7 +70,7 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
                     idx *= 10;
                     idx += block.charAt(i + j) - '0';
                 }
-                output.add(inAlphabet.getValue(idx));
+                output.add(inAlphabet.getValue(idx%modulus));
             }
         }
         return output.toArray((P[]) Array.newInstance(Pclass, 0));

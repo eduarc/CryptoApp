@@ -12,6 +12,7 @@ import cryptoapp.StandardConsole;
 import cryptoapp.StandardPrompt;
 import cryptoapp.program.AffineProgram;
 import cryptoapp.program.CaesarProgram;
+import cryptoapp.program.CryptoAnalyzerProgram;
 import cryptoapp.program.DESProgram;
 import cryptoapp.program.HillProgram;
 import cryptoapp.program.RSAProgram;
@@ -21,6 +22,7 @@ import cryptoapp.program.TwoTwoProgram;
 import cryptoapp.program.VigenereProgram;
 import cryptoapp.programs.factory.AffineFactory;
 import cryptoapp.programs.factory.CaesarFactory;
+import cryptoapp.programs.factory.CryptoAnalyzerFactory;
 import cryptoapp.programs.factory.DESFactory;
 import cryptoapp.programs.factory.HillFactory;
 import cryptoapp.programs.factory.RSAFactory;
@@ -59,6 +61,7 @@ public class Crypto extends javax.swing.JFrame {
         env.addProgram(HillProgram.CMD_HILL, new HillFactory(env));
         env.addProgram(TwoTwoProgram.CMD_TWO, new TwoTwoFactory(env));
         env.addProgram(ThreeThreeProgram.CMD_THREE, new ThreeThreeFactory(env));
+        env.addProgram(CryptoAnalyzerProgram.CMD_CRACK, new CryptoAnalyzerFactory(env));
     }
 
     /**
@@ -158,6 +161,11 @@ public class Crypto extends javax.swing.JFrame {
         decTwoTwoVCS = new javax.swing.JMenuItem();
         decThreeThreeVCS = new javax.swing.JMenuItem();
         menuCryptoanalysis = new javax.swing.JMenu();
+        analysisRSA = new javax.swing.JMenuItem();
+        analysisCaesar = new javax.swing.JMenuItem();
+        analysisAffine = new javax.swing.JMenuItem();
+        analysisSubstitution = new javax.swing.JMenuItem();
+        analysisVigenere = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
 
@@ -803,9 +811,53 @@ public class Crypto extends javax.swing.JFrame {
         menuBar.add(jMenu3);
 
         menuCryptoanalysis.setText("Cryptoanalysis");
+
+        analysisRSA.setText("RSA");
+        analysisRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisRSAActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisRSA);
+
+        analysisCaesar.setText("Caesar");
+        analysisCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisCaesarActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisCaesar);
+
+        analysisAffine.setText("Affine");
+        analysisAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisAffineActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisAffine);
+
+        analysisSubstitution.setText("Substitution");
+        analysisSubstitution.setEnabled(false);
+        analysisSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisSubstitutionActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisSubstitution);
+
+        analysisVigenere.setText("Vigenere");
+        analysisVigenere.setEnabled(false);
+        analysisVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisVigenereActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisVigenere);
+
         menuBar.add(menuCryptoanalysis);
 
         menuHelp.setText("Help");
+        menuHelp.setEnabled(false);
 
         menuItemHelp.setText("Help me!");
         menuHelp.add(menuItemHelp);
@@ -1092,11 +1144,36 @@ public class Crypto extends javax.swing.JFrame {
         tfCommand.setText(ClearProgram.CMD_CLEAR);
     }//GEN-LAST:event_menuItemClearActionPerformed
 
+    private void analysisRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisRSAActionPerformed
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" rsa n e in");
+    }//GEN-LAST:event_analysisRSAActionPerformed
+
+    private void analysisCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisCaesarActionPerformed
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" caesar in");
+    }//GEN-LAST:event_analysisCaesarActionPerformed
+
+    private void analysisAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisAffineActionPerformed
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" affine in");
+    }//GEN-LAST:event_analysisAffineActionPerformed
+
+    private void analysisSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisSubstitutionActionPerformed
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" subs in");
+    }//GEN-LAST:event_analysisSubstitutionActionPerformed
+
+    private void analysisVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisVigenereActionPerformed
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" vigenere in");
+    }//GEN-LAST:event_analysisVigenereActionPerformed
+
     Environment env;
     StandardConsole stdout;
     StandardPrompt prompt;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem analysisAffine;
+    private javax.swing.JMenuItem analysisCaesar;
+    private javax.swing.JMenuItem analysisRSA;
+    private javax.swing.JMenuItem analysisSubstitution;
+    private javax.swing.JMenuItem analysisVigenere;
     private javax.swing.JTextPane areaOutput;
     private javax.swing.JButton bExec;
     private javax.swing.JMenuItem decCoCoAffine;

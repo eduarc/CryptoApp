@@ -1,6 +1,7 @@
 package cryptoapp.program;
 
 import co.edu.unal.crypto.alphabet.ASCII;
+import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Affine;
 import co.edu.unal.crypto.types.Pair;
 import co.edu.unal.system.Environment;
@@ -42,7 +43,7 @@ public class AffineProgram extends CryptosystemProgram {
                 return -1;
             }
         }
-        Affine<Character> cipher = new Affine(ASCII.defaultInstance);
+        Affine<Character> cipher = new Affine(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 output = cipher.encrypt(key, input);

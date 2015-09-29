@@ -6,51 +6,61 @@ import co.edu.unal.system.Param;
 import co.edu.unal.system.ParamUtils;
 import co.edu.unal.system.Program;
 import cryptoapp.StandardConsole;
+import cryptoapp.crack.AffineAnalyzer;
+import cryptoapp.crack.CaesarAnalyzer;
+import cryptoapp.crack.RSAAnalyzer;
 import cryptoapp.view.StringInputDialog;
 import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author eduarc (Eduar Castrillo Velilla)
+ * @author eduarc
  * @email eduarcastrillo@gmail.com
  */
-public abstract class CryptosystemProgram extends Program {
-    
-    public static final String P_ENCRYPT = "encrypt";
-    public static final String P_DECRYPT = "decrypt";
+public class CryptoAnalyzerProgram extends Program {
+
+    public static final String CMD_CRACK = "crack";
+    public static final String P_RSA = "rsa";
+    public static final String P_CAESAR = "caesar";
+    public static final String P_AFFINE = "affine";
     public static final String P_INPUT = "in";
     public static final String P_FILE_INPUT = "fin";
     public static final String P_IMAGE_INPUT = "iin";
     public static final String P_OUTPUT = "out";
     public static final String P_FILE_OUTPUT = "fout";
     public static final String P_IMAGE_OUTPUT = "iout";
-    
-    Character[] input;
-    Character[] output;
+    public static final String P_N = "n";
+    public static final String P_E = "e";
     
     Frame frame;
     StandardConsole stdout;
     boolean exit;
-
+    
+    Character[] input;
+    Character[] output;
     File outputFile;
     File inputFile;
     
-    public CryptosystemProgram(Environment env) {
+    public CryptoAnalyzerProgram(Environment env) {
         super(env);
         
         stdout = (StandardConsole) getEnv().getResource(Environment.STDOUT);
         frame  = (Frame) getEnv().getResource(Environment.FRAME);
     }
-    
-    public int preProcess(Param[] params) {
+
+    public int checkParams(Param[] params) {
         
-        String[] operation = {P_ENCRYPT, P_DECRYPT};
-        
-        if (!ParamUtils.containsOne(params, operation)) {
-            stdout.appendln("<font color='red'>Any or multiple encrypt/decrypt operation(s) provided</font>");
+        String[] algos = {P_RSA, P_CAESAR, P_AFFINE};
+        if (!ParamUtils.containsOne(params, algos)) {
+            stdout.appendln("<font color='red'>Any or multiple target algorithm(s) provided</font>");
             return -1;
         }
         String[] sourceInput = {P_INPUT, P_FILE_INPUT, P_IMAGE_INPUT};
@@ -84,8 +94,16 @@ public abstract class CryptosystemProgram extends Program {
                 return 0;
             }
         }
-        if (!checkParams(params)) {
-            return -1;
+        
+        if (ParamUtils.contains(params, P_RSA)) {
+            if (!ParamUtils.contains(params, P_N)) {
+                stdout.appendln("<font color='red'>Parameter 'n' not provided.</font>");
+                return -1;
+            }
+            if (!ParamUtils.contains(params, P_E)) {
+                stdout.appendln("<font color='red'>Parameter 'e' not provided.</font>");
+                return -1;
+            }
         }
         return 0;
     }
@@ -121,20 +139,74 @@ public abstract class CryptosystemProgram extends Program {
     @Override
     public int exec(Param[] params) {
         
-        int r = preProcess(params);
-        if (r != 0) {
-            return r;
+        int ret = checkParams(params);
+        if (ret != 0) {
+            return ret;
         }
-        r = main(params);
-        if (r != 0) {
-            return r;
+        if (ParamUtils.contains(params, P_RSA)) {
+            BigInteger n = null, e = null;
+            for (Param param : params) {
+                if (param.getName().equals(P_N)) {
+                    n = getBigInt(param);
+                }
+                else if (param.getName().equals(P_E)) {
+                    e = getBigInt(param);
+                }
+            }
+            List<BigInteger> rsaInput = new ArrayList<>();
+            StringTokenizer tokenizer = new StringTokenizer(CharStream.toString(input), " ");
+            while (tokenizer.hasMoreTokens()) {
+                try {
+                    rsaInput.add(new BigInteger(tokenizer.nextToken(), 16));
+                } catch(NumberFormatException ex) {
+                    stdout.appendln("<font color='red'>Bad Input. "+ex.getMessage()+"</font>");
+                    return -1;
+                }
+            }
+            RSAAnalyzer cracker = new RSAAnalyzer(n, e);
+            try {
+                output = cracker.analyze(rsaInput.toArray(new BigInteger[]{}));
+            } catch (Exception ex) {
+                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+            }
         }
-        return postProcess(params);
+        else if (ParamUtils.contains(params, P_CAESAR)) {
+            CaesarAnalyzer cracker = new CaesarAnalyzer();
+            output = cracker.analyze(input);
+        }
+        else if (ParamUtils.contains(params, P_AFFINE)) {
+            AffineAnalyzer cracker = new AffineAnalyzer();
+            output = cracker.analyze(input);
+        }
+        
+        ret = postProcess(params);
+        return ret;
+    }
+
+    @Override
+    public String getName() {
+        return CMD_CRACK;
     }
     
-    public abstract int main(Param[] params);
-    
-    public abstract boolean checkParams(Param[] params);
+    private BigInteger getBigInt(Param p) {
+        
+        String strValue = p.getValue();
+        if (strValue == null) {
+            strValue = JOptionPane.showInputDialog(frame, "Parameter "+p.getName());
+        }
+        if (strValue == null) {
+            exit = true;
+            return null;
+        }
+        BigInteger value = null;
+        try {
+            value = new BigInteger(strValue);
+        } catch(NumberFormatException ex) {
+            stdout.appendln("<font color='red'>Invalid parameter '"+p.getName()+"'. "+ex.getMessage()+"</font>");
+            exit = true;
+        }
+        return value;
+    }
     
     protected void getInput(Param p) {
         

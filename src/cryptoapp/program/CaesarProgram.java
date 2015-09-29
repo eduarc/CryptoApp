@@ -1,6 +1,7 @@
 package cryptoapp.program;
 
 import co.edu.unal.crypto.alphabet.ASCII;
+import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Caesar;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
@@ -47,7 +48,7 @@ public class CaesarProgram extends CryptosystemProgram {
                 return -1;
             }
         }
-        Caesar<Character> cipher = new Caesar(ASCII.defaultInstance);
+        Caesar<Character> cipher = new Caesar(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 output = cipher.encrypt(offset, input);

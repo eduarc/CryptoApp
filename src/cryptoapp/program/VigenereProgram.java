@@ -1,6 +1,7 @@
 package cryptoapp.program;
 
 import co.edu.unal.crypto.alphabet.ASCII;
+import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Vigenere;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
@@ -36,7 +37,7 @@ public class VigenereProgram extends CryptosystemProgram {
                 return -1;
             }
         }
-        Vigenere<Character> cipher = new Vigenere<>(ASCII.defaultInstance);
+        Vigenere<Character> cipher = new Vigenere<>(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 output = (Character[]) cipher.encrypt(key, input);
