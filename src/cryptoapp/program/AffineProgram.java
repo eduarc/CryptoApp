@@ -60,11 +60,11 @@ public class AffineProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_A)) {
-            stdout.appendln("<font color='red'>Key Parameter \'a\' not especified</font>");
+            stdout.appendln("<font color='red'>Key Parameter 'a' not especified</font>");
             return false;
         }
         if (!ParamUtils.contains(params, P_B)) {
-            stdout.appendln("<font color='red'>Key parameter \'b\' not especified</font>");
+            stdout.appendln("<font color='red'>Key parameter 'b' not especified</font>");
             return false;
         }
         return true;
@@ -89,7 +89,7 @@ public class AffineProgram extends CryptosystemProgram {
         try {
             key.first = Integer.parseInt(strA);
         } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'a\': "+strA+"</font>");
+            stdout.appendln("<font color='red'>Invalid key parameter 'a': "+strA+"</font>");
             exit = true;
         }
     }
@@ -107,7 +107,7 @@ public class AffineProgram extends CryptosystemProgram {
         try {
             key.second = Integer.parseInt(strB);
         } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'b\': "+strB+"</font>");
+            stdout.appendln("<font color='red'>Invalid key parameter 'b': "+strB+"</font>");
             exit = true;
         }
     }

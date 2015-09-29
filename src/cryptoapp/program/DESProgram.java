@@ -46,7 +46,7 @@ public class DESProgram extends CryptosystemProgram {
                 for (Long l : desOutput) {
                     out += String.format("%x ", l);
                 }
-                stdout.appendln(out);
+                output = CharStream.fromString(out);
             }
             else {
                 List<Long> desInput = new ArrayList<>();
@@ -73,7 +73,7 @@ public class DESProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>No key provided</font>");
+            stdout.appendln("<font color='red'>Parameter 'key' not provided</font>");
             return false;
         }
         return true;

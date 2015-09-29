@@ -16,6 +16,8 @@ import cryptoapp.program.DESProgram;
 import cryptoapp.program.HillProgram;
 import cryptoapp.program.RSAProgram;
 import cryptoapp.program.SubstitutionProgram;
+import cryptoapp.program.ThreeThreeProgram;
+import cryptoapp.program.TwoTwoProgram;
 import cryptoapp.program.VigenereProgram;
 import cryptoapp.programs.factory.AffineFactory;
 import cryptoapp.programs.factory.CaesarFactory;
@@ -23,6 +25,8 @@ import cryptoapp.programs.factory.DESFactory;
 import cryptoapp.programs.factory.HillFactory;
 import cryptoapp.programs.factory.RSAFactory;
 import cryptoapp.programs.factory.SubstitutionFactory;
+import cryptoapp.programs.factory.ThreeThreeFactory;
+import cryptoapp.programs.factory.TwoTwoFactory;
 import cryptoapp.programs.factory.VigenereFactory;
 
 /**
@@ -53,6 +57,8 @@ public class Crypto extends javax.swing.JFrame {
         env.addProgram(RSAProgram.CMD_RSA, new RSAFactory(env));
         env.addProgram(DESProgram.CMD_DES, new DESFactory(env));
         env.addProgram(HillProgram.CMD_HILL, new HillFactory(env));
+        env.addProgram(TwoTwoProgram.CMD_TWO, new TwoTwoFactory(env));
+        env.addProgram(ThreeThreeProgram.CMD_THREE, new ThreeThreeFactory(env));
     }
 
     /**
@@ -64,38 +70,98 @@ public class Crypto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem3 = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfCommand = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         areaOutput = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        bExec = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuItemExecute = new javax.swing.JMenuItem();
-        menuItemExecuteFromFile = new javax.swing.JMenuItem();
-        menuItemSave = new javax.swing.JMenuItem();
         menuItemClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemExit = new javax.swing.JMenuItem();
-        menuCommands = new javax.swing.JMenu();
+        menuCryptosystems = new javax.swing.JMenu();
         menuItemEncrypt = new javax.swing.JMenu();
-        menuItemEncryptSubstitution = new javax.swing.JMenuItem();
-        menuItemEncryptCaesar = new javax.swing.JMenuItem();
-        menuItemEncryptAffine = new javax.swing.JMenuItem();
-        menuItemEncryptVigenere = new javax.swing.JMenuItem();
-        menuItemEncryptHill = new javax.swing.JMenuItem();
-        menuItemEncryptRSA = new javax.swing.JMenuItem();
+        unknownMenu = new javax.swing.JMenu();
+        encCoCoCaesar = new javax.swing.JMenuItem();
+        encCoCoAffine = new javax.swing.JMenuItem();
+        encCoCoSubstitution = new javax.swing.JMenuItem();
+        encCoCoVigenere = new javax.swing.JMenuItem();
+        encCoCoHill = new javax.swing.JMenuItem();
+        encCoCoRSA = new javax.swing.JMenuItem();
+        encCoCoDES = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        encCoFiCaesar = new javax.swing.JMenuItem();
+        encCoFiAffine = new javax.swing.JMenuItem();
+        encCoFiSubstitution = new javax.swing.JMenuItem();
+        encCoFiVigenere = new javax.swing.JMenuItem();
+        encCoFiHill = new javax.swing.JMenuItem();
+        encCoFiRSA = new javax.swing.JMenuItem();
+        encCoFiDES = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        encFiCoCaesar = new javax.swing.JMenuItem();
+        encFiCoAffine = new javax.swing.JMenuItem();
+        encFiCoSubstitution = new javax.swing.JMenuItem();
+        encFiCoVigenere = new javax.swing.JMenuItem();
+        encFiCoHill = new javax.swing.JMenuItem();
+        encFiCoRSA = new javax.swing.JMenuItem();
+        encFiCoDES = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        encFiFiCaesar = new javax.swing.JMenuItem();
+        encFiFiAffine = new javax.swing.JMenuItem();
+        encFiFiSubstitution = new javax.swing.JMenuItem();
+        encFiFiVigenere = new javax.swing.JMenuItem();
+        encFiFiHill = new javax.swing.JMenuItem();
+        encFiFiRSA = new javax.swing.JMenuItem();
+        encFiFiDES = new javax.swing.JMenuItem();
         menuDecrypt = new javax.swing.JMenu();
-        menuItemDecryptSubstitution = new javax.swing.JMenuItem();
-        menuItemDecryptCaesar = new javax.swing.JMenuItem();
-        menuItemDecryptAffine = new javax.swing.JMenuItem();
-        menuItemDecryptVigenere = new javax.swing.JMenuItem();
-        menuItemDecryptHill = new javax.swing.JMenuItem();
-        menuItemDecryptRSA = new javax.swing.JMenuItem();
-        menuCryptoanalisys = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        decCoCoCaesar = new javax.swing.JMenuItem();
+        decCoCoAffine = new javax.swing.JMenuItem();
+        decCoCoSubstitution = new javax.swing.JMenuItem();
+        decCoCoVigenere = new javax.swing.JMenuItem();
+        decCoCoHill = new javax.swing.JMenuItem();
+        decCoCoRSA = new javax.swing.JMenuItem();
+        decCoCoDES = new javax.swing.JMenuItem();
+        jMenuUnknown1 = new javax.swing.JMenu();
+        decCoFiCaesar = new javax.swing.JMenuItem();
+        decCoFiAffine = new javax.swing.JMenuItem();
+        decCoFiSubstitution = new javax.swing.JMenuItem();
+        decCoFiVigenere = new javax.swing.JMenuItem();
+        decCoFiHill = new javax.swing.JMenuItem();
+        decCoFiRSA = new javax.swing.JMenuItem();
+        decCoFiDES = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        decFiCoCaesar = new javax.swing.JMenuItem();
+        decFiCoAffine = new javax.swing.JMenuItem();
+        decFiCoSubstitution = new javax.swing.JMenuItem();
+        decFiCoVigenere = new javax.swing.JMenuItem();
+        decFiCoHill = new javax.swing.JMenuItem();
+        decFiCoRSA = new javax.swing.JMenuItem();
+        decFiCoDES = new javax.swing.JMenuItem();
+        jMenuUnknown = new javax.swing.JMenu();
+        decFiFiCaesar = new javax.swing.JMenuItem();
+        decFiFiAffine = new javax.swing.JMenuItem();
+        decFiFiSubstitution = new javax.swing.JMenuItem();
+        decFiFiVigenere = new javax.swing.JMenuItem();
+        decFiFiHill = new javax.swing.JMenuItem();
+        decFiFiRSA = new javax.swing.JMenuItem();
+        decFiFiDES = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        encTwoTwoVCS = new javax.swing.JMenuItem();
+        encThreeThreeVCS = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        decTwoTwoVCS = new javax.swing.JMenuItem();
+        decThreeThreeVCS = new javax.swing.JMenuItem();
+        menuCryptoanalysis = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -127,15 +193,15 @@ public class Crypto extends javax.swing.JFrame {
         areaOutput.setSelectionColor(new java.awt.Color(102, 102, 102));
         jScrollPane1.setViewportView(areaOutput);
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 0, 0));
-        jButton1.setText("Execute");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusable(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bExec.setBackground(new java.awt.Color(204, 204, 204));
+        bExec.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
+        bExec.setForeground(new java.awt.Color(255, 0, 0));
+        bExec.setText("Execute");
+        bExec.setContentAreaFilled(false);
+        bExec.setFocusable(false);
+        bExec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bExecActionPerformed(evt);
             }
         });
 
@@ -154,7 +220,7 @@ public class Crypto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfCommand, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(bExec, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +229,7 @@ public class Crypto extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfCommand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(bExec))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
                 .addContainerGap())
@@ -173,7 +239,7 @@ public class Crypto extends javax.swing.JFrame {
 
         menuFile.setText("File");
 
-        menuItemExecute.setText("Execute");
+        menuItemExecute.setText("Execute Command");
         menuItemExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemExecuteActionPerformed(evt);
@@ -181,76 +247,563 @@ public class Crypto extends javax.swing.JFrame {
         });
         menuFile.add(menuItemExecute);
 
-        menuItemExecuteFromFile.setText("Execute from File");
-        menuFile.add(menuItemExecuteFromFile);
-
-        menuItemSave.setText("Save");
-        menuFile.add(menuItemSave);
-
-        menuItemClear.setText("Clear");
+        menuItemClear.setText("Clear Console");
+        menuItemClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemClearActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemClear);
         menuFile.add(jSeparator1);
 
         menuItemExit.setText("Exit");
+        menuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExitActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemExit);
 
         menuBar.add(menuFile);
 
-        menuCommands.setText("Commands");
+        menuCryptosystems.setText("Cryptosystem");
 
         menuItemEncrypt.setText("Encrypt");
 
-        menuItemEncryptSubstitution.setText("Substitution");
-        menuItemEncrypt.add(menuItemEncryptSubstitution);
+        unknownMenu.setText("Input Console -> Output Console");
 
-        menuItemEncryptCaesar.setText("Caesar");
-        menuItemEncryptCaesar.addActionListener(new java.awt.event.ActionListener() {
+        encCoCoCaesar.setText("Caesar");
+        encCoCoCaesar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemEncryptCaesarActionPerformed(evt);
+                encCoCoCaesarActionPerformed(evt);
             }
         });
-        menuItemEncrypt.add(menuItemEncryptCaesar);
+        unknownMenu.add(encCoCoCaesar);
 
-        menuItemEncryptAffine.setText("Affine");
-        menuItemEncrypt.add(menuItemEncryptAffine);
+        encCoCoAffine.setText("Affine");
+        encCoCoAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoAffineActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoAffine);
 
-        menuItemEncryptVigenere.setText("Vigenere");
-        menuItemEncrypt.add(menuItemEncryptVigenere);
+        encCoCoSubstitution.setText("Substitution");
+        encCoCoSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoSubstitutionActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoSubstitution);
 
-        menuItemEncryptHill.setText("Hill");
-        menuItemEncrypt.add(menuItemEncryptHill);
+        encCoCoVigenere.setText("Vigenere");
+        encCoCoVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoVigenereActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoVigenere);
 
-        menuItemEncryptRSA.setText("RSA");
-        menuItemEncrypt.add(menuItemEncryptRSA);
+        encCoCoHill.setText("Hill");
+        encCoCoHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoHillActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoHill);
 
-        menuCommands.add(menuItemEncrypt);
+        encCoCoRSA.setText("RSA");
+        encCoCoRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoRSAActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoRSA);
+
+        encCoCoDES.setText("DES");
+        encCoCoDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoDESActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoDES);
+
+        menuItemEncrypt.add(unknownMenu);
+
+        jMenu8.setText("Input Console -> Output File");
+
+        encCoFiCaesar.setText("Caesar");
+        encCoFiCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiCaesarActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiCaesar);
+
+        encCoFiAffine.setText("Affine");
+        encCoFiAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiAffineActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiAffine);
+
+        encCoFiSubstitution.setText("Substitution");
+        encCoFiSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiSubstitution);
+
+        encCoFiVigenere.setText("Vigenere");
+        encCoFiVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiVigenereActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiVigenere);
+
+        encCoFiHill.setText("Hill");
+        encCoFiHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiHillActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiHill);
+
+        encCoFiRSA.setText("RSA");
+        encCoFiRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiRSAActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiRSA);
+
+        encCoFiDES.setText("DES");
+        encCoFiDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiDESActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiDES);
+
+        menuItemEncrypt.add(jMenu8);
+
+        jMenu2.setText("Input File -> Output Console");
+
+        encFiCoCaesar.setText("Caesar");
+        encFiCoCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoCaesarActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoCaesar);
+
+        encFiCoAffine.setText("Affine");
+        encFiCoAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoAffineActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoAffine);
+
+        encFiCoSubstitution.setText("Substitution");
+        encFiCoSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoSubstitution);
+
+        encFiCoVigenere.setText("Vigenere");
+        encFiCoVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoVigenereActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoVigenere);
+
+        encFiCoHill.setText("Hill");
+        encFiCoHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoHillActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoHill);
+
+        encFiCoRSA.setText("RSA");
+        encFiCoRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoRSAActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoRSA);
+
+        encFiCoDES.setText("DES");
+        encFiCoDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoDESActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoDES);
+
+        menuItemEncrypt.add(jMenu2);
+
+        jMenu1.setText("Input File -> Output File");
+
+        encFiFiCaesar.setText("Caesar");
+        encFiFiCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiCaesarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiCaesar);
+
+        encFiFiAffine.setText("Affine");
+        encFiFiAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiAffineActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiAffine);
+
+        encFiFiSubstitution.setText("Substitution");
+        encFiFiSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiSubstitution);
+
+        encFiFiVigenere.setText("Vigenere");
+        encFiFiVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiVigenereActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiVigenere);
+
+        encFiFiHill.setText("Hill");
+        encFiFiHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiHillActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiHill);
+
+        encFiFiRSA.setText("RSA");
+        encFiFiRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiRSAActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiRSA);
+
+        encFiFiDES.setText("DES");
+        encFiFiDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiDESActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiDES);
+
+        menuItemEncrypt.add(jMenu1);
+
+        menuCryptosystems.add(menuItemEncrypt);
 
         menuDecrypt.setText("Decrypt");
 
-        menuItemDecryptSubstitution.setText("Substitution");
-        menuDecrypt.add(menuItemDecryptSubstitution);
+        jMenu6.setText("Input Console -> Output Console");
 
-        menuItemDecryptCaesar.setText("Caesar");
-        menuDecrypt.add(menuItemDecryptCaesar);
+        decCoCoCaesar.setText("Caesar");
+        decCoCoCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoCaesarActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoCaesar);
 
-        menuItemDecryptAffine.setText("Affine");
-        menuDecrypt.add(menuItemDecryptAffine);
+        decCoCoAffine.setText("Affine");
+        decCoCoAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoAffineActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoAffine);
 
-        menuItemDecryptVigenere.setText("Vigenere");
-        menuDecrypt.add(menuItemDecryptVigenere);
+        decCoCoSubstitution.setText("Substitution");
+        decCoCoSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoSubstitution);
 
-        menuItemDecryptHill.setText("Hill");
-        menuDecrypt.add(menuItemDecryptHill);
+        decCoCoVigenere.setText("Vigenere");
+        decCoCoVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoVigenereActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoVigenere);
 
-        menuItemDecryptRSA.setText("RSA");
-        menuDecrypt.add(menuItemDecryptRSA);
+        decCoCoHill.setText("Hill");
+        decCoCoHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoHillActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoHill);
 
-        menuCommands.add(menuDecrypt);
+        decCoCoRSA.setText("RSA");
+        decCoCoRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoRSAActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoRSA);
 
-        menuCryptoanalisys.setText("Cryptoanalisys");
-        menuCommands.add(menuCryptoanalisys);
+        decCoCoDES.setText("DES");
+        decCoCoDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoDESActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoDES);
 
-        menuBar.add(menuCommands);
+        menuDecrypt.add(jMenu6);
+
+        jMenuUnknown1.setText("Input Console -> Output File");
+
+        decCoFiCaesar.setText("Caesar");
+        decCoFiCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiCaesarActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiCaesar);
+
+        decCoFiAffine.setText("Affine");
+        decCoFiAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiAffineActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiAffine);
+
+        decCoFiSubstitution.setText("Substitution");
+        decCoFiSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiSubstitution);
+
+        decCoFiVigenere.setText("Vigenere");
+        decCoFiVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiVigenereActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiVigenere);
+
+        decCoFiHill.setText("Hill");
+        decCoFiHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiHillActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiHill);
+
+        decCoFiRSA.setText("RSA");
+        decCoFiRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiRSAActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiRSA);
+
+        decCoFiDES.setText("DES");
+        decCoFiDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiDESActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiDES);
+
+        menuDecrypt.add(jMenuUnknown1);
+
+        jMenu5.setText("Input File -> Output Console");
+
+        decFiCoCaesar.setText("Caesar");
+        decFiCoCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoCaesarActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoCaesar);
+
+        decFiCoAffine.setText("Affine");
+        decFiCoAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoAffineActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoAffine);
+
+        decFiCoSubstitution.setText("Substitution");
+        decFiCoSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoSubstitution);
+
+        decFiCoVigenere.setText("Vigenere");
+        decFiCoVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoVigenereActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoVigenere);
+
+        decFiCoHill.setText("Hill");
+        decFiCoHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoHillActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoHill);
+
+        decFiCoRSA.setText("RSA");
+        decFiCoRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoRSAActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoRSA);
+
+        decFiCoDES.setText("DES");
+        decFiCoDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoDESActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoDES);
+
+        menuDecrypt.add(jMenu5);
+
+        jMenuUnknown.setText("Input File -> Output File");
+
+        decFiFiCaesar.setText("Caesar");
+        decFiFiCaesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiCaesarActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiCaesar);
+
+        decFiFiAffine.setText("Affine");
+        decFiFiAffine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiAffineActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiAffine);
+
+        decFiFiSubstitution.setText("Substitution");
+        decFiFiSubstitution.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiSubstitutionActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiSubstitution);
+
+        decFiFiVigenere.setText("Vigenere");
+        decFiFiVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiVigenereActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiVigenere);
+
+        decFiFiHill.setText("Hill");
+        decFiFiHill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiHillActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiHill);
+
+        decFiFiRSA.setText("RSA");
+        decFiFiRSA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiRSAActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiRSA);
+
+        decFiFiDES.setText("DES");
+        decFiFiDES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiDESActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiDES);
+
+        menuDecrypt.add(jMenuUnknown);
+
+        menuCryptosystems.add(menuDecrypt);
+
+        menuBar.add(menuCryptosystems);
+
+        jMenu3.setText("Visual Cryptosystem");
+
+        jMenu4.setText("Encrypt");
+
+        encTwoTwoVCS.setText("(2, 2)-VCS");
+        encTwoTwoVCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encTwoTwoVCSActionPerformed(evt);
+            }
+        });
+        jMenu4.add(encTwoTwoVCS);
+
+        encThreeThreeVCS.setText("(3, 3)-VCS");
+        encThreeThreeVCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encThreeThreeVCSActionPerformed(evt);
+            }
+        });
+        jMenu4.add(encThreeThreeVCS);
+
+        jMenu3.add(jMenu4);
+
+        jMenu7.setText("Decrypt");
+
+        decTwoTwoVCS.setText("(2, 2)-VCS");
+        decTwoTwoVCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decTwoTwoVCSActionPerformed(evt);
+            }
+        });
+        jMenu7.add(decTwoTwoVCS);
+
+        decThreeThreeVCS.setText("(3, 3)-VCS");
+        decThreeThreeVCS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decThreeThreeVCSActionPerformed(evt);
+            }
+        });
+        jMenu7.add(decThreeThreeVCS);
+
+        jMenu3.add(jMenu7);
+
+        menuBar.add(jMenu3);
+
+        menuCryptoanalysis.setText("Cryptoanalysis");
+        menuBar.add(menuCryptoanalysis);
 
         menuHelp.setText("Help");
 
@@ -276,12 +829,8 @@ public class Crypto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecuteActionPerformed
-        // TODO add your handling code here:
+        tfCommandActionPerformed(evt);
     }//GEN-LAST:event_menuItemExecuteActionPerformed
-
-    private void menuItemEncryptCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEncryptCaesarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemEncryptCaesarActionPerformed
 
     private void tfCommandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCommandActionPerformed
         
@@ -291,9 +840,257 @@ public class Crypto extends javax.swing.JFrame {
         env.exec(cmd);
     }//GEN-LAST:event_tfCommandActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bExecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExecActionPerformed
         tfCommandActionPerformed(evt);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bExecActionPerformed
+
+    private void encFiFiCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" encrypt offset fin fout");
+    }//GEN-LAST:event_encFiFiCaesarActionPerformed
+
+    private void encFiFiAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" encrypt a b fin fout");
+    }//GEN-LAST:event_encFiFiAffineActionPerformed
+
+    private void encFiFiSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" encrypt key fin fout");
+    }//GEN-LAST:event_encFiFiSubstitutionActionPerformed
+
+    private void encFiFiVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" encrypt key fin fout");
+    }//GEN-LAST:event_encFiFiVigenereActionPerformed
+
+    private void encFiFiHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" encrypt key fin fout");
+    }//GEN-LAST:event_encFiFiHillActionPerformed
+
+    private void encFiFiRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" encrypt n e fin fout");
+    }//GEN-LAST:event_encFiFiRSAActionPerformed
+
+    private void encFiFiDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" encrypt key fin fout");
+    }//GEN-LAST:event_encFiFiDESActionPerformed
+
+    private void encFiCoCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" encrypt offset fin");
+    }//GEN-LAST:event_encFiCoCaesarActionPerformed
+
+    private void encFiCoAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" encrypt a b fin");
+    }//GEN-LAST:event_encFiCoAffineActionPerformed
+
+    private void encFiCoSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" encrypt key fin");
+    }//GEN-LAST:event_encFiCoSubstitutionActionPerformed
+
+    private void encFiCoHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" encrypt key fin");
+    }//GEN-LAST:event_encFiCoHillActionPerformed
+
+    private void encFiCoRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" encrypt n e fin");
+    }//GEN-LAST:event_encFiCoRSAActionPerformed
+
+    private void encFiCoDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" encrypt key fin");
+    }//GEN-LAST:event_encFiCoDESActionPerformed
+
+    private void encCoFiCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" encrypt offset in fout");
+    }//GEN-LAST:event_encCoFiCaesarActionPerformed
+
+    private void encCoFiAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" encrypt a b in fout");
+    }//GEN-LAST:event_encCoFiAffineActionPerformed
+
+    private void encCoFiVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" encrypt key in fout");
+    }//GEN-LAST:event_encCoFiVigenereActionPerformed
+
+    private void encCoFiHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" encrypt key in fout");
+    }//GEN-LAST:event_encCoFiHillActionPerformed
+
+    private void encCoFiSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" encrypt key in fout");
+    }//GEN-LAST:event_encCoFiSubstitutionActionPerformed
+
+    private void encCoFiRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" encrypt n e in fout");
+    }//GEN-LAST:event_encCoFiRSAActionPerformed
+
+    private void encCoFiDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" encrypt key in fout");
+    }//GEN-LAST:event_encCoFiDESActionPerformed
+
+    private void encCoCoCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" encrypt offset in");
+    }//GEN-LAST:event_encCoCoCaesarActionPerformed
+
+    private void encCoCoAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" encrypt a b in");
+    }//GEN-LAST:event_encCoCoAffineActionPerformed
+
+    private void encCoCoSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" encrypt key in");
+    }//GEN-LAST:event_encCoCoSubstitutionActionPerformed
+
+    private void encCoCoVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" encrypt key in");
+    }//GEN-LAST:event_encCoCoVigenereActionPerformed
+
+    private void encCoCoHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" encrypt key in");
+    }//GEN-LAST:event_encCoCoHillActionPerformed
+
+    private void encCoCoRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" encrypt n e in");
+    }//GEN-LAST:event_encCoCoRSAActionPerformed
+
+    private void encCoCoDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" encrypt key in");
+    }//GEN-LAST:event_encCoCoDESActionPerformed
+
+    private void decCoCoCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" decrypt offset in");
+    }//GEN-LAST:event_decCoCoCaesarActionPerformed
+
+    private void decCoCoAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" decrypt a b in");
+    }//GEN-LAST:event_decCoCoAffineActionPerformed
+
+    private void decCoCoSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" decrypt key in");
+    }//GEN-LAST:event_decCoCoSubstitutionActionPerformed
+
+    private void decCoCoVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" decrypt key in");
+    }//GEN-LAST:event_decCoCoVigenereActionPerformed
+
+    private void decCoCoHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" decrypt key in");
+    }//GEN-LAST:event_decCoCoHillActionPerformed
+
+    private void decCoCoRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" decrypt p q e in");
+    }//GEN-LAST:event_decCoCoRSAActionPerformed
+
+    private void decCoCoDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" decrypt key in");
+    }//GEN-LAST:event_decCoCoDESActionPerformed
+
+    private void decCoFiCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" decrypt offset in fout");
+    }//GEN-LAST:event_decCoFiCaesarActionPerformed
+
+    private void decCoFiAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" decrypt a b in fout");
+    }//GEN-LAST:event_decCoFiAffineActionPerformed
+
+    private void decCoFiSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" decrypt key in fout");
+    }//GEN-LAST:event_decCoFiSubstitutionActionPerformed
+
+    private void decCoFiHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" decrypt key in fout");
+    }//GEN-LAST:event_decCoFiHillActionPerformed
+
+    private void decCoFiVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" decrypt key in fout");
+    }//GEN-LAST:event_decCoFiVigenereActionPerformed
+
+    private void decCoFiRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" decrypt p q e in fout");
+    }//GEN-LAST:event_decCoFiRSAActionPerformed
+
+    private void decCoFiDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" decrypt key in fout");
+    }//GEN-LAST:event_decCoFiDESActionPerformed
+
+    private void decFiCoCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" decrypt offset fin");
+    }//GEN-LAST:event_decFiCoCaesarActionPerformed
+
+    private void decFiCoAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" decrypt a b fin");
+    }//GEN-LAST:event_decFiCoAffineActionPerformed
+
+    private void decFiCoSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" decrypt key fin");
+    }//GEN-LAST:event_decFiCoSubstitutionActionPerformed
+
+    private void decFiCoVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" decrypt key fin");
+    }//GEN-LAST:event_decFiCoVigenereActionPerformed
+
+    private void encFiCoVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" encrypt key fin");
+    }//GEN-LAST:event_encFiCoVigenereActionPerformed
+
+    private void decFiCoHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" decrypt key fin");
+    }//GEN-LAST:event_decFiCoHillActionPerformed
+
+    private void decFiCoRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" decrypt p q e fin");
+    }//GEN-LAST:event_decFiCoRSAActionPerformed
+
+    private void decFiCoDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" decrypt key fin");
+    }//GEN-LAST:event_decFiCoDESActionPerformed
+
+    private void decFiFiCaesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiCaesarActionPerformed
+        tfCommand.setText(CaesarProgram.CMD_CAESAR+" decrypt offset fin fout");
+    }//GEN-LAST:event_decFiFiCaesarActionPerformed
+
+    private void decFiFiAffineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiAffineActionPerformed
+        tfCommand.setText(AffineProgram.CMD_AFFINE+" decrypt a b fin fout");
+    }//GEN-LAST:event_decFiFiAffineActionPerformed
+
+    private void decFiFiSubstitutionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiSubstitutionActionPerformed
+        tfCommand.setText(SubstitutionProgram.CMD_SUBSTITUTION+" decrypt key fin fout");
+    }//GEN-LAST:event_decFiFiSubstitutionActionPerformed
+
+    private void decFiFiVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiVigenereActionPerformed
+        tfCommand.setText(VigenereProgram.CMD_VIGENERE+" decrypt key fin fout");
+    }//GEN-LAST:event_decFiFiVigenereActionPerformed
+
+    private void decFiFiHillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiHillActionPerformed
+        tfCommand.setText(HillProgram.CMD_HILL+" decrypt key fin fout");
+    }//GEN-LAST:event_decFiFiHillActionPerformed
+
+    private void decFiFiRSAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiRSAActionPerformed
+        tfCommand.setText(RSAProgram.CMD_RSA+" decrypt p q e fin fout");
+    }//GEN-LAST:event_decFiFiRSAActionPerformed
+
+    private void decFiFiDESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiDESActionPerformed
+        tfCommand.setText(DESProgram.CMD_DES+" decrypt key fin fout");
+    }//GEN-LAST:event_decFiFiDESActionPerformed
+
+    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_menuItemExitActionPerformed
+
+    private void encTwoTwoVCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encTwoTwoVCSActionPerformed
+        tfCommand.setText(TwoTwoProgram.CMD_TWO+" encrypt secret");
+    }//GEN-LAST:event_encTwoTwoVCSActionPerformed
+
+    private void encThreeThreeVCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encThreeThreeVCSActionPerformed
+        tfCommand.setText(ThreeThreeProgram.CMD_THREE+" encrypt secret");
+    }//GEN-LAST:event_encThreeThreeVCSActionPerformed
+
+    private void decTwoTwoVCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decTwoTwoVCSActionPerformed
+        tfCommand.setText(TwoTwoProgram.CMD_TWO+" decrypt share1 share2");
+    }//GEN-LAST:event_decTwoTwoVCSActionPerformed
+
+    private void decThreeThreeVCSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decThreeThreeVCSActionPerformed
+        tfCommand.setText(ThreeThreeProgram.CMD_THREE+" decrypt share1 share2 share3");
+    }//GEN-LAST:event_decThreeThreeVCSActionPerformed
+
+    private void menuItemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClearActionPerformed
+        tfCommand.setText(ClearProgram.CMD_CLEAR);
+    }//GEN-LAST:event_menuItemClearActionPerformed
 
     Environment env;
     StandardConsole stdout;
@@ -301,36 +1098,94 @@ public class Crypto extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane areaOutput;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bExec;
+    private javax.swing.JMenuItem decCoCoAffine;
+    private javax.swing.JMenuItem decCoCoCaesar;
+    private javax.swing.JMenuItem decCoCoDES;
+    private javax.swing.JMenuItem decCoCoHill;
+    private javax.swing.JMenuItem decCoCoRSA;
+    private javax.swing.JMenuItem decCoCoSubstitution;
+    private javax.swing.JMenuItem decCoCoVigenere;
+    private javax.swing.JMenuItem decCoFiAffine;
+    private javax.swing.JMenuItem decCoFiCaesar;
+    private javax.swing.JMenuItem decCoFiDES;
+    private javax.swing.JMenuItem decCoFiHill;
+    private javax.swing.JMenuItem decCoFiRSA;
+    private javax.swing.JMenuItem decCoFiSubstitution;
+    private javax.swing.JMenuItem decCoFiVigenere;
+    private javax.swing.JMenuItem decFiCoAffine;
+    private javax.swing.JMenuItem decFiCoCaesar;
+    private javax.swing.JMenuItem decFiCoDES;
+    private javax.swing.JMenuItem decFiCoHill;
+    private javax.swing.JMenuItem decFiCoRSA;
+    private javax.swing.JMenuItem decFiCoSubstitution;
+    private javax.swing.JMenuItem decFiCoVigenere;
+    private javax.swing.JMenuItem decFiFiAffine;
+    private javax.swing.JMenuItem decFiFiCaesar;
+    private javax.swing.JMenuItem decFiFiDES;
+    private javax.swing.JMenuItem decFiFiHill;
+    private javax.swing.JMenuItem decFiFiRSA;
+    private javax.swing.JMenuItem decFiFiSubstitution;
+    private javax.swing.JMenuItem decFiFiVigenere;
+    private javax.swing.JMenuItem decThreeThreeVCS;
+    private javax.swing.JMenuItem decTwoTwoVCS;
+    private javax.swing.JMenuItem encCoCoAffine;
+    private javax.swing.JMenuItem encCoCoCaesar;
+    private javax.swing.JMenuItem encCoCoDES;
+    private javax.swing.JMenuItem encCoCoHill;
+    private javax.swing.JMenuItem encCoCoRSA;
+    private javax.swing.JMenuItem encCoCoSubstitution;
+    private javax.swing.JMenuItem encCoCoVigenere;
+    private javax.swing.JMenuItem encCoFiAffine;
+    private javax.swing.JMenuItem encCoFiCaesar;
+    private javax.swing.JMenuItem encCoFiDES;
+    private javax.swing.JMenuItem encCoFiHill;
+    private javax.swing.JMenuItem encCoFiRSA;
+    private javax.swing.JMenuItem encCoFiSubstitution;
+    private javax.swing.JMenuItem encCoFiVigenere;
+    private javax.swing.JMenuItem encFiCoAffine;
+    private javax.swing.JMenuItem encFiCoCaesar;
+    private javax.swing.JMenuItem encFiCoDES;
+    private javax.swing.JMenuItem encFiCoHill;
+    private javax.swing.JMenuItem encFiCoRSA;
+    private javax.swing.JMenuItem encFiCoSubstitution;
+    private javax.swing.JMenuItem encFiCoVigenere;
+    private javax.swing.JMenuItem encFiFiAffine;
+    private javax.swing.JMenuItem encFiFiCaesar;
+    private javax.swing.JMenuItem encFiFiDES;
+    private javax.swing.JMenuItem encFiFiHill;
+    private javax.swing.JMenuItem encFiFiRSA;
+    private javax.swing.JMenuItem encFiFiSubstitution;
+    private javax.swing.JMenuItem encFiFiVigenere;
+    private javax.swing.JMenuItem encThreeThreeVCS;
+    private javax.swing.JMenuItem encTwoTwoVCS;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenu jMenuUnknown;
+    private javax.swing.JMenu jMenuUnknown1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     public javax.swing.JPanel mainPanel;
     public javax.swing.JMenuBar menuBar;
-    public javax.swing.JMenu menuCommands;
-    public javax.swing.JMenu menuCryptoanalisys;
+    private javax.swing.JMenu menuCryptoanalysis;
+    public javax.swing.JMenu menuCryptosystems;
     private javax.swing.JMenu menuDecrypt;
     public javax.swing.JMenu menuFile;
     public javax.swing.JMenu menuHelp;
     private javax.swing.JMenuItem menuItemClear;
-    public javax.swing.JMenuItem menuItemDecryptAffine;
-    public javax.swing.JMenuItem menuItemDecryptCaesar;
-    public javax.swing.JMenuItem menuItemDecryptHill;
-    public javax.swing.JMenuItem menuItemDecryptRSA;
-    public javax.swing.JMenuItem menuItemDecryptSubstitution;
-    public javax.swing.JMenuItem menuItemDecryptVigenere;
     private javax.swing.JMenu menuItemEncrypt;
-    public javax.swing.JMenuItem menuItemEncryptAffine;
-    public javax.swing.JMenuItem menuItemEncryptCaesar;
-    public javax.swing.JMenuItem menuItemEncryptHill;
-    public javax.swing.JMenuItem menuItemEncryptRSA;
-    public javax.swing.JMenuItem menuItemEncryptSubstitution;
-    public javax.swing.JMenuItem menuItemEncryptVigenere;
     private javax.swing.JMenuItem menuItemExecute;
-    private javax.swing.JMenuItem menuItemExecuteFromFile;
     private javax.swing.JMenuItem menuItemExit;
     public javax.swing.JMenuItem menuItemHelp;
-    private javax.swing.JMenuItem menuItemSave;
     private javax.swing.JTextField tfCommand;
+    private javax.swing.JMenu unknownMenu;
     // End of variables declaration//GEN-END:variables
 }

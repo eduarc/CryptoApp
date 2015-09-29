@@ -92,19 +92,17 @@ public abstract class CryptosystemProgram extends Program {
     
     public int postProcess(Param[] params) {
         
-        /*stdout.appendln("\n--- INPUT ---\n");
-        if (ParamUtils.contains(params, P_INPUT)) {
-            stdout.appendln(input);
+        if (input != null && ParamUtils.contains(params, P_INPUT)) {
+            //stdout.appendln(input);
         }
         else if (ParamUtils.contains(params, P_IMAGE_INPUT)) {
             
         }
         else if (ParamUtils.contains(params, P_FILE_INPUT)) {
-            stdout.appendln("File: "+inputFile.getAbsolutePath());
+            //stdout.appendln("Input:  "+inputFile.getAbsolutePath());
         }
-        stdout.appendln("\n--- OUTPUT ---\n");*/
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
-            stdout.appendln("Output: "+outputFile.getAbsolutePath());
+            //stdout.appendln("Output: "+outputFile.getAbsolutePath());
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {

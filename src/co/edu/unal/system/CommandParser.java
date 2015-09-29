@@ -132,10 +132,6 @@ public class CommandParser {
                 res += '\"';
                 i++;
             }
-            else if (i+1 < v.length() && c == '\\' && v.charAt(i+1) == '\'') {
-                res += '\'';
-                i++;
-            }
             else {
                 res += v.charAt(i);
             }

@@ -61,7 +61,7 @@ public class HillProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>key parameter 'key' not defined</font>");
+            stdout.appendln("<font color='red'>Parameter 'key' not provided</font>");
             return false;
         }
         return true;

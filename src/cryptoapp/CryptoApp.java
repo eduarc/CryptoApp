@@ -6,6 +6,7 @@
 package cryptoapp;
 
 import cryptoapp.view.Crypto;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,6 +20,7 @@ public class CryptoApp {
     public static void main(String[] args) {
         // TODO code application logic here
         Crypto f = new Crypto();
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
         f.setVisible(true);
     }
     

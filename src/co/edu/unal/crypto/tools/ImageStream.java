@@ -14,13 +14,28 @@ import javax.imageio.ImageIO;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class ImageCharStream {
+public class ImageStream {
 
-    public static char[] read(String imgPath) {
+    public static BufferedImage readImage(String imgPath) {
+        
+        File imgFile = new File(imgPath);
+        if (!imgFile.exists()) {
+            throw new IllegalArgumentException("Image File doesn't exists: "+imgFile.getPath());
+        }
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(imgFile);
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error while reading the image");
+        }
+        return image;
+    }
+    
+    public static char[] toCharArray(String imgPath) {
 
         File imgFile = new File(imgPath);
         if (!imgFile.exists()) {
-            throw new IllegalArgumentException("Image File doesn't exists");
+            throw new IllegalArgumentException("Image File doesn't exists: "+imgFile.getPath());
         }
         BufferedImage image = null;
         try {
@@ -34,7 +49,7 @@ public class ImageCharStream {
         int w = image.getWidth();
         int h = image.getHeight();
         char[] output = new char[w * h + 8];
-
+        
         for (int i = 0; i < 4; i++) {
             output[i] += (w >> (8 * i)) & 0xFF;
         }
@@ -68,17 +83,4 @@ public class ImageCharStream {
         return image;
     }
 
-    /*public static void main(String args[]) {
-
-        char[] code = ImageCharStream.read("/Users/eduarc/gray.bmp");
-        String s = new String(code);
-
-        JFrame f = new JFrame("Test Image");
-        JLabel l = new JLabel();
-        l.setIcon(new ImageIcon(ImageCharStream.write(code)));
-        f.add(l);
-        f.pack();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
-    }*/
 }

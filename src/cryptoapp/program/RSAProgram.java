@@ -52,15 +52,15 @@ public class RSAProgram extends CryptosystemProgram {
             BigInteger[] rsaOutput = null;
             try {
                 rsaOutput = cipher.encrypt(key, input);
-            } catch (IllegalArgumentException ex) {
-                stdout.appendln("<font color='red'>"+ex.getMessage()+"</font>");
+            } catch (Exception ex) {
+                stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
                 return -1;
             }
             String result = "";
             for (BigInteger bi : rsaOutput) {
                 result += bi.toString(16)+" ";
             }
-            stdout.appendln(result);
+            output = CharStream.fromString(result);
         }
         else {
             for (Param p : params) {
@@ -105,22 +105,22 @@ public class RSAProgram extends CryptosystemProgram {
         
         if (ParamUtils.contains(params, P_ENCRYPT)) {
             if (!ParamUtils.contains(params, P_N)) {
-                stdout.appendln("<font color='red'>key parameter 'n' not defined</font>");
+                stdout.appendln("<font color='red'>key parameter 'n' not provided</font>");
                 return false;
             }
         }
         else {
             if (!ParamUtils.contains(params, P_P)) {
-                stdout.appendln("<font color='red'>key parameter 'p' not defined</font>");
+                stdout.appendln("<font color='red'>key parameter 'p' not provided</font>");
                 return false;
             }
             if (!ParamUtils.contains(params, P_Q)) {
-                stdout.appendln("<font color='red'>key parameter 'q' not defined</font>");
+                stdout.appendln("<font color='red'>key parameter 'q' not provided</font>");
                 return false;
             }
         }
         if (!ParamUtils.contains(params, P_E)) {
-            stdout.appendln("<font color='red'>key parameter 'e' not defined</font>");
+            stdout.appendln("<font color='red'>key parameter 'e' not provided</font>");
             return false;
         }
         return true;

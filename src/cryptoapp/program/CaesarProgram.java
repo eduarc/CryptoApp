@@ -29,7 +29,7 @@ public class CaesarProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_OFFSET)) {
-            stdout.appendln("<font color='red'>No offset (key) provided</font>");
+            stdout.appendln("<font color='red'>No key parameter 'offset' provided</font>");
             return false;
         }
         return true;
