@@ -1,7 +1,7 @@
 package cryptoapp.crack;
 
 import co.edu.unal.crypto.alphabet.ASCII;
-import co.edu.unal.crypto.analizer.CryptoAnalyzer;
+import co.edu.unal.crypto.analyzer.CryptoAnalyzer;
 import co.edu.unal.crypto.cryptosystem.RSA;
 import co.edu.unal.crypto.tools.PollardsRho;
 import java.math.BigInteger;

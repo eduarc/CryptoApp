@@ -1,7 +1,7 @@
 package cryptoapp.crack;
 
 import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
-import co.edu.unal.crypto.analizer.CryptoAnalyzer;
+import co.edu.unal.crypto.analyzer.CryptoAnalyzer;
 import co.edu.unal.crypto.cryptosystem.Caesar;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.crypto.tools.LowerCaseEnglishDict;

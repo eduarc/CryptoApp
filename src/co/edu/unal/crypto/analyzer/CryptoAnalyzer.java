@@ -1,4 +1,4 @@
-package co.edu.unal.crypto.analizer;
+package co.edu.unal.crypto.analyzer;
 
 /**
  *
