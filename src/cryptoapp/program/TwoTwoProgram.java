@@ -39,10 +39,10 @@ public class TwoTwoProgram extends VCSProgram {
             Image[] shares = new BufferedImage[2];
             for (Param p : params) {
                 if (p.getName().equals(P_SHARE1)) {
-                    shares[0] = (BufferedImage) getInput("Select Share 1", p);
+                    shares[0] = getInput("Select Share 1", p);
                 }
                 else if (p.getName().equals(P_SHARE2)) {
-                    shares[1] = (BufferedImage) getInput("Select Share 2", p);
+                    shares[1] = getInput("Select Share 2", p);
                 }
                 if (exit) {
                     return -1;
