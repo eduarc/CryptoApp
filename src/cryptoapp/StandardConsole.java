@@ -32,7 +32,7 @@ public class StandardConsole implements TextConsole {
     }
     
     @Override
-    public void append(Character[] data) {
+    public synchronized void append(Character[] data) {
         
         String s = "";
         try {
@@ -47,13 +47,14 @@ public class StandardConsole implements TextConsole {
     }
     
     @Override
-    public void append(String s) {
+    public synchronized void append(String s) {
         
         try {
             kit.insertHTML(doc, doc.getLength(), s, 0, 0, null);
         } catch (IOException | BadLocationException ex) {
             JOptionPane.showMessageDialog(output, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        output.repaint();
     }
 
     @Override

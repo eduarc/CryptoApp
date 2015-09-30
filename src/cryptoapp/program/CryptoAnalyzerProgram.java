@@ -91,7 +91,7 @@ public class CryptoAnalyzerProgram extends Program {
                 
             }
             if (exit) {
-                return 0;
+                return -1;
             }
         }
         
@@ -153,6 +153,7 @@ public class CryptoAnalyzerProgram extends Program {
                     e = getBigInt(param);
                 }
             }
+            
             List<BigInteger> rsaInput = new ArrayList<>();
             StringTokenizer tokenizer = new StringTokenizer(CharStream.toString(input), " ");
             while (tokenizer.hasMoreTokens()) {
@@ -172,11 +173,19 @@ public class CryptoAnalyzerProgram extends Program {
         }
         else if (ParamUtils.contains(params, P_CAESAR)) {
             CaesarAnalyzer cracker = new CaesarAnalyzer();
-            output = cracker.analyze(input);
+            try {
+                output = cracker.analyze(input);
+            } catch (Exception ex) {
+                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+            }
         }
         else if (ParamUtils.contains(params, P_AFFINE)) {
             AffineAnalyzer cracker = new AffineAnalyzer();
-            output = cracker.analyze(input);
+            try {
+                output = cracker.analyze(input);
+            } catch (Exception ex) {
+                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+            }
         }
         
         ret = postProcess(params);

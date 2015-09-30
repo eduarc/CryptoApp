@@ -20,8 +20,8 @@ public class AffineAnalyzer implements CryptoAnalyzer<Character, Character> {
         Affine<Character> cipher = new Affine(LowerCaseEnglish.defaultInstance);
         Character[] guess = null;
         for (int a = 0; a < 26; a++) {
-            for (int b = 0; b < 26; b++) {
-                if (Arithmetic.areCoprimes(a, 26)) {
+            if (Arithmetic.areCoprimes(a, 26)) {
+                for (int b = 0; b < 26; b++) {
                     guess = cipher.decrypt(new Pair<>(a, b), secret);
                     if (LowerCaseEnglishDict.check(CharStream.toString(guess))) {
                         return guess;
