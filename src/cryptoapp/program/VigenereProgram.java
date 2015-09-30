@@ -45,7 +45,7 @@ public class VigenereProgram extends CryptosystemProgram {
                 output = (Character[]) cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         }
         return 0;
@@ -55,7 +55,7 @@ public class VigenereProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>Key phrase not defined</font>");
+            stdout.error("Parameter 'key' not provided");
             return false;
         }
         return true;

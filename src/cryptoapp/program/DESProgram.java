@@ -55,7 +55,7 @@ public class DESProgram extends CryptosystemProgram {
                     try {
                         desInput.add(Long.parseUnsignedLong(tokenizer.nextToken(), 16));
                     } catch(NumberFormatException ex) {
-                        stdout.appendln("<font color='red'>Bad Input. "+ex.getMessage()+"</font>");
+                        stdout.error("Bad Input. "+ex.getMessage());
                         return -1;
                     }
                 }
@@ -63,7 +63,7 @@ public class DESProgram extends CryptosystemProgram {
                 output = toCharArray(desOutput);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         } 
         return 0;
@@ -73,7 +73,7 @@ public class DESProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>Parameter 'key' not provided</font>");
+            stdout.error("Parameter 'key' not provided");
             return false;
         }
         return true;
@@ -81,7 +81,7 @@ public class DESProgram extends CryptosystemProgram {
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return CMD_DES;
     }
     
     private void getKey(Param p) {
@@ -97,7 +97,7 @@ public class DESProgram extends CryptosystemProgram {
         try {
             key = Long.parseUnsignedLong(strN, 16);
         } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key value: "+strN+"</font>");
+            stdout.error("Invalid key value: "+strN);
             exit = true;
         }
     }

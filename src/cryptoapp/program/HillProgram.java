@@ -51,7 +51,7 @@ public class HillProgram extends CryptosystemProgram {
                 output = cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         }
         return 0;
@@ -61,7 +61,7 @@ public class HillProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>Parameter 'key' not provided</font>");
+            stdout.error("Parameter 'key' not provided");
             return false;
         }
         return true;
@@ -90,14 +90,14 @@ public class HillProgram extends CryptosystemProgram {
                 double v = Double.parseDouble(tokenizer.nextToken());
                 values.add(v);
             } catch (NumberFormatException ex) {
-                stdout.appendln("<font color='red'>Bad matrix value. "+ex.getMessage()+"</font>");
+                stdout.error("Bad matrix value. "+ex.getMessage());
                 exit = true;
                 return;
             }
         }
         int sq = (int) Math.sqrt(values.size());
         if (sq*sq != values.size()) {
-            stdout.appendln("<font color='red'>Bad key. The key must be an square invertible matrix modulo 26");
+            stdout.error("Bad key. The key must be an square invertible matrix modulo 26");
             exit = true;
             return;
         }

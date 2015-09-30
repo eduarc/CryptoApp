@@ -23,7 +23,7 @@ public class ClearProgram extends Program {
         
         StandardConsole stdout = (StandardConsole) getEnv().getResource(Environment.STDOUT);
         if (params.length > 1) {
-            stdout.appendln("Error: Invalid paramaters");
+            stdout.error("Unknown paramaters");
             return -1;
         }
         stdout.clear();

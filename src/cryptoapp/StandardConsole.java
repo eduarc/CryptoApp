@@ -31,6 +31,18 @@ public class StandardConsole implements TextConsole {
         output.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
     }
     
+    public void info(String msg) {
+        appendln("<font color='cyan'>"+msg+"</font>");
+    }
+    
+    public void warning(String msg) {
+        appendln("<font color='orange'>"+msg+"</font>");
+    }
+    
+    public void error(String msg) {
+        appendln("<font color='red'>"+msg+"</font>");
+    }
+    
     @Override
     public void append(Character[] data) {
         

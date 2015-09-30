@@ -43,7 +43,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
                 output = cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         }
         return 0;
@@ -53,7 +53,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.appendln("<font color='red'>Key Permutation not defined</font>");
+            stdout.error("Parameter 'key' not provided");
             return false;
         }
         return true;
@@ -80,7 +80,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
             try {
                 key.set(c, strKey.charAt(c-'a'));
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Invalid Substitution key: Bad format</font>");
+                stdout.error("Invalid Substitution key: Bad format");
                 exit = true;
                 return;
             }

@@ -1,12 +1,10 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.ASCII;
 import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Caesar;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
 import co.edu.unal.system.ParamUtils;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,7 +28,7 @@ public class CaesarProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_OFFSET)) {
-            stdout.appendln("<font color='red'>No key parameter 'offset' provided</font>");
+            stdout.error("Key parameter 'offset' not provided");
             return false;
         }
         return true;
@@ -42,7 +40,7 @@ public class CaesarProgram extends CryptosystemProgram {
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_OFFSET)) {
-                getOffset(param);
+                offset = getInt(param);
             }
             if (exit) {
                 return -1;
@@ -56,7 +54,7 @@ public class CaesarProgram extends CryptosystemProgram {
                 output = cipher.decrypt(offset, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         }
         return 0;
@@ -65,23 +63,5 @@ public class CaesarProgram extends CryptosystemProgram {
     @Override
     public String getName() {
         return CMD_CAESAR;
-    }
-
-    private void getOffset(Param p) {
-        
-        String strOffset = p.getValue();
-        if (strOffset == null) {
-            strOffset = JOptionPane.showInputDialog(frame, "Offset");
-        }
-        if (strOffset == null) {
-            exit = true;
-            return;
-        }
-        try {
-            offset = Integer.parseInt(strOffset);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid offset value: "+strOffset+"</font>");
-            exit = true;
-        }
     }
 }

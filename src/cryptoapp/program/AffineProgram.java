@@ -1,13 +1,11 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.ASCII;
 import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Affine;
 import co.edu.unal.crypto.types.Pair;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
 import co.edu.unal.system.ParamUtils;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,10 +32,10 @@ public class AffineProgram extends CryptosystemProgram {
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_A)) {
-                getA(param);
+                key.first = getInt(param);
             }
             else if (name.equals(P_B)) {
-                getB(param);
+                key.second = getInt(param);
             }
             if (exit) {
                 return -1;
@@ -51,7 +49,7 @@ public class AffineProgram extends CryptosystemProgram {
                 output = cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
-            stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+            stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
         }
         return 0;
@@ -61,11 +59,11 @@ public class AffineProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_A)) {
-            stdout.appendln("<font color='red'>Key Parameter 'a' not especified</font>");
+            stdout.error("Key Parameter 'a' not provided");
             return false;
         }
         if (!ParamUtils.contains(params, P_B)) {
-            stdout.appendln("<font color='red'>Key parameter 'b' not especified</font>");
+            stdout.error("Key parameter 'b' not provided");
             return false;
         }
         return true;
@@ -74,42 +72,5 @@ public class AffineProgram extends CryptosystemProgram {
     @Override
     public String getName() {
         return CMD_AFFINE;
-    }
-    
-    
-    private void getA(Param p) {
-        
-        String strA = p.getValue();
-        if (strA == null) {
-            strA = JOptionPane.showInputDialog(frame, "Key parameter A");
-        }
-        if (strA == null) {
-            exit = true;
-            return;
-        }
-        try {
-            key.first = Integer.parseInt(strA);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter 'a': "+strA+"</font>");
-            exit = true;
-        }
-    }
-    
-    private void getB(Param p) {
-        
-        String strB = p.getValue();
-        if (strB == null) {
-            strB = JOptionPane.showInputDialog(frame, "Key parameter B");
-        }
-        if (strB == null) {
-            exit = true;
-            return;
-        }
-        try {
-            key.second = Integer.parseInt(strB);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter 'b': "+strB+"</font>");
-            exit = true;
-        }
-    }
+    }    
 }

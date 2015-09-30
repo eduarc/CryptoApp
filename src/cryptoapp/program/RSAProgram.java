@@ -10,7 +10,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,10 +37,10 @@ public class RSAProgram extends CryptosystemProgram {
             for (Param p : params) {
                 String name = p.getName();
                 if (name.equals(P_N)) {
-                    getN(p);
+                    n = getBigInt(p);
                 }
                 else if (name.equals(P_E)) {
-                    getE(p);
+                    e = getBigInt(p);
                 }
                 if (exit) {
                     return -1;
@@ -53,7 +52,7 @@ public class RSAProgram extends CryptosystemProgram {
             try {
                 rsaOutput = cipher.encrypt(key, input);
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+                stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
                 return -1;
             }
             String result = "";
@@ -63,16 +62,16 @@ public class RSAProgram extends CryptosystemProgram {
             output = CharStream.fromString(result);
         }
         else {
-            for (Param p : params) {
-                String name = p.getName();
+            for (Param param : params) {
+                String name = param.getName();
                 if (name.equals(P_P)) {
-                    getP(p);
+                    p = getBigInt(param);
                 }
                 else if (name.equals(P_Q)) {
-                    getQ(p);
+                    q = getBigInt(param);
                 }
                 else if (name.equals(P_E)) {
-                    getE(p);
+                    e = getBigInt(param);
                 }
                 if (exit) {
                     return -1;
@@ -84,7 +83,7 @@ public class RSAProgram extends CryptosystemProgram {
                 try {
                     rsaInput.add(new BigInteger(tokenizer.nextToken(), 16));
                 } catch(NumberFormatException ex) {
-                    stdout.appendln("<font color='red'>Bad Input. "+ex.getMessage()+"</font>");
+                    stdout.error("Bad Input. "+ex.getMessage());
                     return -1;
                 }
             }
@@ -93,7 +92,7 @@ public class RSAProgram extends CryptosystemProgram {
             try {
                 output = cipher.decrypt(key, rsaInput.toArray(new BigInteger[]{}));
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Error while encrypting/decrypting. "+ex.getMessage()+"</font>");
+                stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
                 return -1;
             }
         }
@@ -105,22 +104,22 @@ public class RSAProgram extends CryptosystemProgram {
         
         if (ParamUtils.contains(params, P_ENCRYPT)) {
             if (!ParamUtils.contains(params, P_N)) {
-                stdout.appendln("<font color='red'>key parameter 'n' not provided</font>");
+                stdout.error("Key parameter 'n' not provided");
                 return false;
             }
         }
         else {
             if (!ParamUtils.contains(params, P_P)) {
-                stdout.appendln("<font color='red'>key parameter 'p' not provided</font>");
+                stdout.error("Key parameter 'p' not provided");
                 return false;
             }
             if (!ParamUtils.contains(params, P_Q)) {
-                stdout.appendln("<font color='red'>key parameter 'q' not provided</font>");
+                stdout.error("Key parameter 'q' not provided");
                 return false;
             }
         }
         if (!ParamUtils.contains(params, P_E)) {
-            stdout.appendln("<font color='red'>key parameter 'e' not provided</font>");
+            stdout.error("Key parameter 'e' not provided");
             return false;
         }
         return true;
@@ -129,78 +128,5 @@ public class RSAProgram extends CryptosystemProgram {
     @Override
     public String getName() {
         return CMD_RSA;
-    }
-
-    private void getN(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Key parameter N");
-        }
-        if (strN == null) {
-            exit = true;
-            return;
-        }
-        try {
-            n = new BigInteger(strN);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'n\': "+strN+"</font>");
-            exit = true;
-        }
-    }
-
-    private void getE(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Key parameter E");
-        }
-        if (strN == null) {
-            exit = true;
-            return;
-        }
-        try {
-            e = new BigInteger(strN);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'e\': "+strN+"</font>");
-            exit = true;
-        }
-    }
-
-    private void getP(Param param) {
-        
-        String strN = param.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Key parameter P");
-        }
-        if (strN == null) {
-            exit = true;
-            return;
-        }
-        try {
-            p = new BigInteger(strN);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'p\': "+strN+"</font>");
-            exit = true;
-        }
-    }
-
-    private void getQ(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Key parameter Q");
-        }
-        if (strN == null) {
-            exit = true;
-            return;
-        }
-        try {
-            q = new BigInteger(strN);
-        } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid key parameter \'q\': "+strN+"</font>");
-            exit = true;
-        }
-    }
-    
+    }    
 }

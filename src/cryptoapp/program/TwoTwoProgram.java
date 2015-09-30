@@ -64,11 +64,11 @@ public class TwoTwoProgram extends VCSProgram {
 
         if (ParamUtils.contains(params, P_DECRYPT)) {
             if (!ParamUtils.contains(params, P_SHARE1)) {
-                stdout.appendln("<font color='red'>Parameter 'share1' not provided.</font>");
+                stdout.error("Parameter 'share1' not provided");
                 return false;
             }
             if (!ParamUtils.contains(params, P_SHARE2)) {
-                stdout.appendln("<font color='red'>Parameter 'share2' not provided.</font>");
+                stdout.error("Parameter 'share2' not provided");
                 return false;
             }
         }

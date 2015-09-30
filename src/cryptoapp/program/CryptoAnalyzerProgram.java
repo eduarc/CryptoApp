@@ -60,23 +60,23 @@ public class CryptoAnalyzerProgram extends Program {
         
         String[] algos = {P_RSA, P_CAESAR, P_AFFINE};
         if (!ParamUtils.containsOne(params, algos)) {
-            stdout.appendln("<font color='red'>Any or multiple target algorithm(s) provided</font>");
+            stdout.error("Any or multiple target algorithm(s) provided");
             return -1;
         }
         String[] sourceInput = {P_INPUT, P_FILE_INPUT, P_IMAGE_INPUT};
         if (!ParamUtils.containsOne(params, sourceInput)) {
-            stdout.appendln("<font color='red'>Any or multiple input(s) provided.</font>");
+            stdout.error("Any or multiple input(s) provided");
             return -1;
         }
         String[] destOutput = {P_FILE_OUTPUT, P_IMAGE_OUTPUT, P_OUTPUT};
         if (!ParamUtils.containsMax(params, destOutput, 1)) {
-            stdout.appendln("<font color='red'>multiple output(s) provided.</font>");
+            stdout.error("Multiple output(s) provided");
             return -1;
         }
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_INPUT)) {
-                getInput(param);
+                getString(param);
             }
             else if (name.equals(P_FILE_INPUT)) {
                 getInputFromFile(param);
@@ -97,11 +97,11 @@ public class CryptoAnalyzerProgram extends Program {
         
         if (ParamUtils.contains(params, P_RSA)) {
             if (!ParamUtils.contains(params, P_N)) {
-                stdout.appendln("<font color='red'>Parameter 'n' not provided.</font>");
+                stdout.error("Parameter 'n' not provided");
                 return -1;
             }
             if (!ParamUtils.contains(params, P_E)) {
-                stdout.appendln("<font color='red'>Parameter 'e' not provided.</font>");
+                stdout.error("Parameter 'e' not provided");
                 return -1;
             }
         }
@@ -124,7 +124,7 @@ public class CryptoAnalyzerProgram extends Program {
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
-                stdout.appendln("<font color='red'>Error while writing output to file: "+outputFile.getPath()+"</font>");
+                stdout.error("Error while writing output to file: "+outputFile.getPath());
             }
         }
         else if (ParamUtils.contains(params, P_IMAGE_OUTPUT)) {
@@ -160,7 +160,7 @@ public class CryptoAnalyzerProgram extends Program {
                 try {
                     rsaInput.add(new BigInteger(tokenizer.nextToken(), 16));
                 } catch(NumberFormatException ex) {
-                    stdout.appendln("<font color='red'>Bad Input. "+ex.getMessage()+"</font>");
+                    stdout.error("Bad Input. "+ex.getMessage());
                     return -1;
                 }
             }
@@ -168,7 +168,7 @@ public class CryptoAnalyzerProgram extends Program {
             try {
                 output = cracker.analyze(rsaInput.toArray(new BigInteger[]{}));
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+                stdout.error("Error while cracking. "+ex.getMessage());
             }
         }
         else if (ParamUtils.contains(params, P_CAESAR)) {
@@ -176,7 +176,7 @@ public class CryptoAnalyzerProgram extends Program {
             try {
                 output = cracker.analyze(input);
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+                stdout.error("Error while cracking. "+ex.getMessage());
             }
         }
         else if (ParamUtils.contains(params, P_AFFINE)) {
@@ -184,7 +184,7 @@ public class CryptoAnalyzerProgram extends Program {
             try {
                 output = cracker.analyze(input);
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'>Error while cracking. "+ex.getMessage()+"</font>");
+                stdout.error("Error while cracking. "+ex.getMessage());
             }
         }
         
@@ -211,13 +211,13 @@ public class CryptoAnalyzerProgram extends Program {
         try {
             value = new BigInteger(strValue);
         } catch(NumberFormatException ex) {
-            stdout.appendln("<font color='red'>Invalid parameter '"+p.getName()+"'. "+ex.getMessage()+"</font>");
+            stdout.error("Invalid parameter '"+p.getName()+"'. "+ex.getMessage());
             exit = true;
         }
         return value;
     }
     
-    protected void getInput(Param p) {
+    protected void getString(Param p) {
         
         String v = p.getValue();
         if (v == null) {
@@ -251,7 +251,7 @@ public class CryptoAnalyzerProgram extends Program {
         try {
             input = CharStream.fread(inputFile);
         } catch (IOException ex) {
-            stdout.appendln("<font color='red'>Error while reading the input file: "+inputFile.getPath()+"</font>");
+            stdout.error("Error while reading the input file: "+inputFile.getPath());
             exit = true;
         }
     }
@@ -267,7 +267,7 @@ public class CryptoAnalyzerProgram extends Program {
                 try {
                     outputFile.createNewFile();
                 } catch (IOException ex) {
-                    stdout.appendln("<font color='red'>Cannot create output file: "+outputFile.getPath()+"</font>");
+                    stdout.error("Cannot create output file: "+outputFile.getPath());
                     exit = true;
                 }
             }

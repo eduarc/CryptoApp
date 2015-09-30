@@ -39,13 +39,13 @@ public abstract class VCSProgram extends Program {
         String[] operation = {P_ENCRYPT, P_DECRYPT};
         
         if (!ParamUtils.containsOne(params, operation)) {
-            stdout.appendln("<font color='red'>Any or multiple encrypt/decrypt operation(s) provided</font>");
+            stdout.error("Any or multiple encrypt/decrypt operation(s) provided");
             return -1;
         }
 
         if (ParamUtils.contains(params, P_ENCRYPT)) {
             if (!ParamUtils.contains(params, P_SECRET)) {
-                stdout.appendln("<font color='red'>Parameter 'secret' not provided.</font>");
+                stdout.error("Parameter 'secret' not provided");
                 return -1;
             }
             for (Param param : params) {
@@ -100,7 +100,7 @@ public abstract class VCSProgram extends Program {
             try {
                 img = ImageStream.readImage(strImage);
             } catch (Exception ex) {
-                stdout.appendln("<font color='red'> Error while loading the image. "+ex.getMessage()+"</font>");
+                stdout.error("Error while loading the image. "+ex.getMessage());
                 exit = true;
             }
         }

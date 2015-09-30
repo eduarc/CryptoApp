@@ -10,7 +10,9 @@ import cryptoapp.view.StringInputDialog;
 import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,23 +52,23 @@ public abstract class CryptosystemProgram extends Program {
         String[] operation = {P_ENCRYPT, P_DECRYPT};
         
         if (!ParamUtils.containsOne(params, operation)) {
-            stdout.appendln("<font color='red'>Any or multiple encrypt/decrypt operation(s) provided</font>");
+            stdout.error("Any or multiple encrypt/decrypt operation(s) provided");
             return -1;
         }
         String[] sourceInput = {P_INPUT, P_FILE_INPUT, P_IMAGE_INPUT};
         if (!ParamUtils.containsOne(params, sourceInput)) {
-            stdout.appendln("<font color='red'>Any or multiple input(s) provided.</font>");
+            stdout.error("Any or multiple input(s) provided");
             return -1;
         }
         String[] destOutput = {P_FILE_OUTPUT, P_IMAGE_OUTPUT, P_OUTPUT};
         if (!ParamUtils.containsMax(params, destOutput, 1)) {
-            stdout.appendln("<font color='red'>multiple output(s) provided.</font>");
+            stdout.error("Multiple output(s) provided");
             return -1;
         }
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_INPUT)) {
-                getInput(param);
+                getString(param);
             }
             else if (name.equals(P_FILE_INPUT)) {
                 getInputFromFile(param);
@@ -106,7 +108,7 @@ public abstract class CryptosystemProgram extends Program {
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
-                stdout.appendln("<font color='red'>Error while writing output to file: "+outputFile.getPath()+"</font>");
+                stdout.error("Error while writing to the output file: "+outputFile.getPath());
             }
         }
         else if (ParamUtils.contains(params, P_IMAGE_OUTPUT)) {
@@ -136,7 +138,46 @@ public abstract class CryptosystemProgram extends Program {
     
     public abstract boolean checkParams(Param[] params);
     
-    protected void getInput(Param p) {
+    public BigInteger getBigInt(Param p) {
+        
+        String strValue = p.getValue();
+        if (strValue == null) {
+            strValue = JOptionPane.showInputDialog(frame, "Parameter "+p.getName());
+        }
+        if (strValue == null) {
+            exit = true;
+            return null;
+        }
+        BigInteger value = null;
+        try {
+            value = new BigInteger(strValue);
+        } catch(NumberFormatException ex) {
+            stdout.error("Invalid parameter '"+p.getName()+"'. "+ex.getMessage());
+            exit = true;
+        }
+        return value;
+    }
+    
+    public Integer getInt(Param p) {
+        
+        String strN = p.getValue();
+        if (strN == null) {
+            strN = JOptionPane.showInputDialog(frame, "Parameter "+p.getName());
+        }
+        if (strN == null) {
+            exit = true;
+            return null;
+        }
+        try {
+            return Integer.parseInt(strN);
+        } catch(NumberFormatException ex) {
+            stdout.error("Invalid value for parameter "+p.getName()+". "+ex.getMessage());
+            exit = true;
+        }
+        return null;
+    }
+    
+    protected void getString(Param p) {
         
         String v = p.getValue();
         if (v == null) {
@@ -170,7 +211,7 @@ public abstract class CryptosystemProgram extends Program {
         try {
             input = CharStream.fread(inputFile);
         } catch (IOException ex) {
-            stdout.appendln("<font color='red'>Error while reading the input file: "+inputFile.getPath()+"</font>");
+            stdout.error("Error while reading the input file: "+inputFile.getPath());
             exit = true;
         }
     }
@@ -186,7 +227,7 @@ public abstract class CryptosystemProgram extends Program {
                 try {
                     outputFile.createNewFile();
                 } catch (IOException ex) {
-                    stdout.appendln("<font color='red'>Cannot create output file: "+outputFile.getPath()+"</font>");
+                    stdout.error("Cannot create output file: "+outputFile.getPath());
                     exit = true;
                 }
             }
