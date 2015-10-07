@@ -1,6 +1,5 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.ASCII;
 import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
 import co.edu.unal.crypto.cryptosystem.Vigenere;
 import co.edu.unal.crypto.tools.CharStream;
@@ -37,11 +36,23 @@ public class VigenereProgram extends CryptosystemProgram {
                 return -1;
             }
         }
+        
+        stdout.info("Input:");
+        if (inputFile != null) {
+            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+        } else {
+            stdout.appendln(input);
+        }
+        stdout.info("Parameters:");
+        stdout.appendln(P_KEY+" = "+CharStream.toString(key));
+        
         Vigenere<Character> cipher = new Vigenere<>(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
+                stdout.info("Encrypting...");
                 output = (Character[]) cipher.encrypt(key, input);
             } else {
+                stdout.info("Decrypting...");
                 output = (Character[]) cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
@@ -55,7 +66,7 @@ public class VigenereProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.error("Parameter 'key' not provided");
+            stdout.error("Parameter "+P_KEY+" not provided");
             return false;
         }
         return true;

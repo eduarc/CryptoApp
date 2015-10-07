@@ -46,10 +46,22 @@ public class RSAProgram extends CryptosystemProgram {
                     return -1;
                 }
             }
+            
+            stdout.info("Input:");
+            if (inputFile != null) {
+                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            } else {
+                stdout.appendln(input);
+            }
+            stdout.info("Parameters:");
+            stdout.appendln(P_N+" = "+n);
+            stdout.appendln(P_E+" = "+e);
+            
             RSA.Key key = new RSA.Key(n, e);
             RSA<Character> cipher = new RSA(ASCII.defaultInstance);
             BigInteger[] rsaOutput = null;
             try {
+                stdout.info("Encrypting...");
                 rsaOutput = cipher.encrypt(key, input);
             } catch (Exception ex) {
                 stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
@@ -77,6 +89,18 @@ public class RSAProgram extends CryptosystemProgram {
                     return -1;
                 }
             }
+            
+            stdout.info("Input:");
+            if (inputFile != null) {
+                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            } else {
+                stdout.appendln(input);
+            }
+            stdout.info("Parameters:");
+            stdout.appendln(P_P+" = "+p);
+            stdout.appendln(P_Q+" = "+q);
+            stdout.appendln(P_E+" = "+e);
+            
             List<BigInteger> rsaInput = new ArrayList<>();
             StringTokenizer tokenizer = new StringTokenizer(CharStream.toString(input), " ");
             while (tokenizer.hasMoreTokens()) {
@@ -90,6 +114,7 @@ public class RSAProgram extends CryptosystemProgram {
             RSA.Key key = new RSA.Key(p, q, e);
             RSA<Character> cipher = new RSA(ASCII.defaultInstance);
             try {
+                stdout.info("Decrypting...");
                 output = cipher.decrypt(key, rsaInput.toArray(new BigInteger[]{}));
             } catch (Exception ex) {
                 stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
@@ -104,22 +129,22 @@ public class RSAProgram extends CryptosystemProgram {
         
         if (ParamUtils.contains(params, P_ENCRYPT)) {
             if (!ParamUtils.contains(params, P_N)) {
-                stdout.error("Key parameter 'n' not provided");
+                stdout.error("Key parameter "+P_N+" not provided");
                 return false;
             }
         }
         else {
             if (!ParamUtils.contains(params, P_P)) {
-                stdout.error("Key parameter 'p' not provided");
+                stdout.error("Key parameter "+P_P+" not provided");
                 return false;
             }
             if (!ParamUtils.contains(params, P_Q)) {
-                stdout.error("Key parameter 'q' not provided");
+                stdout.error("Key parameter "+P_Q+" not provided");
                 return false;
             }
         }
         if (!ParamUtils.contains(params, P_E)) {
-            stdout.error("Key parameter 'e' not provided");
+            stdout.error("Key parameter "+P_E+" not provided");
             return false;
         }
         return true;

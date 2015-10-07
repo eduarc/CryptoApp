@@ -28,7 +28,7 @@ public class CaesarProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_OFFSET)) {
-            stdout.error("Key parameter 'offset' not provided");
+            stdout.error("Key parameter "+P_OFFSET+" not provided");
             return false;
         }
         return true;
@@ -46,11 +46,22 @@ public class CaesarProgram extends CryptosystemProgram {
                 return -1;
             }
         }
+        stdout.info("Input:");
+        if (inputFile != null) {
+            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+        } else {
+            stdout.appendln(input);
+        }
+        stdout.info("Parameters:");
+        stdout.appendln(P_OFFSET+" = "+offset);
+        
         Caesar<Character> cipher = new Caesar(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
+                stdout.info("Encrypting...");
                 output = cipher.encrypt(offset, input);
             } else {
+                stdout.info("Decrypting...");
                 output = cipher.decrypt(offset, input);
             }
         } catch (Exception ex) {

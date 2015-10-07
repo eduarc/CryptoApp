@@ -76,7 +76,7 @@ public class CryptoAnalyzerProgram extends Program {
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_INPUT)) {
-                getString(param);
+                getString(param, "Input encrypted data");
             }
             else if (name.equals(P_FILE_INPUT)) {
                 getInputFromFile(param);
@@ -97,11 +97,11 @@ public class CryptoAnalyzerProgram extends Program {
         
         if (ParamUtils.contains(params, P_RSA)) {
             if (!ParamUtils.contains(params, P_N)) {
-                stdout.error("Parameter 'n' not provided");
+                stdout.error("Parameter "+P_N+" not provided");
                 return -1;
             }
             if (!ParamUtils.contains(params, P_E)) {
-                stdout.error("Parameter 'e' not provided");
+                stdout.error("Parameter "+P_E+" not provided");
                 return -1;
             }
         }
@@ -111,16 +111,14 @@ public class CryptoAnalyzerProgram extends Program {
     public int postProcess(Param[] params) {
         
         if (input != null && ParamUtils.contains(params, P_INPUT)) {
-            //stdout.appendln(input);
+            
         }
         else if (ParamUtils.contains(params, P_IMAGE_INPUT)) {
             
         }
         else if (ParamUtils.contains(params, P_FILE_INPUT)) {
-            //stdout.appendln("Input:  "+inputFile.getAbsolutePath());
         }
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
-            //stdout.appendln("Output: "+outputFile.getAbsolutePath());
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
@@ -152,6 +150,9 @@ public class CryptoAnalyzerProgram extends Program {
                 else if (param.getName().equals(P_E)) {
                     e = getBigInt(param);
                 }
+                if (exit) {
+                    return 0;
+                }
             }
             
             List<BigInteger> rsaInput = new ArrayList<>();
@@ -164,24 +165,50 @@ public class CryptoAnalyzerProgram extends Program {
                     return -1;
                 }
             }
+            
+            stdout.info("Encrypted data:");
+            if (inputFile != null) {
+                stdout.appendln("From File: "+inputFile.getAbsolutePath());
+            } else {
+                stdout.appendln(input);
+            }
+            stdout.info("Parameters:");
+            stdout.appendln(P_N+" = "+n.toString());
+            stdout.appendln(P_E+" = "+e.toString());
+            
             RSAAnalyzer cracker = new RSAAnalyzer(n, e);
             try {
+                stdout.info("Cracking...");
                 output = cracker.analyze(rsaInput.toArray(new BigInteger[]{}));
             } catch (Exception ex) {
                 stdout.error("Error while cracking. "+ex.getMessage());
             }
         }
         else if (ParamUtils.contains(params, P_CAESAR)) {
+            stdout.info("Encrypted data:");
+            if (inputFile != null) {
+                stdout.append("From file: "+inputFile.getAbsolutePath());
+            } else {
+                stdout.append(input);
+            }
             CaesarAnalyzer cracker = new CaesarAnalyzer();
             try {
+                stdout.info("Cracking...");
                 output = cracker.analyze(input);
             } catch (Exception ex) {
                 stdout.error("Error while cracking. "+ex.getMessage());
             }
         }
         else if (ParamUtils.contains(params, P_AFFINE)) {
+            stdout.info("Encrypted data:");
+            if (inputFile != null) {
+                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            } else {
+                stdout.appendln(input);
+            }
             AffineAnalyzer cracker = new AffineAnalyzer();
             try {
+                stdout.info("Cracking...");
                 output = cracker.analyze(input);
             } catch (Exception ex) {
                 stdout.error("Error while cracking. "+ex.getMessage());
@@ -217,12 +244,12 @@ public class CryptoAnalyzerProgram extends Program {
         return value;
     }
     
-    protected void getString(Param p) {
+    protected void getString(Param p, String title) {
         
         String v = p.getValue();
         if (v == null) {
             StringInputDialog sid = new StringInputDialog(frame, true);
-            v = sid.showDialog("Input");
+            v = sid.showDialog(title);
         }
         if (v == null) {
             exit = true;

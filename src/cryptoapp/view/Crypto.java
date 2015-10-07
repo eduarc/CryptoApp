@@ -177,7 +177,7 @@ public class Crypto extends javax.swing.JFrame {
         mainPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 204, 0));
+        jLabel1.setForeground(new java.awt.Color(0, 255, 0));
         jLabel1.setText("prompt$");
 
         tfCommand.setBackground(new java.awt.Color(0, 0, 0));
@@ -888,8 +888,15 @@ public class Crypto extends javax.swing.JFrame {
         
         String cmd = tfCommand.getText();
         tfCommand.selectAll();
-        stdout.appendln("<font color=\'33CC00\' >prompt$</font> "+cmd);
-        env.exec(cmd);
+        stdout.appendln("<font color=\'00FF00\' >prompt$</font> "+cmd);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                env.exec(cmd);
+            }
+        });
+        t.start();
+        //env.exec(cmd);
     }//GEN-LAST:event_tfCommandActionPerformed
 
     private void bExecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExecActionPerformed

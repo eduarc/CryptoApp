@@ -41,11 +41,23 @@ public class AffineProgram extends CryptosystemProgram {
                 return -1;
             }
         }
+        stdout.info("Input:");
+        if (inputFile != null) {
+            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+        } else {
+            stdout.appendln(input);
+        }
+        stdout.info("Parameters:");
+        stdout.appendln(P_A+" = "+key.first);
+        stdout.appendln(P_B+" = "+key.second);
+        
         Affine<Character> cipher = new Affine(LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
+                stdout.info("Encrypting...");
                 output = cipher.encrypt(key, input);
             } else {
+                stdout.info("Decrypting...");
                 output = cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
@@ -59,11 +71,11 @@ public class AffineProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_A)) {
-            stdout.error("Key Parameter 'a' not provided");
+            stdout.error("Key Parameter "+P_A+" not provided");
             return false;
         }
         if (!ParamUtils.contains(params, P_B)) {
-            stdout.error("Key parameter 'b' not provided");
+            stdout.error("Key Parameter "+P_B+" not provided");
             return false;
         }
         return true;

@@ -28,6 +28,7 @@ public class TwoTwoProgram extends VCSProgram {
         
         TwoTwo cipher = new TwoTwo();
         if (ParamUtils.contains(params, P_ENCRYPT)) {    
+            stdout.info("Encrypting...");
             Image[] shares = cipher.encrypt(input);
             
             ImageViewer s1 = new ImageViewer(frame, false);
@@ -48,6 +49,7 @@ public class TwoTwoProgram extends VCSProgram {
                     return -1;
                 }
             }
+            stdout.info("Decrypting...");
             Image secret = cipher.decrypt((BufferedImage[]) shares);
             Image originalSecret = cipher.originalDecrypt((BufferedImage[]) shares);
             
@@ -64,11 +66,11 @@ public class TwoTwoProgram extends VCSProgram {
 
         if (ParamUtils.contains(params, P_DECRYPT)) {
             if (!ParamUtils.contains(params, P_SHARE1)) {
-                stdout.error("Parameter 'share1' not provided");
+                stdout.error("Parameter "+P_SHARE1+" not provided");
                 return false;
             }
             if (!ParamUtils.contains(params, P_SHARE2)) {
-                stdout.error("Parameter 'share2' not provided");
+                stdout.error("Parameter "+P_SHARE2+" not provided");
                 return false;
             }
         }

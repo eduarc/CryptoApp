@@ -35,11 +35,23 @@ public class SubstitutionProgram extends CryptosystemProgram {
                 return -1;
             }
         }
+        
+        stdout.info("Input:");
+        if (inputFile != null) {
+            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+        } else {
+            stdout.appendln(input);
+        }
+        stdout.info("Parameters:");
+        stdout.appendln(P_KEY+" = "+key);
+        
         Substitution<Character, Character> cipher = new Substitution<>(LowerCaseEnglish.defaultInstance, LowerCaseEnglish.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
+                stdout.info("Encrypting...");
                 output =  cipher.encrypt(key, input);
             } else {
+                stdout.info("Decrypting...");
                 output = cipher.decrypt(key, input);
             }
         } catch (Exception ex) {
@@ -53,7 +65,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.error("Parameter 'key' not provided");
+            stdout.error("Parameter "+P_KEY+" not provided");
             return false;
         }
         return true;

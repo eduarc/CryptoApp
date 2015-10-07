@@ -32,15 +32,15 @@ public class StandardConsole implements TextConsole {
     }
     
     public void info(String msg) {
-        appendln("<font color='cyan'>"+msg+"</font>");
+        appendln("<font color='00FFFF'>"+msg+"</font>");
     }
     
     public void warning(String msg) {
-        appendln("<font color='orange'>"+msg+"</font>");
+        appendln("<font color='FFA500'>"+msg+"</font>");
     }
     
     public void error(String msg) {
-        appendln("<font color='red'>"+msg+"</font>");
+        appendln("<font color='FF0000'>"+msg+"</font>");
     }
     
     @Override

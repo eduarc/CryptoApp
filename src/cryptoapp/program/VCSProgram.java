@@ -45,7 +45,7 @@ public abstract class VCSProgram extends Program {
 
         if (ParamUtils.contains(params, P_ENCRYPT)) {
             if (!ParamUtils.contains(params, P_SECRET)) {
-                stdout.error("Parameter 'secret' not provided");
+                stdout.error("Parameter "+P_SECRET+" not provided");
                 return -1;
             }
             for (Param param : params) {

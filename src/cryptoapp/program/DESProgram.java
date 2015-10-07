@@ -38,9 +38,20 @@ public class DESProgram extends CryptosystemProgram {
                 return -1;
             }
         }
+        
+        stdout.info("Input:");
+        if (inputFile != null) {
+            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+        } else {
+            stdout.appendln(input);
+        }
+        stdout.info("Parameters:");
+        stdout.appendln(P_KEY+" = "+String.format("%x", key));
+        
         DES cipher = new DES();
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
+                stdout.info("Encrypting...");
                 Long[] desOutput = cipher.encrypt(key, toLongArray(input));
                 String out = "";
                 for (Long l : desOutput) {
@@ -59,6 +70,7 @@ public class DESProgram extends CryptosystemProgram {
                         return -1;
                     }
                 }
+                stdout.info("Decrypting...");
                 Long[] desOutput = cipher.decrypt(key, desInput.toArray(new Long[]{}));
                 output = toCharArray(desOutput);
             }
@@ -73,7 +85,7 @@ public class DESProgram extends CryptosystemProgram {
     public boolean checkParams(Param[] params) {
         
         if (!ParamUtils.contains(params, P_KEY)) {
-            stdout.error("Parameter 'key' not provided");
+            stdout.error("Parameter "+P_KEY+" not provided");
             return false;
         }
         return true;
@@ -88,7 +100,7 @@ public class DESProgram extends CryptosystemProgram {
         
         String strN = p.getValue();
         if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Key parameter (64 bits hexadecimal value)");
+            strN = JOptionPane.showInputDialog(frame, "Parameter "+P_KEY+" (64 bits hexadecimal value)");
         }
         if (strN == null) {
             exit = true;
@@ -97,7 +109,7 @@ public class DESProgram extends CryptosystemProgram {
         try {
             key = Long.parseUnsignedLong(strN, 16);
         } catch(NumberFormatException ex) {
-            stdout.error("Invalid key value: "+strN);
+            stdout.error("Invalid "+P_KEY+" value: "+strN);
             exit = true;
         }
     }

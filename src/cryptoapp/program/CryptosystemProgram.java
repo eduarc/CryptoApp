@@ -68,7 +68,7 @@ public abstract class CryptosystemProgram extends Program {
         for (Param param : params) {
             String name = param.getName();
             if (name.equals(P_INPUT)) {
-                getString(param);
+                getString(param, "Input data to encrypt/decrypt");
             }
             else if (name.equals(P_FILE_INPUT)) {
                 getInputFromFile(param);
@@ -95,16 +95,15 @@ public abstract class CryptosystemProgram extends Program {
     public int postProcess(Param[] params) {
         
         if (input != null && ParamUtils.contains(params, P_INPUT)) {
-            //stdout.appendln(input);
+            
         }
         else if (ParamUtils.contains(params, P_IMAGE_INPUT)) {
             
         }
         else if (ParamUtils.contains(params, P_FILE_INPUT)) {
-            //stdout.appendln("Input:  "+inputFile.getAbsolutePath());
         }
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
-            //stdout.appendln("Output: "+outputFile.getAbsolutePath());
+            stdout.appendln("To file: "+outputFile.getAbsolutePath());
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
@@ -177,12 +176,12 @@ public abstract class CryptosystemProgram extends Program {
         return null;
     }
     
-    protected void getString(Param p) {
+    protected void getString(Param p, String title) {
         
         String v = p.getValue();
         if (v == null) {
             StringInputDialog sid = new StringInputDialog(frame, true);
-            v = sid.showDialog("Input");
+            v = sid.showDialog(title);
         }
         if (v == null) {
             exit = true;
