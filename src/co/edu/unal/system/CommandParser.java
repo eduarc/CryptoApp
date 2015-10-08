@@ -128,6 +128,10 @@ public class CommandParser {
                 res += '\n';
                 i++;
             }
+            else if (i+1 < v.length() && c == '\\' && v.charAt(i+1) == 't') {
+                res += '\t';
+                i++;
+            }
             else if (i+1 < v.length() && c == '\\' && v.charAt(i+1) == '\"') {
                 res += '\"';
                 i++;
