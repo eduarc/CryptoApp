@@ -43,13 +43,13 @@ public class AffineProgram extends CryptosystemProgram {
         }
         stdout.info("Input:");
         if (inputFile != null) {
-            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            stdout.append("From file: "+inputFile.getAbsolutePath());
         } else {
-            stdout.appendln(input);
+            stdout.append(input);
         }
         stdout.info("Parameters:");
-        stdout.appendln(P_A+" = "+key.first);
-        stdout.appendln(P_B+" = "+key.second);
+        stdout.append(P_A+" = "+key.first);
+        stdout.append(P_B+" = "+key.second);
         
         Affine<Character> cipher = new Affine(LowerCaseEnglish.defaultInstance);
         try {

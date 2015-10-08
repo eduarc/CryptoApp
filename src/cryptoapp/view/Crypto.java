@@ -888,7 +888,7 @@ public class Crypto extends javax.swing.JFrame {
         
         String cmd = tfCommand.getText();
         tfCommand.selectAll();
-        stdout.appendln("<font color=\'00FF00\' >prompt$</font> "+cmd);
+        stdout.formatted("<font color=\'00FF00\' >prompt$</font> "+cmd);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {

@@ -48,12 +48,12 @@ public class CaesarProgram extends CryptosystemProgram {
         }
         stdout.info("Input:");
         if (inputFile != null) {
-            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            stdout.append("From file: "+inputFile.getAbsolutePath());
         } else {
-            stdout.appendln(input);
+            stdout.append(input);
         }
         stdout.info("Parameters:");
-        stdout.appendln(P_OFFSET+" = "+offset);
+        stdout.append(P_OFFSET+" = "+offset);
         
         Caesar<Character> cipher = new Caesar(LowerCaseEnglish.defaultInstance);
         try {

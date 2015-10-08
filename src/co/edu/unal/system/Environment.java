@@ -1,8 +1,6 @@
 package co.edu.unal.system;
 
 import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -58,12 +56,12 @@ public class Environment {
         try {
             params = cmdParser.parse();
         } catch (IllegalArgumentException ex) {
-            output.append("<font color='red'>"+ex.getMessage()+"</font>");
+            output.error(ex.getMessage());
             return PARSING_ERROR;
         }
         ProgramFactory factory = installed.get(params[0].getValue());
         if (factory == null) {
-            output.appendln("<font color='red'>Command not found.</font>");
+            output.error("Command not found");
             return Environment.CMD_NOT_FOUND;
         }
         Prompt prompt = (Prompt) getResource(Environment.PROMPT);

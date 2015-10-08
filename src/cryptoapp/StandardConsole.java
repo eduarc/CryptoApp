@@ -23,7 +23,6 @@ public class StandardConsole implements TextConsole {
     public StandardConsole(JTextPane output) {
         
         this.output = output;
-        
         kit = new HTMLEditorKit();
         doc = new HTMLDocument();
         output.setEditorKit(kit);
@@ -31,28 +30,38 @@ public class StandardConsole implements TextConsole {
         output.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
     }
     
+    @Override
     public void info(String msg) {
-        appendln("<font color='00FFFF'>"+msg+"</font>");
+        
+        msg = msg.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        formatted("<font color='00FFFF'>"+msg+"</font>");
     }
     
+    @Override
     public void warning(String msg) {
-        appendln("<font color='FFA500'>"+msg+"</font>");
+        
+        msg = msg.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        formatted("<font color='FFA500'>"+msg+"</font>");
     }
     
+    @Override
     public void error(String msg) {
-        appendln("<font color='FF0000'>"+msg+"</font>");
+        
+        msg = msg.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+        formatted("<font color='FF0000'>"+msg+"</font>");
     }
     
     @Override
     public void append(Character[] data) {
         
-        String s = "";
         try {
+            String s = "";
             for (Character c : data) {
                 s += c;
             }
-            kit.insertHTML(doc, doc.getLength(), s, 0, 0, null);
-        } 
+            s = s.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            kit.insertHTML(doc, doc.getLength(), "<pre>"+s+"</pre>", 0, 0, null);
+        }
         catch (IOException | BadLocationException ex) {
             JOptionPane.showMessageDialog(output, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -62,17 +71,13 @@ public class StandardConsole implements TextConsole {
     public void append(String s) {
         
         try {
-            kit.insertHTML(doc, doc.getLength(), s, 0, 0, null);
+            s = s.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+            kit.insertHTML(doc, doc.getLength(), "<pre>"+s+"</pre>", 0, 0, null);
         } catch (IOException | BadLocationException ex) {
             JOptionPane.showMessageDialog(output, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    @Override
-    public void appendln(String s) {
-        append(s+"\n");
-    }
-
+    
     @Override
     public void clear() {
         output.setText("");
@@ -82,11 +87,13 @@ public class StandardConsole implements TextConsole {
     public void setText(String s) {
         output.setText(s);
     }
-
-    @Override
-    public void appendln(Character[] data) {
+    
+    public void formatted(String s) {
         
-        append(data);
-        append("\n");
+        try {
+            kit.insertHTML(doc, doc.getLength(), "<pre>"+s+"</pre>", 0, 0, null);
+        } catch (IOException | BadLocationException ex) {
+            JOptionPane.showMessageDialog(output, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

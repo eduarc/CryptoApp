@@ -39,12 +39,12 @@ public class VigenereProgram extends CryptosystemProgram {
         
         stdout.info("Input:");
         if (inputFile != null) {
-            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            stdout.append("From file: "+inputFile.getAbsolutePath());
         } else {
-            stdout.appendln(input);
+            stdout.append(input);
         }
         stdout.info("Parameters:");
-        stdout.appendln(P_KEY+" = "+CharStream.toString(key));
+        stdout.append(P_KEY+" = "+CharStream.toString(key));
         
         Vigenere<Character> cipher = new Vigenere<>(LowerCaseEnglish.defaultInstance);
         try {

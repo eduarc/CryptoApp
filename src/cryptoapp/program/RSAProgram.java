@@ -49,13 +49,13 @@ public class RSAProgram extends CryptosystemProgram {
             
             stdout.info("Input:");
             if (inputFile != null) {
-                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+                stdout.append("From file: "+inputFile.getAbsolutePath());
             } else {
-                stdout.appendln(input);
+                stdout.append(input);
             }
             stdout.info("Parameters:");
-            stdout.appendln(P_N+" = "+n);
-            stdout.appendln(P_E+" = "+e);
+            stdout.append(P_N+" = "+n);
+            stdout.append(P_E+" = "+e);
             
             RSA.Key key = new RSA.Key(n, e);
             RSA<Character> cipher = new RSA(ASCII.defaultInstance);
@@ -92,14 +92,14 @@ public class RSAProgram extends CryptosystemProgram {
             
             stdout.info("Input:");
             if (inputFile != null) {
-                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+                stdout.append("From file: "+inputFile.getAbsolutePath());
             } else {
-                stdout.appendln(input);
+                stdout.append(input);
             }
             stdout.info("Parameters:");
-            stdout.appendln(P_P+" = "+p);
-            stdout.appendln(P_Q+" = "+q);
-            stdout.appendln(P_E+" = "+e);
+            stdout.append(P_P+" = "+p);
+            stdout.append(P_Q+" = "+q);
+            stdout.append(P_E+" = "+e);
             
             List<BigInteger> rsaInput = new ArrayList<>();
             StringTokenizer tokenizer = new StringTokenizer(CharStream.toString(input), " ");

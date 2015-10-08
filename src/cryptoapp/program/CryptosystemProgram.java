@@ -103,7 +103,7 @@ public abstract class CryptosystemProgram extends Program {
         else if (ParamUtils.contains(params, P_FILE_INPUT)) {
         }
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
-            stdout.appendln("To file: "+outputFile.getAbsolutePath());
+            stdout.append("To file: "+outputFile.getAbsolutePath());
             try {
                 CharStream.fwrite(outputFile, output);
             } catch (IOException ex) {
@@ -114,7 +114,7 @@ public abstract class CryptosystemProgram extends Program {
             
         }
         else if (output != null) {
-            stdout.appendln(output);
+            stdout.append(output);
         }
         return 0;
     }

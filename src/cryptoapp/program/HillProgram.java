@@ -44,12 +44,20 @@ public class HillProgram extends CryptosystemProgram {
         
         stdout.info("Input:");
         if (inputFile != null) {
-            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            stdout.append("From file: "+inputFile.getAbsolutePath());
         } else {
-            stdout.appendln(input);
+            stdout.append(input);
         }
         stdout.info("Parameters:");
-        stdout.appendln(P_KEY+" = "+key);
+        stdout.append(P_KEY+" = ");
+        String strKey = "";
+        for (int i = 0; i < key.getNrow(); i++) {
+            for (int j = 0; j < key.getNcol(); j++) {
+                strKey += key.getElement(i, j)+" ";
+            }
+            strKey += "\n";
+        }
+        stdout.append(strKey);
         
         Hill<Character> cipher = new Hill(LowerCaseEnglish.defaultInstance);
         try {

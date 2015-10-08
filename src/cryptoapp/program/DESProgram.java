@@ -41,12 +41,12 @@ public class DESProgram extends CryptosystemProgram {
         
         stdout.info("Input:");
         if (inputFile != null) {
-            stdout.appendln("From file: "+inputFile.getAbsolutePath());
+            stdout.append("From file: "+inputFile.getAbsolutePath());
         } else {
-            stdout.appendln(input);
+            stdout.append(input);
         }
         stdout.info("Parameters:");
-        stdout.appendln(P_KEY+" = "+String.format("%x", key));
+        stdout.append(P_KEY+" = "+String.format("%x", key));
         
         DES cipher = new DES();
         try {

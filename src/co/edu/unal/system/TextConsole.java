@@ -7,10 +7,11 @@ package co.edu.unal.system;
  */
 public interface TextConsole {
     
+    public void info(String msg);
+    public void warning(String msg);
+    public void error(String msg);
     public void append(Character[] data);
-    public void appendln(Character[] data);
     public void append(String s);
-    public void appendln(String s);
     public void clear();
     public void setText(String s);
 }

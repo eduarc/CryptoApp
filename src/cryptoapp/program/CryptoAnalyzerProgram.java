@@ -129,7 +129,7 @@ public class CryptoAnalyzerProgram extends Program {
             
         }
         else if (output != null) {
-            stdout.appendln(output);
+            stdout.append(output);
         }
         return 0;
     }
@@ -168,13 +168,13 @@ public class CryptoAnalyzerProgram extends Program {
             
             stdout.info("Encrypted data:");
             if (inputFile != null) {
-                stdout.appendln("From File: "+inputFile.getAbsolutePath());
+                stdout.append("From File: "+inputFile.getAbsolutePath());
             } else {
-                stdout.appendln(input);
+                stdout.append(input);
             }
             stdout.info("Parameters:");
-            stdout.appendln(P_N+" = "+n.toString());
-            stdout.appendln(P_E+" = "+e.toString());
+            stdout.append(P_N+" = "+n.toString());
+            stdout.append(P_E+" = "+e.toString());
             
             RSAAnalyzer cracker = new RSAAnalyzer(n, e);
             try {
@@ -202,9 +202,9 @@ public class CryptoAnalyzerProgram extends Program {
         else if (ParamUtils.contains(params, P_AFFINE)) {
             stdout.info("Encrypted data:");
             if (inputFile != null) {
-                stdout.appendln("From file: "+inputFile.getAbsolutePath());
+                stdout.append("From file: "+inputFile.getAbsolutePath());
             } else {
-                stdout.appendln(input);
+                stdout.append(input);
             }
             AffineAnalyzer cracker = new AffineAnalyzer();
             try {
