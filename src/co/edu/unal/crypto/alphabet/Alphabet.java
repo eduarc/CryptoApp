@@ -6,7 +6,7 @@ package co.edu.unal.crypto.alphabet;
  * @email eduarcastrillo@gmail.com
  * @param <T> 
  */
-public abstract class Alphabet<T> {
+public interface Alphabet<T> {
 
     public abstract int getIndex(T val);
 

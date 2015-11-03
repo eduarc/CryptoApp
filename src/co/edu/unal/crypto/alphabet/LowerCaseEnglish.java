@@ -5,7 +5,7 @@ package co.edu.unal.crypto.alphabet;
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class LowerCaseEnglish extends Alphabet<Character> {
+public class LowerCaseEnglish implements Alphabet<Character> {
 
     public static final int SIZE = 26;
     public static final LowerCaseEnglish defaultInstance;

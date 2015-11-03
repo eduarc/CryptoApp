@@ -14,6 +14,7 @@ import cryptoapp.program.AffineProgram;
 import cryptoapp.program.CaesarProgram;
 import cryptoapp.program.CryptoAnalyzerProgram;
 import cryptoapp.program.DESProgram;
+import cryptoapp.program.FactorSuccession;
 import cryptoapp.program.HillProgram;
 import cryptoapp.program.RSAProgram;
 import cryptoapp.program.SubstitutionProgram;
@@ -24,6 +25,7 @@ import cryptoapp.programs.factory.AffineFactory;
 import cryptoapp.programs.factory.CaesarFactory;
 import cryptoapp.programs.factory.CryptoAnalyzerFactory;
 import cryptoapp.programs.factory.DESFactory;
+import cryptoapp.programs.factory.FactorSuccessionFactory;
 import cryptoapp.programs.factory.HillFactory;
 import cryptoapp.programs.factory.RSAFactory;
 import cryptoapp.programs.factory.SubstitutionFactory;
@@ -62,6 +64,7 @@ public class Crypto extends javax.swing.JFrame {
         env.addProgram(TwoTwoProgram.CMD_TWO, new TwoTwoFactory(env));
         env.addProgram(ThreeThreeProgram.CMD_THREE, new ThreeThreeFactory(env));
         env.addProgram(CryptoAnalyzerProgram.CMD_CRACK, new CryptoAnalyzerFactory(env));
+        env.addProgram(FactorSuccession.CMD_FACTOR_SUCCESSION, new FactorSuccessionFactory(env));
     }
 
     /**
@@ -166,6 +169,8 @@ public class Crypto extends javax.swing.JFrame {
         analysisAffine = new javax.swing.JMenuItem();
         analysisSubstitution = new javax.swing.JMenuItem();
         analysisVigenere = new javax.swing.JMenuItem();
+        jMenu9 = new javax.swing.JMenu();
+        factor_succession = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         menuItemHelp = new javax.swing.JMenuItem();
 
@@ -856,6 +861,18 @@ public class Crypto extends javax.swing.JFrame {
 
         menuBar.add(menuCryptoanalysis);
 
+        jMenu9.setText("Pollard's Rho");
+
+        factor_succession.setText("Succession: [2^(n-1)]*[(2^n)+1]-(3^n)");
+        factor_succession.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                factor_successionActionPerformed(evt);
+            }
+        });
+        jMenu9.add(factor_succession);
+
+        menuBar.add(jMenu9);
+
         menuHelp.setText("Help");
         menuHelp.setEnabled(false);
 
@@ -1171,6 +1188,11 @@ public class Crypto extends javax.swing.JFrame {
         tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" vigenere in");
     }//GEN-LAST:event_analysisVigenereActionPerformed
 
+    private void factor_successionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factor_successionActionPerformed
+        
+        tfCommand.setText(FactorSuccession.CMD_FACTOR_SUCCESSION+" n");
+    }//GEN-LAST:event_factor_successionActionPerformed
+
     Environment env;
     StandardConsole stdout;
     StandardPrompt prompt;
@@ -1243,6 +1265,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem encFiFiVigenere;
     private javax.swing.JMenuItem encThreeThreeVCS;
     private javax.swing.JMenuItem encTwoTwoVCS;
+    private javax.swing.JMenuItem factor_succession;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -1252,6 +1275,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu jMenuUnknown;
     private javax.swing.JMenu jMenuUnknown1;

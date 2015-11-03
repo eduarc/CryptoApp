@@ -97,5 +97,15 @@ public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C
         public P inverse(C y) {
             return inve.get(y);
         }
+        
+        @Override
+        public String toString() {
+            
+            String s = "";
+            for (P p : func.keySet()) {
+                s += eval(p);
+            }
+            return s;
+        }
     }
 }

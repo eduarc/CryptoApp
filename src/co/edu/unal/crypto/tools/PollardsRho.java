@@ -37,12 +37,28 @@ public class PollardsRho {
         return factors;
     }
     
+    public BigInteger nonTrivialFactor(BigInteger N) {
+        
+        if (N.compareTo(ONE) == 0) {
+            return null;
+        }
+        if (N.isProbablePrime(50)) {
+            return N;
+        }
+        BigInteger divisor = rho(N);
+        BigInteger f = nonTrivialFactor(divisor);
+        if (f != null) {
+            return f;
+        }
+        return nonTrivialFactor(N.divide(divisor));
+    }
+    
     private void rec_factor(BigInteger N) {
         
         if (N.compareTo(ONE) == 0) {
             return;
         }
-        if (N.isProbablePrime(50)) { 
+        if (N.isProbablePrime(50)) {
             factors.add(N); 
             return; 
         }
@@ -57,10 +73,9 @@ public class PollardsRho {
         BigInteger c  = new BigInteger(N.bitLength(), random);
         BigInteger x  = new BigInteger(N.bitLength(), random);
         BigInteger xx = x;
-
-        // check divisibility by 2
-        if (N.mod(TWO).compareTo(ZERO) == 0) return TWO;
-
+            // check divisibility by 2
+        if (!N.testBit(0)) return TWO;
+        //if (N.mod(TWO).compareTo(ZERO) == 0) return TWO;
         do {
             x  =  x.multiply(x).mod(N).add(c).mod(N);
             xx = xx.multiply(xx).mod(N).add(c).mod(N);

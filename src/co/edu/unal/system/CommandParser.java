@@ -33,14 +33,14 @@ public class CommandParser {
     private void readCMD() {
         
         skipSpaces();
-        String cmd = readAlphaNumeric();
+        String cmd = readName();
         params.add(new Param("cmdName", cmd));
     }
     
     private void readParam() {
         
         skipSpaces();
-        String p = readAlphaNumeric();
+        String p = readName();
         //skipSpaces();
         String v = null;
         if (isEqual()) {
@@ -143,13 +143,13 @@ public class CommandParser {
         return res;
     }
     
-    private String readAlphaNumeric() {
+    private String readName() {
         
         String s = "";
         int start = index;
         for (; index < cmdLine.length(); index++) {
             char c = cmdLine.charAt(index);
-            if (Character.isLetterOrDigit(c)) {
+            if (Character.isLetterOrDigit(c) || c == '_') {
                 s += c;
             } else {
                 break;
