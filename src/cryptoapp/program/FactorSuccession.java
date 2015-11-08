@@ -3,12 +3,11 @@ package cryptoapp.program;
 import co.edu.unal.crypto.tools.PollardsRho;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import co.edu.unal.system.Program;
 import co.edu.unal.system.TextConsole;
-import java.awt.Component;
 import java.math.BigInteger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,7 +36,7 @@ public class FactorSuccession extends Program {
         Integer n = 0;
         for (Param p : params) {
             if (p.getName().equals(P_N)) {
-                n = getInt(p);
+                n = ParamReader.getInt(p);
                 if (n == null) {
                     return -1;
                 }
@@ -63,23 +62,6 @@ public class FactorSuccession extends Program {
             stdout.append("["+i+", "+x+", "+rho.nonTrivialFactor(x)+']');
         }
         return 0;
-    }
-
-    public Integer getInt(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog((Component) this.getEnv().getResource(Environment.FRAME), "Parameter "+p.getName());
-        }
-        if (strN == null) {
-            return null;
-        }
-        try {
-            return Integer.parseInt(strN);
-        } catch(NumberFormatException ex) {
-            stdout.error("Invalid value for parameter "+p.getName()+". "+ex.getMessage());
-        }
-        return null;
     }
     
     @Override

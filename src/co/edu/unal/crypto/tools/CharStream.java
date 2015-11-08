@@ -1,5 +1,8 @@
 package co.edu.unal.crypto.tools;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -54,7 +57,7 @@ public class CharStream {
         return output;
     }
 
-    public static Character[] fread(File f) throws FileNotFoundException, IOException {
+    public static Character[] fromFile(File f) throws FileNotFoundException, IOException {
         
         FileReader freader = new FileReader(f);
         List<Character> readed = new ArrayList<>();
@@ -69,7 +72,34 @@ public class CharStream {
         return readed.toArray(new Character[]{});
     }
     
-    public static void fwrite(File f, Character[] data) throws FileNotFoundException, IOException {
+    public static Character[] fromImage(Image img) {
+
+        BufferedImage image = (BufferedImage) img;
+        int w = image.getWidth();
+        int h = image.getHeight();
+        Character[] output = new Character[w * h];
+        WritableRaster raster = image.getRaster();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                output[i * w + j] = (char)raster.getSample(j, i, 0);
+            }
+        }
+        return output;
+    }
+
+    public static Image toImage(Character[] data, int w, int h) {
+
+        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
+        WritableRaster raster = image.getRaster();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                raster.setSample(j, i, 0, data[i * w + j]);
+            }
+        }
+        return image;
+    }
+    
+    public static void toFile(File f, Character[] data) throws FileNotFoundException, IOException {
         
         if (!f.exists()) {
             f.createNewFile();

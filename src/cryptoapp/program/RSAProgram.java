@@ -5,6 +5,7 @@ import co.edu.unal.crypto.cryptosystem.RSA;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -34,17 +35,15 @@ public class RSAProgram extends CryptosystemProgram {
     public int main(Param[] params) {
         
         if (ParamUtils.contains(params, P_ENCRYPT)) {
-            for (Param p : params) {
-                String name = p.getName();
-                if (name.equals(P_N)) {
-                    n = getBigInt(p);
-                }
-                else if (name.equals(P_E)) {
-                    e = getBigInt(p);
-                }
-                if (exit) {
-                    return -1;
-                }
+            Param pr = ParamUtils.getParam(params, P_N);
+            n = ParamReader.getBigInt(pr);
+            if (n == null) {
+                return -1;
+            }
+            pr = ParamUtils.getParam(params, P_E);
+            e = ParamReader.getBigInt(pr);
+            if (e == null) {
+                return -1;
             }
             
             stdout.info("Input:");
@@ -74,20 +73,20 @@ public class RSAProgram extends CryptosystemProgram {
             output = CharStream.fromString(result);
         }
         else {
-            for (Param param : params) {
-                String name = param.getName();
-                if (name.equals(P_P)) {
-                    p = getBigInt(param);
-                }
-                else if (name.equals(P_Q)) {
-                    q = getBigInt(param);
-                }
-                else if (name.equals(P_E)) {
-                    e = getBigInt(param);
-                }
-                if (exit) {
-                    return -1;
-                }
+            Param pr = ParamUtils.getParam(params, P_P);
+            p = ParamReader.getBigInt(pr);
+            if (n == null) {
+                return -1;
+            }
+            pr = ParamUtils.getParam(params, P_Q);
+            q = ParamReader.getBigInt(pr);
+            if (q == null) {
+                return -1;
+            }
+            pr = ParamUtils.getParam(params, P_E);
+            e = ParamReader.getBigInt(pr);
+            if (e == null) {
+                return -1;
             }
             
             stdout.info("Input:");

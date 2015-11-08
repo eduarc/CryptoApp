@@ -38,5 +38,4 @@ public class LowerCaseEnglish implements Alphabet<Character> {
     public int getSize() {
         return SIZE;
     }
-
 }

@@ -127,7 +127,7 @@ public class StringInputDialog extends javax.swing.JDialog {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = fileChooser.getSelectedFile();
             try {
-                Character[] data = CharStream.fread(f);
+                Character[] data = CharStream.fromFile(f);
                 append(data);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "File not found!", "Error", JOptionPane.ERROR_MESSAGE);

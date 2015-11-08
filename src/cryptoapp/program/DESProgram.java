@@ -4,11 +4,11 @@ import co.edu.unal.crypto.cryptosystem.DES;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,14 +29,10 @@ public class DESProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
         
-        for (Param p : params) {
-            String name = p.getName();
-            if (name.equals(P_KEY)) {
-                getKey(p);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_KEY);
+        key = ParamReader.getUnsignedLong(p);
+        if (key == null) {
+            return -1;
         }
         
         stdout.info("Input:");
@@ -77,7 +73,7 @@ public class DESProgram extends CryptosystemProgram {
         } catch (Exception ex) {
             stdout.error("Error while encrypting/decrypting. "+ex.getMessage());
             return -1;
-        } 
+        }
         return 0;
     }
 
@@ -94,24 +90,6 @@ public class DESProgram extends CryptosystemProgram {
     @Override
     public String getName() {
         return CMD_DES;
-    }
-    
-    private void getKey(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Parameter "+P_KEY+" (64 bits hexadecimal value)");
-        }
-        if (strN == null) {
-            exit = true;
-            return;
-        }
-        try {
-            key = Long.parseUnsignedLong(strN, 16);
-        } catch(NumberFormatException ex) {
-            stdout.error("Invalid "+P_KEY+" value: "+strN);
-            exit = true;
-        }
     }
     
     public Long[] toLongArray(Character[] data) {

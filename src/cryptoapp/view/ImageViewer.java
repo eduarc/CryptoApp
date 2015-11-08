@@ -3,6 +3,7 @@ package cryptoapp.view;
 import co.edu.unal.crypto.tools.ImageStream;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -113,6 +114,9 @@ public class ImageViewer extends javax.swing.JDialog {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 targetImage = ImageStream.readImage(fileChooser.getSelectedFile().getPath());
+                if (binary) {
+                    targetImage = ImageStream.binarize((BufferedImage) targetImage);
+                }
                 pImage.add(new PImage(targetImage), BorderLayout.CENTER);
                 pImage.revalidate();
                 this.pack();
@@ -188,9 +192,10 @@ public class ImageViewer extends javax.swing.JDialog {
         this.setVisible(true);
     }
     
-    public Image select(String title) {
+    public Image select(String title, boolean binary) {
         
         targetImage = null;
+        this.binary = binary;
         this.setTitle("Image Viewer - "+title);
         bOpen.setEnabled(true);
         bSave.setEnabled(false);
@@ -212,6 +217,7 @@ public class ImageViewer extends javax.swing.JDialog {
         this.setVisible(true);
     }
 
+    boolean binary;
     Image targetImage;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

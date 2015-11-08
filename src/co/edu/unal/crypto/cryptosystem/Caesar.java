@@ -1,7 +1,7 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.ModularArithmetic;
+import co.edu.unal.crypto.tools.Arithmetic;
 import java.lang.reflect.Array;
 
 /**
@@ -27,14 +27,13 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
     public P[] encrypt(Integer key, P[] input) {
 
         checkKey(key);
-        key = ModularArithmetic.modulo(key, modulus);
+        key = Arithmetic.mod(key, modulus);
 
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
         for (int i = 0; i < input.length; ++i) {
-            int idx = (inAlphabet.getIndex(input[i]) + key) % modulus;
-            assert (idx >= 0);
+            int idx = Arithmetic.mod(inAlphabet.getIndex(input[i]) + key, modulus);
             output[i] = inAlphabet.getValue(idx);
         }
         return output;
@@ -44,13 +43,13 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
     public P[] decrypt(Integer key, P[] input) {
 
         checkKey(key);
-        key = ModularArithmetic.modulo(key, modulus);
+        key = Arithmetic.mod(key, modulus);
 
         @SuppressWarnings("unchecked")
         P[] output = (P[]) Array.newInstance(Pclass, input.length);
 
         for (int i = 0; i < input.length; ++i) {
-            int idx = (outAlphabet.getIndex(input[i]) - key + modulus) % modulus;
+            int idx = Arithmetic.mod(outAlphabet.getIndex(input[i]) - key, modulus);
             output[i] = inAlphabet.getValue(idx);
         }
         return output;

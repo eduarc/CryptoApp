@@ -1,12 +1,12 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
+import co.edu.unal.crypto.alphabet.SimpleAlphabet;
 import co.edu.unal.crypto.cryptosystem.Hill;
+import co.edu.unal.crypto.types.ModularMatrix;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
 import co.edu.unal.system.ParamUtils;
 import cryptoapp.view.StringInputDialog;
-import flanagan.math.Matrix;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -22,7 +22,7 @@ public class HillProgram extends CryptosystemProgram {
     public static final String P_KEY = "key";
     
     int n;
-    Matrix key;
+    ModularMatrix key;
     
     public HillProgram(Environment env) {
         super(env);
@@ -31,15 +31,9 @@ public class HillProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
         
-        for (Param param : params) {
-            String name = param.getName();
-            
-            if (name.equals(P_KEY)) {
-                getKey(param);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_KEY);
+        if (!getKey(p)) {
+            return -1;
         }
         
         stdout.info("Input:");
@@ -51,15 +45,15 @@ public class HillProgram extends CryptosystemProgram {
         stdout.info("Parameters:");
         stdout.append(P_KEY+" = ");
         String strKey = "";
-        for (int i = 0; i < key.getNrow(); i++) {
-            for (int j = 0; j < key.getNcol(); j++) {
-                strKey += key.getElement(i, j)+" ";
+        for (int i = 0; i < key.getRows(); i++) {
+            for (int j = 0; j < key.getCols(); j++) {
+                strKey += key.get(i, j)+" ";
             }
             strKey += "\n";
         }
         stdout.append(strKey);
         
-        Hill<Character> cipher = new Hill(LowerCaseEnglish.defaultInstance);
+        Hill<Character> cipher = new Hill(SimpleAlphabet.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 stdout.info("Encrypting...");
@@ -91,7 +85,7 @@ public class HillProgram extends CryptosystemProgram {
         return CMD_HILL;
     }
     
-    private void getKey(Param p) {
+    private boolean getKey(Param p) {
         
         String strKey = p.getValue();
         if (strKey == null) {
@@ -99,32 +93,30 @@ public class HillProgram extends CryptosystemProgram {
             strKey = sid.showDialog("Key Matrix");
         }
         if (strKey == null) {
-            exit = true;
-            return;
+            return false;
         }
-        List<Double> values = new ArrayList();
+        List<Integer> values = new ArrayList();
         StringTokenizer tokenizer = new StringTokenizer(strKey);
         while (tokenizer.hasMoreTokens()) {
             try {
-                double v = Double.parseDouble(tokenizer.nextToken());
+                int v = Integer.parseInt(tokenizer.nextToken());
                 values.add(v);
             } catch (NumberFormatException ex) {
                 stdout.error("Bad matrix value. "+ex.getMessage());
-                exit = true;
-                return;
+                return false;
             }
         }
         int sq = (int) Math.sqrt(values.size());
         if (sq*sq != values.size()) {
-            stdout.error("Bad key. The key must be an square invertible matrix modulo 26");
-            exit = true;
-            return;
+            stdout.error("Bad key. The key must be an square invertible matrix modulo "+SimpleAlphabet.SIZE);
+            return false;
         }
-        key = new Matrix(sq, sq);
+        key = new ModularMatrix(sq, sq, SimpleAlphabet.SIZE);
         for (int i = 0; i < sq; i++) {
             for (int j = 0; j < sq; j++) {
-                key.setElement(i, j, values.get(j*sq+i));
+                key.set(i, j, values.get(i*sq+j));
             }
         }
+        return true;
     }
 }

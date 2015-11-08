@@ -1,8 +1,7 @@
 package co.edu.unal.crypto.tools;
 
-import java.awt.Image;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
@@ -24,63 +23,78 @@ public class ImageStream {
         }
         BufferedImage image = null;
         try {
-            image = ImageIO.read(imgFile);
+            BufferedImage cImage = ImageIO.read(imgFile);
+            image = new BufferedImage(cImage.getWidth(), cImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);  
+            Graphics g = image.getGraphics();
+            g.drawImage(cImage, 0, 0, null);
+            g.dispose();
         } catch (IOException e) {
             throw new IllegalArgumentException("Error while reading the image");
         }
         return image;
     }
     
-    public static char[] toCharArray(String imgPath) {
-
-        File imgFile = new File(imgPath);
-        if (!imgFile.exists()) {
-            throw new IllegalArgumentException("Image File doesn't exists: "+imgFile.getPath());
-        }
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(imgFile);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Error while reading the image");
-        }
-        if (image.getType() != BufferedImage.TYPE_BYTE_GRAY) {
-            throw new IllegalArgumentException("Only GrayScale images are supported");
-        }
-        int w = image.getWidth();
-        int h = image.getHeight();
-        char[] output = new char[w * h + 8];
+    public static BufferedImage binarize(BufferedImage grayImage) {
         
-        for (int i = 0; i < 4; i++) {
-            output[i] += (w >> (8 * i)) & 0xFF;
-        }
-        for (int i = 0; i < 4; i++) {
-            output[i + 4] += (h >> (8 * i)) & 0xFF;
-        }
-        byte[] buff = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        for (int i = 0; i < buff.length; i++) {
-            output[i + 8] += buff[i];
-        }
-        return output;
-    }
-
-    public static Image write(char[] data) {
-
-        int w = 0;
-        int h = 0;
-        for (int i = 3; i >= 0; i--) {
-            w = (w << 8) | (data[i] & 0xFF);
-        }
-        for (int i = 7; i >= 4; i--) {
-            h = (h << 8) | (data[i] & 0xFF);
-        }
-        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
-        WritableRaster raster = image.getRaster();
+        int otsu = otsuTreshold(grayImage);
+        int w = grayImage.getWidth();
+        int h = grayImage.getHeight();
+        BufferedImage bin = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_BINARY);
+        WritableRaster binRaster = bin.getRaster();
+        WritableRaster raster = grayImage.getRaster();
+        
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
-                raster.setSample(j, i, 0, data[i * w + j]);
+                if (raster.getSample(j, i, 0) > otsu) {
+                    binRaster.setSample(j, i, 0, 1);
+                } else {
+                    binRaster.setSample(j, i, 0, 0);
+                }
             }
         }
-        return image;
+        return bin;
     }
-
+    
+    private static int otsuTreshold(BufferedImage grayImg) {
+ 
+        int w = grayImg.getWidth();
+        int h = grayImg.getHeight();
+        
+        int[] histogram = new int[256];
+        WritableRaster raster = grayImg.getRaster();
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                histogram[raster.getSample(j, i, 0)]++;
+            }
+        }
+        double sum = 0;
+        for(int i = 0; i < 256; i++) {
+            sum += i * histogram[i];
+        }
+        double sumB = 0;
+        int wB = 0;
+        int wF;
+        double varMax = 0;
+        int threshold = 0;
+ 
+        for(int i = 0 ; i < 256 ; i++) {
+            wB += histogram[i];
+            if(wB == 0) {
+                continue;
+            }
+            wF = w * h - wB;
+            if(wF == 0) {
+                break;
+            }
+            sumB += i * histogram[i];
+            double mB = sumB / wB;
+            double mF = (sum - sumB) / wF;
+            double varBetween = wB * wF * (mB - mF) * (mB - mF);
+            if(varBetween > varMax) {
+                varMax = varBetween;
+                threshold = i;
+            }
+        }
+        return threshold;
+    }
 }

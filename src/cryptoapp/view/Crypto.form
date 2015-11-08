@@ -109,6 +109,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encCoCoHillActionPerformed"/>
                       </Events>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="encCoCoHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encCoCoHillReloadedActionPerformed"/>
+                      </Events>
+                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="encCoCoRSA">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="RSA"/>
@@ -170,6 +178,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encCoFiHillActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="encCoFiHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encCoFiHillReloadedActionPerformed"/>
                       </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="encCoFiRSA">
@@ -235,6 +251,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encFiCoHillActionPerformed"/>
                       </Events>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="encFiCoHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encFiCoHillReloadedActionPerformed"/>
+                      </Events>
+                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="encFiCoRSA">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="RSA"/>
@@ -298,6 +322,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encFiFiHillActionPerformed"/>
                       </Events>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="encFiFiHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encFiFiHillReloadedActionPerformed"/>
+                      </Events>
+                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="encFiFiRSA">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="RSA"/>
@@ -312,6 +344,21 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encFiFiDESActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
+                <Menu class="javax.swing.JMenu" name="jMenu10">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Input Image -&gt; Output Image"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="encImgImgHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="encImgImgHillReloadedActionPerformed"/>
                       </Events>
                     </MenuItem>
                   </SubComponents>
@@ -366,6 +413,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decCoCoHillActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="decCoCoHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decCoCoHillReloadedActionPerformed"/>
                       </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="decCoCoRSA">
@@ -431,6 +486,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decCoFiHillActionPerformed"/>
                       </Events>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="decCoFiHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decCoFiHillReloadedActionPerformed"/>
+                      </Events>
+                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="decCoFiRSA">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="RSA"/>
@@ -492,6 +555,14 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decFiCoHillActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="decFiCoHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decFiCoHillReloadedActionPerformed"/>
                       </Events>
                     </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="decFiCoRSA">
@@ -557,6 +628,14 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decFiFiHillActionPerformed"/>
                       </Events>
                     </MenuItem>
+                    <MenuItem class="javax.swing.JMenuItem" name="decFiFiHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decFiFiHillReloadedActionPerformed"/>
+                      </Events>
+                    </MenuItem>
                     <MenuItem class="javax.swing.JMenuItem" name="decFiFiRSA">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="RSA"/>
@@ -571,6 +650,21 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decFiFiDESActionPerformed"/>
+                      </Events>
+                    </MenuItem>
+                  </SubComponents>
+                </Menu>
+                <Menu class="javax.swing.JMenu" name="jMenu11">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Input Image -&gt; Output Image"/>
+                  </Properties>
+                  <SubComponents>
+                    <MenuItem class="javax.swing.JMenuItem" name="decImgImgHillReloaded">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Hill Improved"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="decImgImgHillReloadedActionPerformed"/>
                       </Events>
                     </MenuItem>
                   </SubComponents>
@@ -637,6 +731,30 @@
             <Property name="text" type="java.lang.String" value="Cryptoanalysis"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="analysisTrigramFrequency">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Trigram Frequency"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisTrigramFrequencyActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="analysisDigramFrequency">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Digram Frequency"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisDigramFrequencyActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="analysisCharacterFrequency">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Character Frequency"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisCharacterFrequencyActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="analysisRSA">
               <Properties>
                 <Property name="text" type="java.lang.String" value="RSA"/>
@@ -661,6 +779,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisAffineActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="analysisVigenere">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Vigenere"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisVigenereActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="analysisSubstitution">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Substitution"/>
@@ -668,15 +794,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisSubstitutionActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="analysisVigenere">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Vigenere"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analysisVigenereActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

@@ -2,10 +2,8 @@ package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
 import co.edu.unal.crypto.tools.Arithmetic;
-import co.edu.unal.crypto.tools.ModularArithmetic;
+import co.edu.unal.crypto.types.ModularMatrix;
 import java.util.Arrays;
-
-import flanagan.math.Matrix;
 
 /**
  * 
@@ -13,7 +11,7 @@ import flanagan.math.Matrix;
  * @email eduarcastrillo@gmail.com
  * @param <P> 
  */
-public class Hill<P> extends Cryptosystem<P, P, Matrix> {
+public class Hill<P> extends Cryptosystem<P, P, ModularMatrix> {
 
     private final int modulus;
 
@@ -24,42 +22,40 @@ public class Hill<P> extends Cryptosystem<P, P, Matrix> {
     }
 
     @Override
-    public P[] encrypt(Matrix key, P[] input) {
+    public P[] encrypt(ModularMatrix key, P[] input) {
 
         checkKey(key);
         return multiply(key, input);
     }
 
     @Override
-    public P[] decrypt(Matrix key, P[] input) {
+    public P[] decrypt(ModularMatrix key, P[] input) {
 
         checkKey(key);
-        int inv = ModularArithmetic.multiplicativeInverse((int) key.determinant(), modulus);
-        return multiply(key.cofactor().times((double) inv).transpose(), input);
+        int inv = Arithmetic.modInverse(key.determinant(), modulus);
+        return multiply(key.cofactor().mul(inv).transpose(), input);
     }
 
-    public void checkKey(Matrix key) {
+    public void checkKey(ModularMatrix key) {
 
-        modMatrix(key);
-        int det = (int) key.determinant();
+        int det = key.determinant();
         if (det == 0) {
-            throw new IllegalArgumentException("Invalid Hill key: null determinant");
+            throw new IllegalArgumentException("Invalid Hill key: zero determinant");
         }
-        if (!Arithmetic.areCoprimes(det, modulus)) {
+        if (!Arithmetic.coprimes(det, modulus)) {
             throw new IllegalArgumentException("Invalid Hill key: determinant "+det+" and "+modulus+" aren't coprimes");
         }
     }
 
     @Override
-    public Matrix generateKey(Object seed) {
-        // TODO Auto-generated method stub
+    public ModularMatrix generateKey(Object seed) {
         return null;
     }
 
-    private P[] multiply(Matrix key, P[] vec) {
+    private P[] multiply(ModularMatrix key, P[] vec) {
 
         int msgLength = vec.length;
-        int blockSize = key.getNcol();
+        int blockSize = key.getCols();
         int r = msgLength % blockSize;
         int dummy = r == 0 ? 0 : blockSize - r;
 
@@ -68,29 +64,40 @@ public class Hill<P> extends Cryptosystem<P, P, Matrix> {
             output[i] = inAlphabet.getValue(0);
         }
 
-        modMatrix(key);
-        double input[][] = new double[1][blockSize];
-
+        ModularMatrix input = new ModularMatrix(1, blockSize, modulus);
         for (int i = 0; i < output.length; i += blockSize) {
             for (int j = 0; j < blockSize; j++) {
-                input[0][j] = inAlphabet.getIndex(output[i + j]);
+                input.set(0, j, inAlphabet.getIndex(output[i + j]));
             }
-            Matrix aux = (new Matrix(input)).times(key);
-            modMatrix(aux);
+            input = input.mul(key);
             for (int j = 0; j < blockSize; j++) {
-                output[i + j] = inAlphabet.getValue((int) aux.getElement(0, j));
+                int p = input.get(0, j);
+                output[i + j] = inAlphabet.getValue(p);
             }
         }
         return output;
     }
-
-    private void modMatrix(Matrix key) {
-
-        for (int i = 0; i < key.getNrow(); i++) {
-            for (int j = 0; j < key.getNcol(); j++) {
-                int v = (int) key.getElement(i, j);
-                key.setElement(i, j, ModularArithmetic.modulo(v, modulus));
-            }
-        }
-    }
+    
+    /*public static void main(String args[]) {
+        
+        ModularMatrix mat = new ModularMatrix(2, 2, LowerCaseEnglish.SIZE);
+        mat.set(0, 0, 3);
+        mat.set(0, 1, 3);
+        mat.set(1, 0, 2);
+        mat.set(1, 1, 5);
+        
+        ModularMatrix iv = new ModularMatrix(1, 2, LowerCaseEnglish.SIZE);
+        iv.set(0, 0, 5);
+        iv.set(0, 1, 7);
+        
+        Hill<Character> cipher = new Hill(LowerCaseEnglish.defaultInstance);
+        
+        String strInput = "helphelp";
+        Character[] input = CharStream.fromString(strInput);
+        
+        Character[] output = cipher.encrypt(mat, input);
+        CharStream.out(output);
+        input = cipher.decrypt(mat, output);
+        CharStream.out(input);
+    }*/
 }

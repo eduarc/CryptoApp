@@ -7,6 +7,16 @@ package co.edu.unal.system;
  */
 public class ParamUtils {
     
+    public static Param getParam(Param[] params, String pName) {
+        
+        for (Param p : params) {
+            if (p.getName().equals(pName)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
     public static boolean contains(Param[] params, String p) {
         return containsMinMax(params, new String[]{p}, 1, 1);
     }

@@ -1,9 +1,10 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
+import co.edu.unal.crypto.alphabet.ASCII;
 import co.edu.unal.crypto.cryptosystem.Caesar;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 
 /**
@@ -37,15 +38,12 @@ public class CaesarProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
     
-        for (Param param : params) {
-            String name = param.getName();
-            if (name.equals(P_OFFSET)) {
-                offset = getInt(param);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_OFFSET);
+        offset = ParamReader.getInt(p);
+        if (offset == null) {
+            return -1;
         }
+        
         stdout.info("Input:");
         if (inputFile != null) {
             stdout.append("From file: "+inputFile.getAbsolutePath());
@@ -55,7 +53,7 @@ public class CaesarProgram extends CryptosystemProgram {
         stdout.info("Parameters:");
         stdout.append(P_OFFSET+" = "+offset);
         
-        Caesar<Character> cipher = new Caesar(LowerCaseEnglish.defaultInstance);
+        Caesar<Character> cipher = new Caesar(ASCII.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 stdout.info("Encrypting...");

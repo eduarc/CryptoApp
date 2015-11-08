@@ -1,14 +1,12 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.tools.ImageStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import co.edu.unal.system.Program;
 import cryptoapp.StandardConsole;
-import cryptoapp.view.ImageViewer;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
@@ -24,7 +22,6 @@ public abstract class VCSProgram extends Program {
     
     Frame frame;
     StandardConsole stdout;
-    boolean exit;
     BufferedImage input;
     
     public VCSProgram(Environment env) {
@@ -48,14 +45,10 @@ public abstract class VCSProgram extends Program {
                 stdout.error("Parameter "+P_SECRET+" not provided");
                 return -1;
             }
-            for (Param param : params) {
-                String name = param.getName();
-                if (name.equals(P_SECRET)) {
-                    input = (BufferedImage) getInput("Select the Secret Image", param);
-                }
-                if (exit) {
-                    return -1;
-                }
+            Param p = ParamUtils.getParam(params, P_SECRET);
+            input = (BufferedImage) ParamReader.getImage(p, "Select the Secret Image", true);
+            if (input == null) {
+                return -1;
             }
         }
         if (!checkParams(params)) {
@@ -85,26 +78,4 @@ public abstract class VCSProgram extends Program {
     public abstract int main(Param[] params);
     
     public abstract boolean checkParams(Param[] params);
-
-    public Image getInput(String title, Param param) {
-        
-        String strImage = param.getValue();
-        Image img = null;
-        if (strImage == null) {
-            ImageViewer imageChooser = new ImageViewer(frame, true);
-            img = (BufferedImage) imageChooser.select(title);
-            if (img == null) {
-                exit = true;
-            }
-        } else {
-            try {
-                img = ImageStream.readImage(strImage);
-            } catch (Exception ex) {
-                stdout.error("Error while loading the image. "+ex.getMessage());
-                exit = true;
-            }
-        }
-        return img;
-    }
-    
 }

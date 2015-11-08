@@ -1,25 +1,25 @@
-package co.edu.unal.system.factory;
+package cryptoapp.programs.factory;
 
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Program;
 import co.edu.unal.system.ProgramFactory;
-import co.edu.unal.system.program.ClearProgram;
+import cryptoapp.program.HillReloadedProgram;
 
 /**
  *
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
  */
-public class ClearFactory implements ProgramFactory {
+public class HillReloadedFactory implements ProgramFactory {
 
     Environment env;
-            
-    public ClearFactory(Environment env) {
+
+    public HillReloadedFactory(Environment env) {
         this.env = env;
     }
     
     @Override
     public Program newInstance() {
-        return new ClearProgram(env);
-    }   
+        return new HillReloadedProgram(env);
+    }
 }

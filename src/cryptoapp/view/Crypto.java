@@ -6,8 +6,9 @@
 package cryptoapp.view;
 
 import co.edu.unal.system.Environment;
-import co.edu.unal.system.factory.ClearFactory;
-import co.edu.unal.system.program.ClearProgram;
+import co.edu.unal.system.ParamReader;
+import cryptoapp.programs.factory.ClearFactory;
+import cryptoapp.program.ClearProgram;
 import cryptoapp.StandardConsole;
 import cryptoapp.StandardPrompt;
 import cryptoapp.program.AffineProgram;
@@ -15,7 +16,9 @@ import cryptoapp.program.CaesarProgram;
 import cryptoapp.program.CryptoAnalyzerProgram;
 import cryptoapp.program.DESProgram;
 import cryptoapp.program.FactorSuccession;
+import cryptoapp.program.FrequencyProgram;
 import cryptoapp.program.HillProgram;
+import cryptoapp.program.HillReloadedProgram;
 import cryptoapp.program.RSAProgram;
 import cryptoapp.program.SubstitutionProgram;
 import cryptoapp.program.ThreeThreeProgram;
@@ -26,7 +29,9 @@ import cryptoapp.programs.factory.CaesarFactory;
 import cryptoapp.programs.factory.CryptoAnalyzerFactory;
 import cryptoapp.programs.factory.DESFactory;
 import cryptoapp.programs.factory.FactorSuccessionFactory;
+import cryptoapp.programs.factory.FrequencyFactory;
 import cryptoapp.programs.factory.HillFactory;
+import cryptoapp.programs.factory.HillReloadedFactory;
 import cryptoapp.programs.factory.RSAFactory;
 import cryptoapp.programs.factory.SubstitutionFactory;
 import cryptoapp.programs.factory.ThreeThreeFactory;
@@ -53,6 +58,9 @@ public class Crypto extends javax.swing.JFrame {
         env.addResource(Environment.STDOUT, stdout);
         env.addResource(Environment.PROMPT, prompt);
         
+        ParamReader.setStdout(stdout);
+        ParamReader.setFrame(this);
+                
         env.addProgram(ClearProgram.CMD_CLEAR, new ClearFactory(env));
         env.addProgram(CaesarProgram.CMD_CAESAR, new CaesarFactory(env));
         env.addProgram(AffineProgram.CMD_AFFINE, new AffineFactory(env));
@@ -65,6 +73,8 @@ public class Crypto extends javax.swing.JFrame {
         env.addProgram(ThreeThreeProgram.CMD_THREE, new ThreeThreeFactory(env));
         env.addProgram(CryptoAnalyzerProgram.CMD_CRACK, new CryptoAnalyzerFactory(env));
         env.addProgram(FactorSuccession.CMD_FACTOR_SUCCESSION, new FactorSuccessionFactory(env));
+        env.addProgram(FrequencyProgram.CMD_FREQUENCY, new FrequencyFactory(env));
+        env.addProgram(HillReloadedProgram.CMD_HILL_RELOADED, new HillReloadedFactory(env));
     }
 
     /**
@@ -97,6 +107,7 @@ public class Crypto extends javax.swing.JFrame {
         encCoCoSubstitution = new javax.swing.JMenuItem();
         encCoCoVigenere = new javax.swing.JMenuItem();
         encCoCoHill = new javax.swing.JMenuItem();
+        encCoCoHillReloaded = new javax.swing.JMenuItem();
         encCoCoRSA = new javax.swing.JMenuItem();
         encCoCoDES = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
@@ -105,6 +116,7 @@ public class Crypto extends javax.swing.JFrame {
         encCoFiSubstitution = new javax.swing.JMenuItem();
         encCoFiVigenere = new javax.swing.JMenuItem();
         encCoFiHill = new javax.swing.JMenuItem();
+        encCoFiHillReloaded = new javax.swing.JMenuItem();
         encCoFiRSA = new javax.swing.JMenuItem();
         encCoFiDES = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -113,6 +125,7 @@ public class Crypto extends javax.swing.JFrame {
         encFiCoSubstitution = new javax.swing.JMenuItem();
         encFiCoVigenere = new javax.swing.JMenuItem();
         encFiCoHill = new javax.swing.JMenuItem();
+        encFiCoHillReloaded = new javax.swing.JMenuItem();
         encFiCoRSA = new javax.swing.JMenuItem();
         encFiCoDES = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -121,8 +134,11 @@ public class Crypto extends javax.swing.JFrame {
         encFiFiSubstitution = new javax.swing.JMenuItem();
         encFiFiVigenere = new javax.swing.JMenuItem();
         encFiFiHill = new javax.swing.JMenuItem();
+        encFiFiHillReloaded = new javax.swing.JMenuItem();
         encFiFiRSA = new javax.swing.JMenuItem();
         encFiFiDES = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        encImgImgHillReloaded = new javax.swing.JMenuItem();
         menuDecrypt = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         decCoCoCaesar = new javax.swing.JMenuItem();
@@ -130,6 +146,7 @@ public class Crypto extends javax.swing.JFrame {
         decCoCoSubstitution = new javax.swing.JMenuItem();
         decCoCoVigenere = new javax.swing.JMenuItem();
         decCoCoHill = new javax.swing.JMenuItem();
+        decCoCoHillReloaded = new javax.swing.JMenuItem();
         decCoCoRSA = new javax.swing.JMenuItem();
         decCoCoDES = new javax.swing.JMenuItem();
         jMenuUnknown1 = new javax.swing.JMenu();
@@ -138,6 +155,7 @@ public class Crypto extends javax.swing.JFrame {
         decCoFiSubstitution = new javax.swing.JMenuItem();
         decCoFiVigenere = new javax.swing.JMenuItem();
         decCoFiHill = new javax.swing.JMenuItem();
+        decCoFiHillReloaded = new javax.swing.JMenuItem();
         decCoFiRSA = new javax.swing.JMenuItem();
         decCoFiDES = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -146,6 +164,7 @@ public class Crypto extends javax.swing.JFrame {
         decFiCoSubstitution = new javax.swing.JMenuItem();
         decFiCoVigenere = new javax.swing.JMenuItem();
         decFiCoHill = new javax.swing.JMenuItem();
+        decFiCoHillReloaded = new javax.swing.JMenuItem();
         decFiCoRSA = new javax.swing.JMenuItem();
         decFiCoDES = new javax.swing.JMenuItem();
         jMenuUnknown = new javax.swing.JMenu();
@@ -154,8 +173,11 @@ public class Crypto extends javax.swing.JFrame {
         decFiFiSubstitution = new javax.swing.JMenuItem();
         decFiFiVigenere = new javax.swing.JMenuItem();
         decFiFiHill = new javax.swing.JMenuItem();
+        decFiFiHillReloaded = new javax.swing.JMenuItem();
         decFiFiRSA = new javax.swing.JMenuItem();
         decFiFiDES = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        decImgImgHillReloaded = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         encTwoTwoVCS = new javax.swing.JMenuItem();
@@ -164,11 +186,14 @@ public class Crypto extends javax.swing.JFrame {
         decTwoTwoVCS = new javax.swing.JMenuItem();
         decThreeThreeVCS = new javax.swing.JMenuItem();
         menuCryptoanalysis = new javax.swing.JMenu();
+        analysisTrigramFrequency = new javax.swing.JMenuItem();
+        analysisDigramFrequency = new javax.swing.JMenuItem();
+        analysisCharacterFrequency = new javax.swing.JMenuItem();
         analysisRSA = new javax.swing.JMenuItem();
         analysisCaesar = new javax.swing.JMenuItem();
         analysisAffine = new javax.swing.JMenuItem();
-        analysisSubstitution = new javax.swing.JMenuItem();
         analysisVigenere = new javax.swing.JMenuItem();
+        analysisSubstitution = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         factor_succession = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
@@ -325,6 +350,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         unknownMenu.add(encCoCoHill);
 
+        encCoCoHillReloaded.setText("Hill Improved");
+        encCoCoHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoCoHillReloadedActionPerformed(evt);
+            }
+        });
+        unknownMenu.add(encCoCoHillReloaded);
+
         encCoCoRSA.setText("RSA");
         encCoCoRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,6 +417,14 @@ public class Crypto extends javax.swing.JFrame {
             }
         });
         jMenu8.add(encCoFiHill);
+
+        encCoFiHillReloaded.setText("Hill Improved");
+        encCoFiHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encCoFiHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu8.add(encCoFiHillReloaded);
 
         encCoFiRSA.setText("RSA");
         encCoFiRSA.addActionListener(new java.awt.event.ActionListener() {
@@ -445,6 +486,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         jMenu2.add(encFiCoHill);
 
+        encFiCoHillReloaded.setText("Hill Improved");
+        encFiCoHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiCoHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu2.add(encFiCoHillReloaded);
+
         encFiCoRSA.setText("RSA");
         encFiCoRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -505,6 +554,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         jMenu1.add(encFiFiHill);
 
+        encFiFiHillReloaded.setText("Hill Improved");
+        encFiFiHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encFiFiHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu1.add(encFiFiHillReloaded);
+
         encFiFiRSA.setText("RSA");
         encFiFiRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -522,6 +579,18 @@ public class Crypto extends javax.swing.JFrame {
         jMenu1.add(encFiFiDES);
 
         menuItemEncrypt.add(jMenu1);
+
+        jMenu10.setText("Input Image -> Output Image");
+
+        encImgImgHillReloaded.setText("Hill Improved");
+        encImgImgHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                encImgImgHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu10.add(encImgImgHillReloaded);
+
+        menuItemEncrypt.add(jMenu10);
 
         menuCryptosystems.add(menuItemEncrypt);
 
@@ -568,6 +637,14 @@ public class Crypto extends javax.swing.JFrame {
             }
         });
         jMenu6.add(decCoCoHill);
+
+        decCoCoHillReloaded.setText("Hill Improved");
+        decCoCoHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoCoHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu6.add(decCoCoHillReloaded);
 
         decCoCoRSA.setText("RSA");
         decCoCoRSA.addActionListener(new java.awt.event.ActionListener() {
@@ -629,6 +706,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         jMenuUnknown1.add(decCoFiHill);
 
+        decCoFiHillReloaded.setText("Hill Improved");
+        decCoFiHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decCoFiHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenuUnknown1.add(decCoFiHillReloaded);
+
         decCoFiRSA.setText("RSA");
         decCoFiRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -688,6 +773,14 @@ public class Crypto extends javax.swing.JFrame {
             }
         });
         jMenu5.add(decFiCoHill);
+
+        decFiCoHillReloaded.setText("Hill Improved");
+        decFiCoHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiCoHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu5.add(decFiCoHillReloaded);
 
         decFiCoRSA.setText("RSA");
         decFiCoRSA.addActionListener(new java.awt.event.ActionListener() {
@@ -749,6 +842,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         jMenuUnknown.add(decFiFiHill);
 
+        decFiFiHillReloaded.setText("Hill Improved");
+        decFiFiHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decFiFiHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenuUnknown.add(decFiFiHillReloaded);
+
         decFiFiRSA.setText("RSA");
         decFiFiRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -766,6 +867,18 @@ public class Crypto extends javax.swing.JFrame {
         jMenuUnknown.add(decFiFiDES);
 
         menuDecrypt.add(jMenuUnknown);
+
+        jMenu11.setText("Input Image -> Output Image");
+
+        decImgImgHillReloaded.setText("Hill Improved");
+        decImgImgHillReloaded.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decImgImgHillReloadedActionPerformed(evt);
+            }
+        });
+        jMenu11.add(decImgImgHillReloaded);
+
+        menuDecrypt.add(jMenu11);
 
         menuCryptosystems.add(menuDecrypt);
 
@@ -817,6 +930,30 @@ public class Crypto extends javax.swing.JFrame {
 
         menuCryptoanalysis.setText("Cryptoanalysis");
 
+        analysisTrigramFrequency.setText("Trigram Frequency");
+        analysisTrigramFrequency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisTrigramFrequencyActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisTrigramFrequency);
+
+        analysisDigramFrequency.setText("Digram Frequency");
+        analysisDigramFrequency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisDigramFrequencyActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisDigramFrequency);
+
+        analysisCharacterFrequency.setText("Character Frequency");
+        analysisCharacterFrequency.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisCharacterFrequencyActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisCharacterFrequency);
+
         analysisRSA.setText("RSA");
         analysisRSA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -841,6 +978,14 @@ public class Crypto extends javax.swing.JFrame {
         });
         menuCryptoanalysis.add(analysisAffine);
 
+        analysisVigenere.setText("Vigenere");
+        analysisVigenere.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analysisVigenereActionPerformed(evt);
+            }
+        });
+        menuCryptoanalysis.add(analysisVigenere);
+
         analysisSubstitution.setText("Substitution");
         analysisSubstitution.setEnabled(false);
         analysisSubstitution.addActionListener(new java.awt.event.ActionListener() {
@@ -849,15 +994,6 @@ public class Crypto extends javax.swing.JFrame {
             }
         });
         menuCryptoanalysis.add(analysisSubstitution);
-
-        analysisVigenere.setText("Vigenere");
-        analysisVigenere.setEnabled(false);
-        analysisVigenere.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                analysisVigenereActionPerformed(evt);
-            }
-        });
-        menuCryptoanalysis.add(analysisVigenere);
 
         menuBar.add(menuCryptoanalysis);
 
@@ -1185,13 +1321,65 @@ public class Crypto extends javax.swing.JFrame {
     }//GEN-LAST:event_analysisSubstitutionActionPerformed
 
     private void analysisVigenereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisVigenereActionPerformed
-        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" vigenere in");
+        tfCommand.setText(CryptoAnalyzerProgram.CMD_CRACK+" vigenere max_key_len in");
     }//GEN-LAST:event_analysisVigenereActionPerformed
 
     private void factor_successionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factor_successionActionPerformed
         
         tfCommand.setText(FactorSuccession.CMD_FACTOR_SUCCESSION+" n");
     }//GEN-LAST:event_factor_successionActionPerformed
+
+    private void analysisTrigramFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisTrigramFrequencyActionPerformed
+        tfCommand.setText(FrequencyProgram.CMD_FREQUENCY+" trigram in");
+    }//GEN-LAST:event_analysisTrigramFrequencyActionPerformed
+
+    private void analysisDigramFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisDigramFrequencyActionPerformed
+        tfCommand.setText(FrequencyProgram.CMD_FREQUENCY+" digram in");
+    }//GEN-LAST:event_analysisDigramFrequencyActionPerformed
+
+    private void analysisCharacterFrequencyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analysisCharacterFrequencyActionPerformed
+        tfCommand.setText(FrequencyProgram.CMD_FREQUENCY+" chars in");
+    }//GEN-LAST:event_analysisCharacterFrequencyActionPerformed
+
+    private void encImgImgHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encImgImgHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" encrypt key iv iin iout");
+    }//GEN-LAST:event_encImgImgHillReloadedActionPerformed
+
+    private void decImgImgHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decImgImgHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" decrypt key iv iin iout");
+    }//GEN-LAST:event_decImgImgHillReloadedActionPerformed
+
+    private void encCoCoHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoCoHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" encrypt key iv in");
+    }//GEN-LAST:event_encCoCoHillReloadedActionPerformed
+
+    private void encCoFiHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encCoFiHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" encrypt key iv in fout");
+    }//GEN-LAST:event_encCoFiHillReloadedActionPerformed
+
+    private void encFiCoHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiCoHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" encrypt key iv fin");
+    }//GEN-LAST:event_encFiCoHillReloadedActionPerformed
+
+    private void encFiFiHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encFiFiHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" encrypt key iv fin fout");
+    }//GEN-LAST:event_encFiFiHillReloadedActionPerformed
+
+    private void decCoCoHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoCoHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" decrypt key iv in");
+    }//GEN-LAST:event_decCoCoHillReloadedActionPerformed
+
+    private void decCoFiHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decCoFiHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" decrypt key iv in fout");
+    }//GEN-LAST:event_decCoFiHillReloadedActionPerformed
+
+    private void decFiCoHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiCoHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" decrypt key iv fin");
+    }//GEN-LAST:event_decFiCoHillReloadedActionPerformed
+
+    private void decFiFiHillReloadedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decFiFiHillReloadedActionPerformed
+        tfCommand.setText(HillReloadedProgram.CMD_HILL_RELOADED+" decrypt key iv fin fout");
+    }//GEN-LAST:event_decFiFiHillReloadedActionPerformed
 
     Environment env;
     StandardConsole stdout;
@@ -1200,8 +1388,11 @@ public class Crypto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem analysisAffine;
     private javax.swing.JMenuItem analysisCaesar;
+    private javax.swing.JMenuItem analysisCharacterFrequency;
+    private javax.swing.JMenuItem analysisDigramFrequency;
     private javax.swing.JMenuItem analysisRSA;
     private javax.swing.JMenuItem analysisSubstitution;
+    private javax.swing.JMenuItem analysisTrigramFrequency;
     private javax.swing.JMenuItem analysisVigenere;
     private javax.swing.JTextPane areaOutput;
     private javax.swing.JButton bExec;
@@ -1209,6 +1400,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem decCoCoCaesar;
     private javax.swing.JMenuItem decCoCoDES;
     private javax.swing.JMenuItem decCoCoHill;
+    private javax.swing.JMenuItem decCoCoHillReloaded;
     private javax.swing.JMenuItem decCoCoRSA;
     private javax.swing.JMenuItem decCoCoSubstitution;
     private javax.swing.JMenuItem decCoCoVigenere;
@@ -1216,6 +1408,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem decCoFiCaesar;
     private javax.swing.JMenuItem decCoFiDES;
     private javax.swing.JMenuItem decCoFiHill;
+    private javax.swing.JMenuItem decCoFiHillReloaded;
     private javax.swing.JMenuItem decCoFiRSA;
     private javax.swing.JMenuItem decCoFiSubstitution;
     private javax.swing.JMenuItem decCoFiVigenere;
@@ -1223,6 +1416,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem decFiCoCaesar;
     private javax.swing.JMenuItem decFiCoDES;
     private javax.swing.JMenuItem decFiCoHill;
+    private javax.swing.JMenuItem decFiCoHillReloaded;
     private javax.swing.JMenuItem decFiCoRSA;
     private javax.swing.JMenuItem decFiCoSubstitution;
     private javax.swing.JMenuItem decFiCoVigenere;
@@ -1230,15 +1424,18 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem decFiFiCaesar;
     private javax.swing.JMenuItem decFiFiDES;
     private javax.swing.JMenuItem decFiFiHill;
+    private javax.swing.JMenuItem decFiFiHillReloaded;
     private javax.swing.JMenuItem decFiFiRSA;
     private javax.swing.JMenuItem decFiFiSubstitution;
     private javax.swing.JMenuItem decFiFiVigenere;
+    private javax.swing.JMenuItem decImgImgHillReloaded;
     private javax.swing.JMenuItem decThreeThreeVCS;
     private javax.swing.JMenuItem decTwoTwoVCS;
     private javax.swing.JMenuItem encCoCoAffine;
     private javax.swing.JMenuItem encCoCoCaesar;
     private javax.swing.JMenuItem encCoCoDES;
     private javax.swing.JMenuItem encCoCoHill;
+    private javax.swing.JMenuItem encCoCoHillReloaded;
     private javax.swing.JMenuItem encCoCoRSA;
     private javax.swing.JMenuItem encCoCoSubstitution;
     private javax.swing.JMenuItem encCoCoVigenere;
@@ -1246,6 +1443,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem encCoFiCaesar;
     private javax.swing.JMenuItem encCoFiDES;
     private javax.swing.JMenuItem encCoFiHill;
+    private javax.swing.JMenuItem encCoFiHillReloaded;
     private javax.swing.JMenuItem encCoFiRSA;
     private javax.swing.JMenuItem encCoFiSubstitution;
     private javax.swing.JMenuItem encCoFiVigenere;
@@ -1253,6 +1451,7 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem encFiCoCaesar;
     private javax.swing.JMenuItem encFiCoDES;
     private javax.swing.JMenuItem encFiCoHill;
+    private javax.swing.JMenuItem encFiCoHillReloaded;
     private javax.swing.JMenuItem encFiCoRSA;
     private javax.swing.JMenuItem encFiCoSubstitution;
     private javax.swing.JMenuItem encFiCoVigenere;
@@ -1260,14 +1459,18 @@ public class Crypto extends javax.swing.JFrame {
     private javax.swing.JMenuItem encFiFiCaesar;
     private javax.swing.JMenuItem encFiFiDES;
     private javax.swing.JMenuItem encFiFiHill;
+    private javax.swing.JMenuItem encFiFiHillReloaded;
     private javax.swing.JMenuItem encFiFiRSA;
     private javax.swing.JMenuItem encFiFiSubstitution;
     private javax.swing.JMenuItem encFiFiVigenere;
+    private javax.swing.JMenuItem encImgImgHillReloaded;
     private javax.swing.JMenuItem encThreeThreeVCS;
     private javax.swing.JMenuItem encTwoTwoVCS;
     private javax.swing.JMenuItem factor_succession;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

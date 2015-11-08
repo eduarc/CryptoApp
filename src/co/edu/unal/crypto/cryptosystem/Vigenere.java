@@ -1,14 +1,14 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.ModularArithmetic;
+import co.edu.unal.crypto.tools.Arithmetic;
 import java.lang.reflect.Array;
 
 /**
- * 
+ *
  * @author eduarc (Eduar Castrillo Velilla)
  * @email eduarcastrillo@gmail.com
- * @param <P> 
+ * @param <P>
  */
 public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
 
@@ -33,7 +33,7 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
         for (int i = 0; i < input.length; i++) {
             int idx = inAlphabet.getIndex(input[i]);
             int kdx = inAlphabet.getIndex(key[i % key.length]);
-            output[i] = inAlphabet.getValue(ModularArithmetic.modulo(idx + kdx, modulus));
+            output[i] = inAlphabet.getValue(Arithmetic.mod(idx + kdx, modulus));
         }
         return output;
     }
@@ -48,19 +48,18 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
         for (int i = 0; i < input.length; i++) {
             int idx = inAlphabet.getIndex(input[i]);
             int kdx = inAlphabet.getIndex(key[i % key.length]);
-            output[i] = inAlphabet.getValue(ModularArithmetic.modulo(idx - kdx, modulus));
+            output[i] = inAlphabet.getValue(Arithmetic.mod(idx - kdx, modulus));
         }
         return output;
     }
 
     @Override
     public P[] generateKey(Object seed) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     public void checkKey(P[] key) {
-        
+
         if (key.length <= 0) {
             throw new IllegalArgumentException("Invalid Vigenere key: Zero-length key");
         }

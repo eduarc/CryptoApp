@@ -1,10 +1,12 @@
 package cryptoapp.program;
 
-import co.edu.unal.crypto.alphabet.LowerCaseEnglish;
+import co.edu.unal.crypto.alphabet.ASCII;
+import co.edu.unal.crypto.alphabet.SimpleAlphabet;
 import co.edu.unal.crypto.cryptosystem.Affine;
 import co.edu.unal.crypto.types.Pair;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 
 /**
@@ -29,18 +31,17 @@ public class AffineProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
         
-        for (Param param : params) {
-            String name = param.getName();
-            if (name.equals(P_A)) {
-                key.first = getInt(param);
-            }
-            else if (name.equals(P_B)) {
-                key.second = getInt(param);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_A);
+        key.first = ParamReader.getInt(p);
+        if (key.first == null) {
+            return -1;
         }
+        p = ParamUtils.getParam(params, P_B);
+        key.second = ParamReader.getInt(p);
+        if (key.second == null) {
+            return -1;
+        }
+        
         stdout.info("Input:");
         if (inputFile != null) {
             stdout.append("From file: "+inputFile.getAbsolutePath());
@@ -51,7 +52,7 @@ public class AffineProgram extends CryptosystemProgram {
         stdout.append(P_A+" = "+key.first);
         stdout.append(P_B+" = "+key.second);
         
-        Affine<Character> cipher = new Affine(LowerCaseEnglish.defaultInstance);
+        Affine<Character> cipher = new Affine(SimpleAlphabet.defaultInstance);
         try {
             if (ParamUtils.contains(params, P_ENCRYPT)) {
                 stdout.info("Encrypting...");

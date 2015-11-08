@@ -3,16 +3,15 @@ package cryptoapp.program;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import co.edu.unal.system.Program;
 import cryptoapp.StandardConsole;
-import cryptoapp.view.StringInputDialog;
+import cryptoapp.view.ImageViewer;
 import java.awt.Frame;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,6 +38,7 @@ public abstract class CryptosystemProgram extends Program {
 
     File outputFile;
     File inputFile;
+    BufferedImage inputImage;
     
     public CryptosystemProgram(Environment env) {
         super(env);
@@ -65,25 +65,41 @@ public abstract class CryptosystemProgram extends Program {
             stdout.error("Multiple output(s) provided");
             return -1;
         }
-        for (Param param : params) {
-            String name = param.getName();
-            if (name.equals(P_INPUT)) {
-                getString(param, "Input data to encrypt/decrypt");
+        
+        Param p = ParamUtils.getParam(params, P_INPUT);
+        if (p != null) {
+            String str = ParamReader.getString(p, "Input data to Encrypt/Decrypt");
+            if (str == null) {
+                return -1;
             }
-            else if (name.equals(P_FILE_INPUT)) {
-                getInputFromFile(param);
+            input = CharStream.fromString(str);
+        }
+        
+        p = ParamUtils.getParam(params, P_FILE_INPUT);
+        if (p != null) {
+            inputFile = ParamReader.getInputFile(p);
+            try {
+                input = CharStream.fromFile(inputFile);
+            } catch (IOException ex) {
+                stdout.error("Error while reading the input file: "+inputFile.getPath());
+                return -1;
             }
-            else if (name.equals(P_IMAGE_INPUT)) {
-                
+        }
+         
+        p = ParamUtils.getParam(params, P_IMAGE_INPUT);
+        if (p != null) {
+            inputImage = (BufferedImage) ParamReader.getImage(p, "Input Image to Encrypt/Decrypt", false);
+            if (inputImage == null) {
+                return -1;
             }
-            else if (name.equals(P_FILE_OUTPUT)) {
-                getOutputFile(param);
-            }
-            else if (name.equals(P_IMAGE_OUTPUT)) {
-                
-            }
-            if (exit) {
-                return 0;
+            input = CharStream.fromImage(inputImage);
+        }
+        
+        p = ParamUtils.getParam(params, P_FILE_OUTPUT);
+        if (p != null) {
+            outputFile = ParamReader.getOutputFile(p);
+            if (outputFile == null) {
+                return -1;
             }
         }
         if (!checkParams(params)) {
@@ -105,13 +121,14 @@ public abstract class CryptosystemProgram extends Program {
         if (ParamUtils.contains(params, P_FILE_OUTPUT)) {
             stdout.append("To file: "+outputFile.getAbsolutePath());
             try {
-                CharStream.fwrite(outputFile, output);
+                CharStream.toFile(outputFile, output);
             } catch (IOException ex) {
                 stdout.error("Error while writing to the output file: "+outputFile.getPath());
             }
         }
         else if (ParamUtils.contains(params, P_IMAGE_OUTPUT)) {
-            
+            ImageViewer viewer = new ImageViewer(frame, false);
+            viewer.show("Result", CharStream.toImage(output, inputImage.getWidth(), inputImage.getHeight()));
         }
         else if (output != null) {
             stdout.append(output);
@@ -134,104 +151,5 @@ public abstract class CryptosystemProgram extends Program {
     }
     
     public abstract int main(Param[] params);
-    
     public abstract boolean checkParams(Param[] params);
-    
-    public BigInteger getBigInt(Param p) {
-        
-        String strValue = p.getValue();
-        if (strValue == null) {
-            strValue = JOptionPane.showInputDialog(frame, "Parameter "+p.getName());
-        }
-        if (strValue == null) {
-            exit = true;
-            return null;
-        }
-        BigInteger value = null;
-        try {
-            value = new BigInteger(strValue);
-        } catch(NumberFormatException ex) {
-            stdout.error("Invalid parameter '"+p.getName()+"'. "+ex.getMessage());
-            exit = true;
-        }
-        return value;
-    }
-    
-    public Integer getInt(Param p) {
-        
-        String strN = p.getValue();
-        if (strN == null) {
-            strN = JOptionPane.showInputDialog(frame, "Parameter "+p.getName());
-        }
-        if (strN == null) {
-            exit = true;
-            return null;
-        }
-        try {
-            return Integer.parseInt(strN);
-        } catch(NumberFormatException ex) {
-            stdout.error("Invalid value for parameter "+p.getName()+". "+ex.getMessage());
-            exit = true;
-        }
-        return null;
-    }
-    
-    protected void getString(Param p, String title) {
-        
-        String v = p.getValue();
-        if (v == null) {
-            StringInputDialog sid = new StringInputDialog(frame, true);
-            v = sid.showDialog(title);
-        }
-        if (v == null) {
-            exit = true;
-            return;
-        }
-        input = CharStream.fromString(v);
-    }
-
-    protected void getInputFromFile(Param p) {
-        
-        String path = p.getValue();
-        if (path == null) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Select the input file");
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            if (fileChooser.showOpenDialog(frame) == JFileChooser.APPROVE_OPTION) {
-                inputFile = fileChooser.getSelectedFile();
-            }
-        } else {
-            inputFile = new File(path);
-        }
-        if (inputFile == null) {
-            exit = true;
-            return;
-        }
-        try {
-            input = CharStream.fread(inputFile);
-        } catch (IOException ex) {
-            stdout.error("Error while reading the input file: "+inputFile.getPath());
-            exit = true;
-        }
-    }
-    
-    protected void getOutputFile(Param p) {
-        
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select the output file");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
-            outputFile = fileChooser.getSelectedFile();
-            if (!outputFile.exists()) {
-                try {
-                    outputFile.createNewFile();
-                } catch (IOException ex) {
-                    stdout.error("Cannot create output file: "+outputFile.getPath());
-                    exit = true;
-                }
-            }
-        } else {
-            exit = true;
-        }
-    }
 }

@@ -5,8 +5,8 @@ import co.edu.unal.crypto.cryptosystem.Vigenere;
 import co.edu.unal.crypto.tools.CharStream;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
-import cryptoapp.view.StringInputDialog;
 
 /**
  *
@@ -27,15 +27,12 @@ public class VigenereProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
         
-        for (Param param : params) {
-            String name = param.getName();
-            if (name.equals(P_KEY)) {
-                getKey(param);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_KEY);
+        String strKey = ParamReader.getString(p, "Key Phrase");
+        if (strKey == null) {
+            return -1;
         }
+        key = CharStream.fromString(strKey);
         
         stdout.info("Input:");
         if (inputFile != null) {
@@ -75,20 +72,6 @@ public class VigenereProgram extends CryptosystemProgram {
     @Override
     public String getName() {
         return CMD_VIGENERE;
-    }
-
-    private void getKey(Param param) {
-        
-        String strKey = param.getValue();
-        if (strKey == null) {
-            StringInputDialog sid = new StringInputDialog(frame, true);
-            strKey = sid.showDialog("Key Phrase");
-        }
-        if (strKey == null) {
-            exit = true;
-            return;
-        }
-        key = CharStream.fromString(strKey);
     }
     
 }

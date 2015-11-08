@@ -124,11 +124,11 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
     public static class Key {
 
         protected boolean privateKey;
-        protected BigInteger p;
-        protected BigInteger q;
-        protected BigInteger e;
-        protected BigInteger d;
-        protected BigInteger n;
+        public BigInteger p;
+        public BigInteger q;
+        public BigInteger e;
+        public BigInteger d;
+        public BigInteger n;
         protected BigInteger phi;
 
         public Key(BigInteger p, BigInteger q, BigInteger e) {

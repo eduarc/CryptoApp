@@ -1,9 +1,10 @@
-package cryptoapp.crack;
+package co.edu.unal.crypto.analyzer;
 
 import co.edu.unal.crypto.alphabet.ASCII;
-import co.edu.unal.crypto.analyzer.CryptoAnalyzer;
 import co.edu.unal.crypto.cryptosystem.RSA;
+import co.edu.unal.crypto.tools.ConfidenceMethod;
 import co.edu.unal.crypto.tools.PollardsRho;
+import co.edu.unal.crypto.types.Pair;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author eduarc
  * @email eduarcastrillo@gmail.com
  */
-public class RSAAnalyzer implements CryptoAnalyzer<BigInteger, Character> {
+public class RSAAnalyzer implements CryptoAnalyzer<BigInteger, Character, RSA.Key> {
 
     BigInteger n;
     BigInteger e;
@@ -24,7 +25,7 @@ public class RSAAnalyzer implements CryptoAnalyzer<BigInteger, Character> {
     }
 
     @Override
-    public Character[] analyze(BigInteger[] secret) {
+    public Pair<Character[], RSA.Key> analyze(BigInteger[] secret, ConfidenceMethod match) {
         
         PollardsRho magic = new PollardsRho();
         List<BigInteger> factors = magic.factor(n);
@@ -36,7 +37,14 @@ public class RSAAnalyzer implements CryptoAnalyzer<BigInteger, Character> {
         BigInteger q = factors.get(1);
         
         RSA<Character> rsa = new RSA(ASCII.defaultInstance);
-        return rsa.decrypt(new RSA.Key(p, q, e), secret);
+        RSA.Key guessKey = new RSA.Key(p, q, e);
+        Character[] guess = rsa.decrypt(guessKey, secret);
+        return new Pair(guess, guessKey);
+    }
+
+    @Override
+    public List<Pair<Character[], RSA.Key>> analyze(BigInteger[] secret, int n, ConfidenceMethod match) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -26,14 +26,9 @@ public class SubstitutionProgram extends CryptosystemProgram {
     @Override
     public int main(Param[] params) {
         
-        for (Param param : params) {
-            String name = param.getName();
-            if (name.equals(P_KEY)) {
-                getKey(param);
-            }
-            if (exit) {
-                return -1;
-            }
+        Param p = ParamUtils.getParam(params, P_KEY);
+        if (!getKey(p)) {
+            return -1;
         }
         
         stdout.info("Input:");
@@ -76,7 +71,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
         return CMD_SUBSTITUTION;
     }
     
-    private void getKey(Param param) {
+    private boolean getKey(Param param) {
         
         String strKey = param.getValue();
         if (strKey == null) {
@@ -84,8 +79,7 @@ public class SubstitutionProgram extends CryptosystemProgram {
             strKey = sid.showDialog("Key Permutation");
         }
         if (strKey == null) {
-            exit = true;
-            return;
+            return false;
         }
         key = new Substitution.Key<>();
         for (char c = 'a'; c <= 'z'; c++) {
@@ -93,9 +87,9 @@ public class SubstitutionProgram extends CryptosystemProgram {
                 key.set(c, strKey.charAt(c-'a'));
             } catch (Exception ex) {
                 stdout.error("Invalid Substitution key: Bad format");
-                exit = true;
-                return;
+                return false;
             }
         }
+        return true;
     }
 }

@@ -5,7 +5,7 @@
  */
 package cryptoapp;
 
-import co.edu.unal.crypto.tools.LowerCaseEnglishDict;
+import co.edu.unal.crypto.tools.PrefixEnglishDictionary;
 import cryptoapp.view.Crypto;
 import javax.swing.JFrame;
 
@@ -19,11 +19,10 @@ public class CryptoApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        int a = LowerCaseEnglishDict.WORDS; // load english dictionary
+        
+        int a = PrefixEnglishDictionary.WORDS;
         Crypto f = new Crypto();
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
         f.setVisible(true);
     }
     

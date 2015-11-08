@@ -3,6 +3,7 @@ package cryptoapp.program;
 import co.edu.unal.crypto.visual.ThreeThree;
 import co.edu.unal.system.Environment;
 import co.edu.unal.system.Param;
+import co.edu.unal.system.ParamReader;
 import co.edu.unal.system.ParamUtils;
 import cryptoapp.view.ImageViewer;
 import java.awt.Image;
@@ -41,19 +42,20 @@ public class ThreeThreeProgram extends VCSProgram {
         }
         else {
             Image[] shares = new BufferedImage[3];
-            for (Param p : params) {
-                if (p.getName().equals(P_SHARE1)) {
-                    shares[0] = getInput("Select Share 1", p);
-                }
-                else if (p.getName().equals(P_SHARE2)) {
-                    shares[1] = getInput("Select Share 2", p);
-                }
-                else if (p.getName().equals(P_SHARE3)) {
-                    shares[2] = getInput("Select Share 3", p);
-                }
-                if (exit) {
-                    return -1;
-                }
+            Param p = ParamUtils.getParam(params, P_SHARE1);
+            shares[0] = ParamReader.getImage(p, "Select Share 1", true);
+            if (shares[0] == null) {
+                return -1;
+            }
+            p = ParamUtils.getParam(params, P_SHARE2);
+            shares[1] = ParamReader.getImage(p, "Select Share 2", true);
+            if (shares[1] == null) {
+                return -1;
+            }
+            p = ParamUtils.getParam(params, P_SHARE3);
+            shares[2] = ParamReader.getImage(p, "Select Share 3", true);
+            if (shares[2] == null) {
+                return -1;
             }
             stdout.info("Decrypting...");
             Image secret = cipher.decrypt((BufferedImage[]) shares);
