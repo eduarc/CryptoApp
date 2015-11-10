@@ -1,6 +1,7 @@
 package co.edu.unal.crypto.cryptosystem;
 
-import co.edu.unal.crypto.types.Pair;
+import co.edu.unal.crypto.type.Pair;
+import java.util.Random;
 
 /**
  * 
@@ -32,7 +33,15 @@ public class DES extends Cryptosystem<Long, Long, Long> {
 
     @Override
     public Long generateKey(Object seed) {
-        return 0L;
+        
+        Long k = 0L;
+        Random r = new Random();
+        for (int i = 0; i < 64; i++) {
+            if (r.nextBoolean()) {
+                k |= (1L<<(i));
+            }
+        }
+        return k;
     }
 
     public void checkKey(Long key) {

@@ -1,8 +1,9 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.Arithmetic;
+import co.edu.unal.crypto.util.Arithmetic;
 import java.lang.reflect.Array;
+import java.util.Random;
 
 /**
  *
@@ -55,7 +56,14 @@ public class Vigenere<P> extends Cryptosystem<P, P, P[]> {
 
     @Override
     public P[] generateKey(Object seed) {
-        return null;
+        
+        Random r = new Random();
+        int l = (Integer) seed;
+        P[] key = (P[]) Array.newInstance(Pclass, l);
+        for (int i = 0; i < l; i++) {
+            key[i] = inAlphabet.getValue(r.nextInt(modulus-1));
+        }
+        return key;
     }
 
     public void checkKey(P[] key) {

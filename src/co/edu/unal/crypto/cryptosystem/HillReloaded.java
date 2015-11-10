@@ -1,8 +1,8 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.Arithmetic;
-import co.edu.unal.crypto.types.ModularMatrix;
+import co.edu.unal.crypto.util.Arithmetic;
+import co.edu.unal.crypto.type.ModularMatrix;
 import java.util.Arrays;
 
 

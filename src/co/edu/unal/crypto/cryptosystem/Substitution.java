@@ -1,8 +1,11 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.types.Function;
+import co.edu.unal.crypto.type.Function;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeMap;
 
 /**
@@ -52,7 +55,23 @@ public class Substitution<P, C> extends Cryptosystem<P, C, Substitution.Key<P, C
 
     @Override
     public Key<P, C> generateKey(Object seed) {
-        return null;
+        
+        int inSZ = inAlphabet.getSize();
+        int ouSZ = outAlphabet.getSize();
+        if (inSZ > ouSZ) {
+            throw new IllegalArgumentException("No injective function can be constructed: |Input Alpha| < |Output Alpha|");
+        }
+        List<Integer> map = new ArrayList(inSZ);
+        for (int i = 0; i < ouSZ; i++) {
+            map.add(i);
+        }
+        Collections.shuffle(map);
+        Key k = new Key();
+        for (int x = 0; x < inSZ; x++) {
+            int y = map.get(x);
+            k.set(inAlphabet.getValue(x), outAlphabet.getValue(y));
+        }
+        return k;
     }
 
     public void checkKey(Key<P, C> key) {

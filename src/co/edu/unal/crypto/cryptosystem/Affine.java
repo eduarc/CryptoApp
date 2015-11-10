@@ -1,9 +1,12 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.Arithmetic;
-import co.edu.unal.crypto.types.Pair;
+import co.edu.unal.crypto.util.Arithmetic;
+import co.edu.unal.crypto.type.Pair;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -16,7 +19,8 @@ public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
     @SuppressWarnings("rawtypes")
     private final Class Pclass;
     private final int modulus;
-
+    private List<Integer> coprimes;
+    
     public Affine(Alphabet<P> alpha) {
         super(alpha, alpha);
 
@@ -73,6 +77,18 @@ public class Affine<P> extends Cryptosystem<P, P, Pair<Integer, Integer>> {
 
     @Override
     public Pair<Integer, Integer> generateKey(Object seed) {
-        return null;
+        
+        if (coprimes == null) {
+            coprimes = new ArrayList();
+            for (int i = 0; i < modulus; i++) {
+                if (Arithmetic.coprimes(i, modulus)) {
+                    coprimes.add(i);
+                }
+            }
+        }
+        Random r = new Random();
+        Integer i = r.nextInt(coprimes.size()-1);
+        Integer b = r.nextInt()%modulus;
+        return new Pair(coprimes.get(i), b);
     }
 }

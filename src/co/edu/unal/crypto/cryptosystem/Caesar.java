@@ -1,8 +1,9 @@
 package co.edu.unal.crypto.cryptosystem;
 
 import co.edu.unal.crypto.alphabet.Alphabet;
-import co.edu.unal.crypto.tools.Arithmetic;
+import co.edu.unal.crypto.util.Arithmetic;
 import java.lang.reflect.Array;
+import java.util.Random;
 
 /**
  * 
@@ -61,6 +62,8 @@ public class Caesar<P> extends Cryptosystem<P, P, Integer> {
 
     @Override
     public Integer generateKey(Object seed) {
-        return null;
+        
+        Random r = new Random();
+        return r.nextInt()%modulus;
     }
 }

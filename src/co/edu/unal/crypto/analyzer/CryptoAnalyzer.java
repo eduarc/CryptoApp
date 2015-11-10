@@ -1,18 +1,18 @@
 package co.edu.unal.crypto.analyzer;
 
-import co.edu.unal.crypto.tools.ConfidenceMethod;
-import co.edu.unal.crypto.types.Pair;
+import co.edu.unal.crypto.type.Pair;
 import java.util.List;
 
 /**
  *
  * @author eduarc
+ * @email eduarcastrillo@gmail.com
  * @param <P>
  * @param <C>
- * @email eduarcastrillo@gmail.com
+ * @param <K>
  */
 public interface CryptoAnalyzer<P, C, K> {
     
-    public Pair<C[], K>  analyze(P[] secret, ConfidenceMethod confidence);
-    public List<Pair<C[], K>> analyze(P[] secret, int n, ConfidenceMethod confidence);
+    public Pair<C[], K>  analyze(P[] secret, ConfidenceMethod<C> confidence);
+    public List<Pair<C[], K>> analyze(P[] secret, int n, ConfidenceMethod<C> confidence);
 }

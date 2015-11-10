@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 
@@ -77,8 +78,12 @@ public class RSA<P> extends Cryptosystem<P, BigInteger, RSA.Key> {
     }
 
     @Override
-    public Key generateKey(Object seed) {
-        return null;
+    public Key generateKey(Object privateKey) {
+        
+        BigInteger p = BigInteger.probablePrime(128, new Random());
+        BigInteger q = BigInteger.probablePrime(128, new Random());
+        BigInteger e = BigInteger.probablePrime(256, new Random());
+        return new Key(p, q, e);
     }
 
     private void checkKey(Key key) {
